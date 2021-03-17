@@ -29,10 +29,12 @@ public class UnitFactory : MonoBehaviour {
     private void AddDrive(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
-                unit.Drive = new HumanDrive(3f, unit.transform);
+                //unit.Drive = new HumanDrive(3f, unit.transform);
+                unit.Drive = new DefaultDrive(3f, unit.transform);
                 break;
             case UnitType.Zombie:
-                unit.Drive = new SmellDrive(4f, unit.transform);
+                unit.Drive = new DefaultDrive(3f, unit.transform);
+                //unit.Drive = new SmellDrive(4f, unit.transform);
                 break;
         }
     }
@@ -63,7 +65,7 @@ public class UnitFactory : MonoBehaviour {
         unitPrefabs = new Dictionary<UnitType, GameObject>();
         GameObject[] units = Resources.LoadAll<GameObject>("Prefabs/Units");
         foreach (GameObject unit in units) {
-            UnitType type = UnitTypeMethods.FromString(unit.name);
+            UnitType type = EnumMethods<UnitType>.FromString(unit.name);
             unitPrefabs.Add(type, unit);
         }
     }

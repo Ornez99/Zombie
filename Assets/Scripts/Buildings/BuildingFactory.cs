@@ -33,7 +33,7 @@ public class BuildingFactory : MonoBehaviour
         buildingPrefabs = new Dictionary<BuildingType, GameObject>();
         GameObject[] buildings = Resources.LoadAll<GameObject>("Prefabs/Buildings");
         foreach (GameObject building in buildings) {
-            BuildingType type = BuildingTypeMethods.FromString(building.name);
+            BuildingType type = EnumMethods<BuildingType>.FromString(building.name);
             buildingPrefabs.Add(type, building);
         }
     }

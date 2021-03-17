@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanDrive : IMoveable {
+public class DefaultDrive : IMoveable {
 
     private const float minimumDistance = 0.1f;
 
@@ -26,7 +25,7 @@ public class HumanDrive : IMoveable {
         }
     }
 
-    public HumanDrive(float movementSpeed, Transform owner) {
+    public DefaultDrive(float movementSpeed, Transform owner) {
         this.movementSpeed = movementSpeed;
         this.owner = owner;
         PathFound = false;
@@ -103,13 +102,6 @@ public class HumanDrive : IMoveable {
     }
 
     private void SetCurrentNode() {
-        /*Node node = Map.GetNodeFromPos(owner.position);
-        if (node != Node) {
-            NodeChanged = true;
-            Node = node;
-        }
-        else
-            NodeChanged = false;*/
         Node node = Map.GetNodeFromPos(owner.position);
         if (Vector3.Distance(owner.transform.position, Node.CenterPos) > 0.5f + owner.GetComponent<CapsuleCollider>().radius) {
             NodeChanged = true;
@@ -117,7 +109,5 @@ public class HumanDrive : IMoveable {
         }
         else
             NodeChanged = false;
-
     }
-
 }

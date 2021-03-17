@@ -5,16 +5,12 @@ using UnityEngine;
 
 public class Pistol : Weapon {
 
-    private const float reloadTime = 0.5f;
-
-    [SerializeField]
-    private GameObject bullet = null;
     [SerializeField]
     private Transform bulletSpawnTransform = null;
     [SerializeField]
+    private GameObject bullet = null;
+    [SerializeField]
     private float fireForce = 1000;
-
-    private float reloadTimer;
 
     private void Update() {
         if (reloadTimer > 0)

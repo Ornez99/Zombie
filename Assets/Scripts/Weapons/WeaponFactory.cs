@@ -27,7 +27,7 @@ public class WeaponFactory : MonoBehaviour {
         weaponPrefabs = new Dictionary<WeaponType, GameObject>();
         GameObject[] weapons = Resources.LoadAll<GameObject>("Prefabs/Weapons");
         foreach (GameObject weapon in weapons) {
-            WeaponType type = WeaponTypeMethods.FromString(weapon.name);
+            WeaponType type = EnumMethods<WeaponType>.FromString(weapon.name);
             weaponPrefabs.Add(type, weapon);
         }
     }

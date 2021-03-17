@@ -11,15 +11,3 @@ public enum BuildingType {
     ZombieSpawner,
     Barricade
 }
-
-public static class BuildingTypeMethods {
-    public static BuildingType FromString(string str) {
-        foreach (BuildingType type in Enum.GetValues(typeof(BuildingType))) {
-            if (type.ToString() == str)
-                return type;
-        }
-
-        Debug.LogError($"There is no BuildingType for string: {str}");
-        return BuildingType.Wall;
-    }
-}
