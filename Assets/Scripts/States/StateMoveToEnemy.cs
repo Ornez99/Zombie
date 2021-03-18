@@ -19,6 +19,7 @@ public class StateMoveToEnemy : IState {
     }
 
     public void Tick() {
+        unit.Drive.SetSpeed(4f);
         enemyUnit = unit.Vision.ClosestEnemy;
 
         if (lastTargetNode == null) {

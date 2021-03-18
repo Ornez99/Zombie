@@ -32,8 +32,14 @@ public class DefaultDrive : IMoveable {
         Node = Map.GetNodeFromPos(owner.position);
     }
 
+    public void SetSpeed(float speed) {
+        movementSpeed = speed;
+    }
+
+
     public void CreatePathToPosition(Vector3 pos) {
         PathFound = false;
+        destination = pos;
         path = Pathfinding.Instance.GetPath(owner.position, pos);
         SetDestinationAndPathFound();
     }

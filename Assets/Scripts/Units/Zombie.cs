@@ -14,14 +14,16 @@ public class Zombie : Unit {
         Vision?.Tick();
         Controller.Tick();
     }
-
+#if UNITY_EDITOR
     private void OnGUI()
     {
         Handles.Label(transform.position, Controller.StateMachine.ToString());
     }
-
+#endif
     private void OnDrawGizmos()
     {
+        if (Drive == null)
+            return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(Drive.Node.CenterPos, Vector3.one);
     }

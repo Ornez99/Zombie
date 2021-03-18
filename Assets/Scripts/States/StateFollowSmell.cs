@@ -18,6 +18,7 @@ public class StateFollowSmell : IState {
     }
 
     public void Tick() {
+        unit.Drive.SetSpeed(2f);
         Vector2 vector = SmellManager.Instance.VectorMap[unit.Drive.Node.XId, unit.Drive.Node.YId];
         unit.Drive.Translate(new Vector3(vector.x, 0, vector.y));
     }

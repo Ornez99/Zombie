@@ -19,7 +19,12 @@ public class WeaponFactory : MonoBehaviour {
     }
 
     public Weapon SpawnWeapon(Transform parent, WeaponType weaponType) {
-        Weapon weapon = Instantiate(weaponPrefabs[weaponType], parent).GetComponent<Weapon>();
+        Weapon weapon = Instantiate(weaponPrefabs[weaponType]).GetComponent<Weapon>();
+        weapon.transform.position = parent.position;
+        Vector3 eulerRotation = new Vector3(parent.eulerAngles.x, parent.eulerAngles.y, parent.eulerAngles.z);
+        weapon.transform.rotation = Quaternion.Euler(eulerRotation);
+        weapon.transform.SetParent(parent);
+       
         return weapon;
     }
 

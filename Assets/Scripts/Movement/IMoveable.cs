@@ -11,4 +11,5 @@ public interface IMoveable {
     void CreatePathToPosition(Vector3 position);
     void Move();
     void Translate(Vector3 normalVector3);
+    void SetSpeed(float speed);
 }
