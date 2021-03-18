@@ -34,7 +34,7 @@ public class HumanDrive : IMoveable {
     }
 
     public void CreatePathToPosition(Vector3 pos) {
-        path = Pathfinding.singleton.GetPath(owner.position, pos);
+        path = Pathfinding.Instance.GetPath(owner.position, pos);
         SetDestinationAndPathFound();
     }
 

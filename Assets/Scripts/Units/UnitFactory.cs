@@ -53,7 +53,7 @@ public class UnitFactory : MonoBehaviour {
     private void AddController(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
-                unit.Controller = new AllyController(unit);
+                unit.Controller = new AllyController(unit); 
                 break;
             case UnitType.Zombie:
                 unit.Controller = new EnemyController(unit);

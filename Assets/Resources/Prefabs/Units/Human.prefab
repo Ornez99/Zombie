@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2966307364554682579}
   - component: {fileID: -7691797788615582295}
   - component: {fileID: 132496063308596407}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Human
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a4158ab75c18b4e846cbb8a4bc088f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   maxHealth: 15
   currentHealth: 15
   hand: {fileID: 8460286028563728866}
-  smellValue: 130
+  smellValue: 110
 --- !u!136 &132496063308596407
 CapsuleCollider:
   m_ObjectHideFlags: 0

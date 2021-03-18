@@ -10,8 +10,10 @@ public class PlayerController : IController {
     private Transform unitTransform;
     private int groundMask = 1 << 8;
 
+    public StateMachine StateMachine { get => null; }
     public Unit Owner { get; private set; }
 
+    
 
     public PlayerController(Unit unit) {
         Instance = this;
@@ -23,14 +25,12 @@ public class PlayerController : IController {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetMouseButton(0))
             Owner.Weapon.Shoot();
-        }
-
-        Rotate();
 
         Vector3 normalVector3 = new Vector3(x, 0, z).normalized;
         Owner.Drive.Translate(normalVector3);
+        Rotate();
     }
 
     public override string ToString() {

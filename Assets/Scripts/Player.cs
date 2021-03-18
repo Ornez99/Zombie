@@ -71,6 +71,5 @@ public class Player : MonoBehaviour {
             nodeToPlace.Buildable = false;
             nodeToPlace.Walkable = false;
         }
-        
     }
 }

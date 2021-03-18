@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17222a4c8cd78b04b85ce45bf44a4265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkable: 1
+  walkable: 0
   buildable: 0
   viewable: 1
   smellable: 1

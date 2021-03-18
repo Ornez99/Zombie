@@ -6,6 +6,8 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour {
 
     [SerializeField]
+    protected int team;
+    [SerializeField]
     protected float maxHealth;
     [SerializeField]
     protected float currentHealth;
@@ -15,7 +17,9 @@ public abstract class Unit : MonoBehaviour {
     public IController Controller { get; set; }
     public IMoveable Drive{ get; set; }
     public Weapon Weapon { get; set; }
+    public Vision Vision { get; set; }
     public Transform Hand { get => hand; set => hand = value; }
+    public int GetTeam { get => team; }
 
     public void OnTakeControl(PlayerController playerController) {
         Controller = playerController;

@@ -21,33 +21,23 @@ public class SmellVectorMapGenerator {
                                 continue;
 
                             if (smellMap[x + xi,y + yi] > maxValue) {
-                                /*
-                                if (xi == -1 && yi == -1 && (Map.Instance.Grid[x + xi + 1 + 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1 , y + yi + 1 + 1].Walkable == false))
-                                    continue;
-                                if (xi == 1 && yi == -1 && (Map.Instance.Grid[x + xi + 1 - 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 + 1].Walkable == false))
-                                    continue;
-                                if (xi == -1 && yi == 1 && (Map.Instance.Grid[x + xi + 1 + 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 - 1].Walkable == false))
-                                    continue;
-                                if (xi == 1 && yi == 1 && (Map.Instance.Grid[x + xi + 1 - 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 - 1].Walkable == false))
-                                    continue;
-                                */
                                 if (xi == -1 && yi == -1) {
-                                    if (Map.Instance.Grid[x + xi + 1 + 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 + 1].Walkable == false) {
+                                    if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
                                         continue;
                                     }
                                 }
                                 else if (xi == 1 && yi == -1) {
-                                    if (Map.Instance.Grid[x + xi + 1 - 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 + 1].Walkable == false) {
+                                    if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
                                         continue;
                                     }
                                 }
                                 else if (xi == -1 && yi == 1) {
-                                    if (Map.Instance.Grid[x + xi + 1 + 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 - 1].Walkable == false) {
+                                    if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
                                         continue;
                                     }
                                 }
                                 else if (xi == 1 && yi == 1) {
-                                    if (Map.Instance.Grid[x + xi + 1 - 1, y + yi + 1].Walkable == false || Map.Instance.Grid[x + xi + 1, y + yi + 1 - 1].Walkable == false) {
+                                    if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
                                         continue;
                                     }
                                 }

@@ -10,7 +10,8 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private Transform camTransform = null;
     private Vector3 offset;
-    public float SmoothTime = 0.3f;
+    [SerializeField]
+    private float smoothTime = 0.3f;
 
     public void SetCameraTarget(Transform target) {
         camTransform.transform.position = target.transform.position + new Vector3(0, 7, -7);
@@ -23,7 +24,7 @@ public class CameraFollow : MonoBehaviour {
             return;
 
         Vector3 targetPosition = target.position + offset;
-        camTransform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
+        camTransform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
         transform.LookAt(target);
     }

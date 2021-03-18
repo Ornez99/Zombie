@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IController {
 
+    StateMachine StateMachine {get;}
     Unit Owner { get; }
     void Tick();
     string ToString();

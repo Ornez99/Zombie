@@ -33,7 +33,8 @@ public class DefaultDrive : IMoveable {
     }
 
     public void CreatePathToPosition(Vector3 pos) {
-        path = Pathfinding.singleton.GetPath(owner.position, pos);
+        PathFound = false;
+        path = Pathfinding.Instance.GetPath(owner.position, pos);
         SetDestinationAndPathFound();
     }
 
@@ -45,11 +46,20 @@ public class DefaultDrive : IMoveable {
             if (path.Count == 0)
                 return;
 
+            //TEST
+            Vector3 lastPos = owner.position;
+            for (int i = 0; i < path.Count; i++) {
+                Debug.DrawLine(lastPos + Vector3.up, path[i] + Vector3.up, Color.black);
+                lastPos = path[i];
+            }
+
+
             Vector3 direction = -1 * Vector3.Normalize(owner.position - path[0]);
-            owner.Translate(direction * movementSpeed * Time.deltaTime);
-            SetCurrentNode();
+            Translate(direction);
+            
             if (Vector3.Distance(owner.position, path[0]) < minimumDistance)
                 path.RemoveAt(0);
+            
         }
     }
 
@@ -86,6 +96,7 @@ public class DefaultDrive : IMoveable {
                 }
             }
         }
+        owner.LookAt(potentialPositionV3);
         owner.position = potentialPositionV3;
         SetCurrentNode();
     }
@@ -103,7 +114,8 @@ public class DefaultDrive : IMoveable {
 
     private void SetCurrentNode() {
         Node node = Map.GetNodeFromPos(owner.position);
-        if (Vector3.Distance(owner.transform.position, Node.CenterPos) > 0.5f + owner.GetComponent<CapsuleCollider>().radius) {
+        //if (Vector3.Distance(owner.transform.position, Node.CenterPos) > 0.5f + owner.GetComponent<CapsuleCollider>().radius) {
+        if (Vector3.Distance(owner.transform.position, Node.CenterPos) > 0.5f) {
             NodeChanged = true;
             Node = node;
         }

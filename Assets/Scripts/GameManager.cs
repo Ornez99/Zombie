@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
+    private Pathfinding pathfinding = null;
+    [SerializeField]
     private SmellManager smellManager = null;
     [SerializeField]
     private UnitFactory unitFactory = null;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour {
         unitFactory.Initialize();
         buildingFactory.Initialize();
         map.Initialize();
+        pathfinding.Initialize();
         smellManager.Initialize();
         player.Initialize();
         dayNightSystem.Initialize();

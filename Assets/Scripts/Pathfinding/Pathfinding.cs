@@ -4,12 +4,16 @@ using System.Collections.Generic;
 
 public class Pathfinding : MonoBehaviour{
 
-    public Map mapGen;
-    public static Pathfinding singleton;
+    private Map map;
+    public static Pathfinding Instance;
 
     public void Initialize() {
-        mapGen = Map.Instance;
-        singleton = this;
+        if (Instance != null && Instance != this) {
+            Debug.LogError("There can be only one instance of this script!");
+            Destroy(this);
+        }
+        map = Map.Instance;
+        Instance = this;
     }
 
     public List<Node> FindPath(Node startNode, Node targetNode) {
@@ -32,8 +36,9 @@ public class Pathfinding : MonoBehaviour{
                 return RetracePath(startNode, currentNode);
             }
 
-            foreach (Node neighbour in mapGen.GetNeighbours(currentNode)) {
-                if (!neighbour.Walkable || closedSet.Contains(neighbour)) {
+
+            foreach (Node neighbour in map.GetNeighbours(currentNode)) {
+                if (!neighbour.Walkable || closedSet.Contains(neighbour) || !CheckForWalls(currentNode.XId, currentNode.YId, (currentNode.XId - neighbour.XId) * -1, (currentNode.YId - neighbour.YId) * -1)) {
                     continue;
                 }
 
@@ -86,6 +91,30 @@ public class Pathfinding : MonoBehaviour{
         if (dstX > dstY)
             return 14 * dstY + 10 * (dstX - dstY);
         return 14 * dstX + 10 * (dstY - dstX);
+    }
+
+    private bool CheckForWalls(int x, int y, int xi, int yi) {
+        if (xi == -1 && yi == -1) {
+            if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
+                return false;
+            }
+        }
+        else if (xi == 1 && yi == -1) {
+            if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
+                return false;
+            }
+        }
+        else if (xi == -1 && yi == 1) {
+            if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
+                return false;
+            }
+        }
+        else if (xi == 1 && yi == 1) {
+            if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
