@@ -6,9 +6,9 @@
             case UnitType.Human:
                 break;
             case UnitType.Zombie:
-                stateMachine.AddState(new StateFollowSmell(unit));
-                stateMachine.AddState(new StateMoveToEnemy(unit));
-                stateMachine.AddState(new StateMeleeAttack(unit));
+                stateMachine.AddState(new StateFollowSmell(unit, unit.Animator));
+                stateMachine.AddState(new StateMoveToEnemy(unit, unit.Animator));
+                stateMachine.AddState(new StateMeleeAttack(unit, unit.Animator));
                 break;
         }
         return stateMachine;

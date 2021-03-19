@@ -51,4 +51,14 @@ public class Vision : MonoBehaviour {
             }
         }
     }
+
+    public List<GameObject> GetObjectsInSightWithName(string name) {
+        List<GameObject> objs = new List<GameObject>();
+        foreach (GameObject go in ObjectsInSight) {
+            if (go?.name == name)
+                objs.Add(go);
+        }
+        return objs;
+    }
+
 }

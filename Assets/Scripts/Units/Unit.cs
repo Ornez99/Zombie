@@ -16,6 +16,9 @@ public abstract class Unit : MonoBehaviour {
     protected Transform hand;
     [SerializeField]
     protected Transform mouth;
+    [SerializeField]
+    protected Animator animator;
+
 
     public IController Controller { get; set; }
     public IMoveable Drive{ get; set; }
@@ -25,6 +28,7 @@ public abstract class Unit : MonoBehaviour {
     public Transform Mouth { get => mouth; set => mouth = value; }
     public int GetTeam { get => team; }
     public Node Node { get => node; protected set => node = value; }
+    public Animator Animator { get => animator; }
 
     private void Awake() {
         Vision = GetComponent<Vision>();

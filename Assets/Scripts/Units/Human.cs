@@ -20,7 +20,8 @@ public class Human : Unit {
     }
 
     private void OnDrawGizmos() {
-        Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
+        if (Node != null)
+            Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
     }
 
 }

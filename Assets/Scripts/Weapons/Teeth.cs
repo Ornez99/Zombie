@@ -25,11 +25,9 @@ public class Teeth : Weapon {
                 if (hitUnit == null)
                     continue;
 
-                if (unit == null)
-                    Debug.Log("Unit is null");
-
                 if (hitUnit.GetTeam != unit.GetTeam) {
                     hitUnit.TakeDamge(biteDamage);
+                    reloadTimer = reloadTime;
                 }
             }
         }
