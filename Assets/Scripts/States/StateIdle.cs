@@ -15,9 +15,12 @@ public class StateIdle : IState {
         return 1;    
     }
 
+    public void OnStateSelected() {
+    }
+
     public void Tick() {
         timeToNextMove -= Time.deltaTime;
-        unit.Drive.Move();
+        unit.Drive.MoveWithPath();
         if (timeToNextMove <= 0) {
             timeToNextMove = Random.Range(3f, 6f);
             SetNewRandomDestination();
@@ -25,9 +28,10 @@ public class StateIdle : IState {
     }
 
     private void SetNewRandomDestination() {
-        List<Node> nodesNearUnit = Map.GetNodesInRadius(3f, unit.Drive.Node);
-        Node node = Map.GetRandomWalkableNode(nodesNearUnit);
-        unit.Drive.CreatePathToPosition(node.GetRandomPosOnNode());
+        Node node = Map.GetNodeFromPos(unit.transform.position);
+        List<Node> nodesNearUnit = Map.GetNodesInRadius(3f, node);
+        node = Map.GetRandomWalkableNode(nodesNearUnit);
+        unit.Drive.CreateAndSetPathToPosition(node.CenterPos);
     }
 
 }

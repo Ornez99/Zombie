@@ -5,26 +5,29 @@ using UnityEngine;
 
 public class Zombie : Unit {
 
-    private void Awake() {
-        Vision = new Vision(transform, 8f);
-    }
+    [SerializeField]
+    private Transform visionRaysStartTransform;
 
     private void Update() {
-        
-        Vision?.Tick();
+        Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
+        Node = Map.GetNodeFromPos(transform.position);
     }
+
+    private void FixedUpdate() {
+        Vision?.Tick();
+    }
+
+
 #if UNITY_EDITOR
-    private void OnGUI()
-    {
+    private void OnGUI() {
         Handles.Label(transform.position, Controller.StateMachine.ToString());
     }
 #endif
-    private void OnDrawGizmos()
-    {
-        if (Drive == null)
+    private void OnDrawGizmos() {
+        if (Node == null)
             return;
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(Drive.Node.CenterPos, Vector3.one);
+        Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
     }
 }

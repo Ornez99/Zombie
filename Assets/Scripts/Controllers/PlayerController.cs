@@ -29,7 +29,7 @@ public class PlayerController : IController {
             Owner.Weapon.Shoot();
 
         Vector3 normalVector3 = new Vector3(x, 0, z).normalized;
-        Owner.Drive.Translate(normalVector3);
+        Owner.Drive.MoveWithNormalizedDirection(normalVector3);
         Rotate();
     }
 

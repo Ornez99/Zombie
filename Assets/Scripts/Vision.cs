@@ -1,65 +1,54 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Vision {
+public class Vision : MonoBehaviour {
 
-    private const float lessThanHalfOfUnitSize = 0.45f;
-
-    private int layerAffectedByVisionRay;
-
-    [SerializeField]
-    private Unit unit;
-    [SerializeField]
-    private Transform unitTransform;
-    [SerializeField]
+    private Color32 raysHitColor;
+    private Color32 raysNoHitColor;
     private int numberOfRays;
+    private float gapBetweenRays;
+    private float angleBetweenRays;
     [SerializeField]
-    private float anglePerRay;
+    private float rayDistance = 0;
     [SerializeField]
-    private float viewDistance;
+    private Transform raysStartTransform = null;
     [SerializeField]
-    private Unit closestEnemy;
+    private bool showRays = false;
+    [SerializeField]
+    private float visionAngle = 0;
 
-    public bool EnemySpotted { get => closestEnemy != null; }
-    public Unit ClosestEnemy { get => closestEnemy; }
+    public bool ShowRays { get => showRays; set => value = showRays; }
+    public List<GameObject> ObjectsInSight { get; private set; }
 
-    public Vision(Transform unitTransform, float viewDistance) {
-        this.unitTransform = unitTransform;
-        this.viewDistance = viewDistance;
-        unit = unitTransform.GetComponent<Unit>();
-        
-        layerAffectedByVisionRay = LayerMask.GetMask("AffectedByVisionRay");
+    private void Awake() {
+        gapBetweenRays = 0.5f;
+        raysHitColor = new Color32(0x2F, 0x8B, 0x1C, 0xFF);
+        raysNoHitColor = new Color32(0xAC, 0x2C, 0x14, 0xFF);
 
-        anglePerRay = Mathf.Rad2Deg * (lessThanHalfOfUnitSize / viewDistance) * 2f;
-        numberOfRays = Mathf.FloorToInt(360 / anglePerRay);
+        ObjectsInSight = new List<GameObject>();
+        angleBetweenRays = Mathf.Rad2Deg * (gapBetweenRays / rayDistance);
+        numberOfRays = Mathf.FloorToInt(visionAngle / angleBetweenRays);
+    }
+
+    private void FixedUpdate() {
+        Tick();
     }
 
     public void Tick() {
-        closestEnemy = null;
-        float minDist = float.MaxValue;
-
+        ObjectsInSight.Clear();
         for (int i = 0; i < numberOfRays; i++) {
             RaycastHit hit;
-            if (Physics.Raycast(unitTransform.position + new Vector3(0,1f,0), Quaternion.Euler(0, i * anglePerRay, 0) * Vector3.forward, out hit, viewDistance, layerAffectedByVisionRay)) {
-                //Debug.DrawLine(unitTransform.position + new Vector3(0, 0.5f, 0), hit.point, Color.blue);
-
-                Unit potentialUnit = hit.transform.GetComponent<Unit>();
-                if (potentialUnit == null)
-                    continue;
-
-                if (potentialUnit.GetTeam != unit.GetTeam) {
-                    if (closestEnemy == null)
-                        closestEnemy = hit.transform.GetComponent<Unit>();
-                    else if (Vector3.Distance(unitTransform.position, hit.transform.position) < minDist) {
-                        minDist = Vector3.Distance(unitTransform.position, hit.transform.position);
-                        closestEnemy = hit.transform.GetComponent<Unit>();
-                    } 
+            if (Physics.Raycast(raysStartTransform.position, Quaternion.Euler(0, (visionAngle / -2f) + angleBetweenRays * i, 0) * raysStartTransform.forward, out hit, rayDistance)) {
+                if (ObjectsInSight.Contains(hit.transform.gameObject) == false) {
+                    ObjectsInSight.Add(hit.transform.gameObject);
                 }
             }
+            if (ShowRays) {
+                if (hit.transform != null)
+                    Debug.DrawLine(raysStartTransform.position, hit.point, raysHitColor);
+                else
+                    Debug.DrawLine(raysStartTransform.position, raysStartTransform.position + Quaternion.Euler(0, (visionAngle / -2f) + angleBetweenRays * i, 0) * raysStartTransform.forward, raysNoHitColor);
+            }
         }
-        if (closestEnemy != null && closestEnemy.GetTeam == 0)
-            Debug.DrawLine(unitTransform.position + new Vector3(0, 1f, 0), closestEnemy.transform.position + new Vector3(0, 1f, 0), Color.red);
     }
 }

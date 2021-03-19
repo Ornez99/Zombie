@@ -5,5 +5,6 @@ using UnityEngine;
 // in Resources/Prefabs/Weapons folder.
 public enum WeaponType {
     Pistol,
+    Teeth,
     Hands
 }

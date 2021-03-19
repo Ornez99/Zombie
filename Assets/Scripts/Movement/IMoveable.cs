@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface IMoveable {
 
-    Node Node { get; }
-    bool NodeChanged { get; }
-    bool PathFound { get; }
     bool DestinationReached { get; }
-    void CreatePathToPosition(Vector3 position);
-    void Move();
-    void Translate(Vector3 normalVector3);
-    void SetSpeed(float speed);
+    bool PathCreated { get; }
+    void CreateAndSetPathToPosition(Vector3 position);
+    void MoveWithNormalizedDirection(Vector3 normalizedDirection);
+    void MoveWithPath();
+    void SetSpeed(float newSpeed);
+
 }

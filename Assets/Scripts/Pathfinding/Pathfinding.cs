@@ -38,7 +38,7 @@ public class Pathfinding : MonoBehaviour{
 
 
             foreach (Node neighbour in map.GetNeighbours(currentNode)) {
-                if (!neighbour.Walkable || closedSet.Contains(neighbour) || !CheckForWalls(currentNode.XId, currentNode.YId, (currentNode.XId - neighbour.XId) * -1, (currentNode.YId - neighbour.YId) * -1)) {
+                if (!neighbour.Walkable || closedSet.Contains(neighbour) || WallsAreNotBlockingDiagonallMove(currentNode.XId, currentNode.YId, (currentNode.XId - neighbour.XId) * -1, (currentNode.YId - neighbour.YId) * -1)) {
                     continue;
                 }
 
@@ -93,28 +93,32 @@ public class Pathfinding : MonoBehaviour{
         return 14 * dstX + 10 * (dstY - dstX);
     }
 
-    private bool CheckForWalls(int x, int y, int xi, int yi) {
-        if (xi == -1 && yi == -1) {
-            if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
-                return false;
+    private bool WallsAreNotBlockingDiagonallMove(int xId, int yId, int xIdModifier, int yIdModifier) {
+        // Bottom left neighbour
+        if (xIdModifier == -1 && yIdModifier == -1) {
+            if (Map.Instance.Grid[xId + xIdModifier + 1, yId + yIdModifier].Walkable == false || Map.Instance.Grid[xId + xIdModifier, yId + yIdModifier + 1].Walkable == false) {
+                return true;
             }
         }
-        else if (xi == 1 && yi == -1) {
-            if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi + 1].Walkable == false) {
-                return false;
+        // Bottom right neighbour
+        else if (xIdModifier == 1 && yIdModifier == -1) {
+            if (Map.Instance.Grid[xId + xIdModifier - 1, yId + yIdModifier].Walkable == false || Map.Instance.Grid[xId + xIdModifier, yId + yIdModifier + 1].Walkable == false) {
+                return true;
             }
         }
-        else if (xi == -1 && yi == 1) {
-            if (Map.Instance.Grid[x + xi + 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
-                return false;
+        // Top left neighbour
+        else if (xIdModifier == -1 && yIdModifier == 1) {
+            if (Map.Instance.Grid[xId + xIdModifier + 1, yId + yIdModifier].Walkable == false || Map.Instance.Grid[xId + xIdModifier, yId + yIdModifier - 1].Walkable == false) {
+                return true;
             }
         }
-        else if (xi == 1 && yi == 1) {
-            if (Map.Instance.Grid[x + xi - 1, y + yi].Walkable == false || Map.Instance.Grid[x + xi, y + yi - 1].Walkable == false) {
-                return false;
+        // Top right neighbour
+        else if (xIdModifier == 1 && yIdModifier == 1) {
+            if (Map.Instance.Grid[xId + xIdModifier - 1, yId + yIdModifier].Walkable == false || Map.Instance.Grid[xId + xIdModifier, yId + yIdModifier - 1].Walkable == false) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 }

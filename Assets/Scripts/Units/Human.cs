@@ -7,22 +7,20 @@ public class Human : Unit {
     [SerializeField]
     private int smellValue = 0;
 
-    private void Awake() {
-        Vision = new Vision(transform, 12f);
-    }
-
     private void Update() {
-        Vision?.Tick();
-
-
+        Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
-        if (Drive.Node.SmellValue < smellValue)
-            Drive.Node.SmellValue = smellValue;
+        Node = Map.GetNodeFromPos(transform.position);
+        if (Node.SmellValue < smellValue)
+            Node.SmellValue = smellValue;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(Drive.Node.CenterPos, Vector3.one);
+    private void FixedUpdate() {
+        Vision?.Tick();
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
     }
 
 }

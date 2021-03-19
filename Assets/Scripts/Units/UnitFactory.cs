@@ -20,13 +20,13 @@ public class UnitFactory : MonoBehaviour {
 
     public Unit SpawnUnit(Vector3 position, Quaternion rotation, UnitType unitType) {
         Unit unit = Instantiate(unitPrefabs[unitType], position, rotation).GetComponent<Unit>();
-        AddDrive(unit, unitType);
+        //AddDrive(unit, unitType);
         AddWeapon(unit, unitType);
         AddController(unit, unitType);
         return unit;
     }
 
-    private void AddDrive(Unit unit, UnitType unitType) {
+    /*private void AddDrive(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
                 //unit.Drive = new HumanDrive(3f, unit.transform);
@@ -37,7 +37,7 @@ public class UnitFactory : MonoBehaviour {
                 //unit.Drive = new SmellDrive(4f, unit.transform);
                 break;
         }
-    }
+    }*/
 
     private void AddWeapon(Unit unit, UnitType unitType) {
         switch (unitType) {
@@ -45,7 +45,8 @@ public class UnitFactory : MonoBehaviour {
                 unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Pistol);
                 break;
             case UnitType.Zombie:
-                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Pistol);
+                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Teeth);
+                unit.Weapon.GetComponent<Teeth>().Unit = unit;
                 break;
         }
     }

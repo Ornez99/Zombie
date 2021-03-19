@@ -15,12 +15,14 @@ public class StateMachine {
         states = new List<IState>();
         states.Add(new StateIdle(unit));
         currentState = states[0];
+        currentState.OnStateSelected();
     }
 
     public void Tick() {
         foreach (IState state in states) {
             if (currentState.GetScore() < state.GetScore()) {
                 currentState = state;
+                currentState.OnStateSelected();
             }
         }
         currentState.Tick();

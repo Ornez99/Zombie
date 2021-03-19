@@ -8,6 +8,7 @@
             case UnitType.Zombie:
                 stateMachine.AddState(new StateFollowSmell(unit));
                 stateMachine.AddState(new StateMoveToEnemy(unit));
+                stateMachine.AddState(new StateMeleeAttack(unit));
                 break;
         }
         return stateMachine;

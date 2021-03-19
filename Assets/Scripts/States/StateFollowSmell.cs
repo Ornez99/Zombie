@@ -11,15 +11,19 @@ public class StateFollowSmell : IState {
     }
 
     public int GetScore() {
-        if (SmellManager.Instance.SmellMap[unit.Drive.Node.XId, unit.Drive.Node.YId] > 0)
-            return 90;
+        if (unit.Node == null)
+            Debug.Log("IS NULL");
 
-        return 0;
+
+        return SmellManager.Instance.SmellMap[unit.Node.XId, unit.Node.YId] > 0 ? 90 : 0;
+    }
+
+    public void OnStateSelected() {
+        unit.Drive.SetSpeed(2f);
     }
 
     public void Tick() {
-        unit.Drive.SetSpeed(2f);
-        Vector2 vector = SmellManager.Instance.VectorMap[unit.Drive.Node.XId, unit.Drive.Node.YId];
-        unit.Drive.Translate(new Vector3(vector.x, 0, vector.y));
+        Vector3 moveDirection = Vector2Methods.ToXZ(SmellManager.Instance.VectorMap[unit.Node.XId, unit.Node.YId]);
+        unit.Drive.MoveWithNormalizedDirection(moveDirection);
     }
 }

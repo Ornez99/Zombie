@@ -14,30 +14,36 @@ public class StateMoveToEnemy : IState {
 
     public int GetScore() {
         int value = lastTargetNode != null ? 80 : 0;
-        value = unit.Vision.EnemySpotted ? 100 : value;
+        //value = unit.Vision.EnemySpotted ? 100 : value;
         return value;
     }
 
-    public void Tick() {
+    public void OnStateSelected() {
         unit.Drive.SetSpeed(4f);
-        enemyUnit = unit.Vision.ClosestEnemy;
+    }
+
+    public void Tick() {
+        //enemyUnit = unit.Vision.ClosestEnemy;
 
         if (lastTargetNode == null) {
             if (enemyUnit != null) {
-                lastTargetNode = enemyUnit.Drive.Node;
-                unit.Drive.CreatePathToPosition(enemyUnit.transform.position);
+                lastTargetNode = enemyUnit.Node;
+                unit.Drive.CreateAndSetPathToPosition(enemyUnit.transform.position);
             }
         }
 
         if (enemyUnit != null) {
-            if (lastTargetNode != enemyUnit.Drive.Node) {
-                lastTargetNode = enemyUnit.Drive.Node;
-                unit.Drive.CreatePathToPosition(enemyUnit.transform.position);
+            if (lastTargetNode != enemyUnit.Node) {
+                lastTargetNode = enemyUnit.Node;
+                unit.Drive.CreateAndSetPathToPosition(enemyUnit.transform.position);
             }
         }
 
-        unit.Drive.Move();
+        unit.Drive.MoveWithPath();
         if (unit.Drive.DestinationReached)
             lastTargetNode = null;
     }
+
+
+
 }
