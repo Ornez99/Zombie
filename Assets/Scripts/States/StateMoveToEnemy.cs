@@ -16,7 +16,7 @@ public class StateMoveToEnemy : IState {
 
     public int GetScore() {
         int value = lastTargetNode != null ? 80 : 0;
-        value = (unit.Vision.GetObjectsInSightWithName("Human(Clone)").Count > 0) ? 100 : value;
+        value = (unit.VisionInterpreter.ClosestEnemy != null) ? 100 : value;
         return value;
     }
 
@@ -30,19 +30,7 @@ public class StateMoveToEnemy : IState {
     }
 
     public void Tick() {
-        enemyUnit = null;
-        float minDist = float.MaxValue;
-
-        foreach (GameObject obj in unit.Vision.GetObjectsInSightWithName("Human(Clone)")) {
-            if (obj.GetComponent<Unit>().GetTeam != unit.GetTeam) {
-                float potentialDist = Vector3.Distance(obj.transform.position, unit.transform.position);
-                if (potentialDist < minDist) {
-                    enemyUnit = obj.GetComponent<Unit>();
-                    minDist = potentialDist;
-                }
-            }
-        }
-        
+        enemyUnit = unit.VisionInterpreter.ClosestEnemy;
 
         if (lastTargetNode == null) {
             if (enemyUnit != null) {

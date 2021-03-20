@@ -2,6 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Doors : Building {
+public class Doors : Building, IInteractable {
 
+    [SerializeField]
+    private bool opened;
+    [SerializeField]
+    private float openingTimer;
+    [SerializeField]
+    private float openingTime = 0f;
+    [SerializeField]
+    private Animator animator = null;
+    [SerializeField]
+    private GameObject highlight = null;
+
+    private void Update() {
+        if (openingTimer > 0f) {
+            openingTimer -= Time.deltaTime;
+            if (openingTimer <= 0f) {
+                opened = !opened;
+            }
+        }
+    }
+
+    public void Highlight() {
+        highlight.SetActive(true);
+    }
+
+    public void Interact() {
+        if (openingTimer <= 0f) {
+            openingTimer = openingTime;
+            animator.SetBool("Opened", !opened);
+        }
+    }
+
+    public void StopHighlight() {
+        highlight.SetActive(false);
+    }
 }

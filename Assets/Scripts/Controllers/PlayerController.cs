@@ -13,8 +13,6 @@ public class PlayerController : IController {
     public StateMachine StateMachine { get => null; }
     public Unit Owner { get; private set; }
 
-    
-
     public PlayerController(Unit unit) {
         Instance = this;
         Owner = unit;
@@ -27,6 +25,9 @@ public class PlayerController : IController {
 
         if (Input.GetMouseButton(0))
             Owner.Weapon.Shoot();
+
+        //if (Input.GetKeyDown(KeyCode.E))
+            //Owner.Interact();
 
         Vector3 normalVector3 = new Vector3(x, 0, z).normalized;
         Owner.Drive.MoveWithNormalizedDirection(normalVector3);

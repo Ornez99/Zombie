@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736632137509561467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2570849015811789660}
@@ -210,7 +210,6 @@ MonoBehaviour:
   mouth: {fileID: 2728772227450651655}
   animator: {fileID: 977484880661531494}
   visionRaysStartTransform: {fileID: 440008445166340587}
-  animator: {fileID: 977484880661531494}
 --- !u!114 &3100848366901600794
 MonoBehaviour:
   m_ObjectHideFlags: 0

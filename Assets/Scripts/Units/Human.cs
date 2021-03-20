@@ -16,7 +16,8 @@ public class Human : Unit {
     }
 
     private void FixedUpdate() {
-        Vision?.Tick();
+        //Vision?.Tick();
+        //VisionInterpreter?.Tick();
     }
 
     private void OnDrawGizmos() {

@@ -19,11 +19,12 @@ public abstract class Unit : MonoBehaviour {
     [SerializeField]
     protected Animator animator;
 
-
     public IController Controller { get; set; }
-    public IMoveable Drive{ get; set; }
+    public IMoveable Drive { get; set; }
     public Weapon Weapon { get; set; }
     public Vision Vision { get; set; }
+    public VisionInterpreter VisionInterpreter { get; set; }
+
     public Transform Hand { get => hand; set => hand = value; }
     public Transform Mouth { get => mouth; set => mouth = value; }
     public int GetTeam { get => team; }
@@ -32,6 +33,7 @@ public abstract class Unit : MonoBehaviour {
 
     private void Awake() {
         Vision = GetComponent<Vision>();
+        VisionInterpreter = new VisionInterpreter(Vision, this);
         Drive = GetComponent<IMoveable>();
         Node = Map.GetNodeFromPos(transform.position);
     }

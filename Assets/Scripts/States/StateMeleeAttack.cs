@@ -14,21 +14,7 @@ public class StateMeleeAttack : IState {
     }
 
     public int GetScore() {
-        Unit closestEnemy = null;//unit.Vision.ClosestEnemy;
-        if (unit.Vision.GetObjectsInSightWithName("Human(Clone)").Count > 0) {
-            float minDist = float.MaxValue;
-
-            foreach (GameObject obj in unit.Vision.GetObjectsInSightWithName("Human(Clone)")) {
-                if (obj.GetComponent<Unit>().GetTeam != unit.GetTeam) {
-                    float potentialDist = Vector3.Distance(obj.transform.position, unit.transform.position);
-                    if (potentialDist < minDist) {
-                        closestEnemy = obj.GetComponent<Unit>();
-                        minDist = potentialDist;
-                    }
-                }
-            }
-        }
-
+        Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;//unit.Vision.ClosestEnemy;
 
         if (closestEnemy != null) {
             if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
