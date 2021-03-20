@@ -9,6 +9,7 @@ public class PlayerController : IController {
 
     private Transform unitTransform;
     private int groundMask = 1 << 8;
+    private IInteractable currentInteractable;
 
     public StateMachine StateMachine { get => null; }
     public Unit Owner { get; private set; }
@@ -26,8 +27,12 @@ public class PlayerController : IController {
         if (Input.GetMouseButton(0))
             Owner.Weapon.Shoot();
 
-        //if (Input.GetKeyDown(KeyCode.E))
-            //Owner.Interact();
+        currentInteractable?.StopHighlight();
+        currentInteractable = Owner.VisionInterpreter.ClosestInteractable;
+        currentInteractable?.Highlight();
+
+        if (Input.GetKeyDown(KeyCode.E))
+            currentInteractable?.Interact();
 
         Vector3 normalVector3 = new Vector3(x, 0, z).normalized;
         Owner.Drive.MoveWithNormalizedDirection(normalVector3);

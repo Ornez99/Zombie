@@ -10,6 +10,9 @@ public class Human : Unit {
     private void Update() {
         Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
+
+        VisionInterpreter.Tick();
+
         Node = Map.GetNodeFromPos(transform.position);
         if (Node.SmellValue < smellValue)
             Node.SmellValue = smellValue;

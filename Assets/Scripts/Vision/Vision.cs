@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Vision : MonoBehaviour {
 
-    //private Color32 gizmosColorForObjectInSight;
-    //private Color32 gizmosColorForObjectInSightVisionBlocker;
     private Vector3 gizmosSizeForObjectInSight;
     private int numberOfRays;
     private float gapBetweenRays;
@@ -21,10 +19,7 @@ public class Vision : MonoBehaviour {
     public List<GameObject> ObjectsInSight { get; private set; }
 
     private void Awake() {
-        //gizmosColorForObjectInSight = new Color32(0x2F, 0x8B, 0x1C, 0xFF);
-        //gizmosColorForObjectInSightVisionBlocker = new Color32(0xAC, 0x2C, 0x14, 0xFF);
         gizmosSizeForObjectInSight = new Vector3(0.3f, 2f, 0.3f);
-
         gapBetweenRays = 0.5f;
         ObjectsInSight = new List<GameObject>();
         angleBetweenRays = Mathf.Rad2Deg * (gapBetweenRays / rayDistance);
