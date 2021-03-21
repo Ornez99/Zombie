@@ -5,13 +5,15 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour {
 
     [SerializeField]
-    protected float reloadTime = 0.5f;
-    protected float reloadTimer;
+    protected float damage;
     [SerializeField]
-    protected float attackRange;
+    protected float timeBetweenShots;
+    [SerializeField]
+    protected float effectsDisplayTime;
+    protected float timer;
 
-    public abstract void Shoot();
-    public abstract void MeleeAttack(Unit target);
+    public abstract void Attack();
+    public abstract void AttackUnit(Unit target);
 }
 
 

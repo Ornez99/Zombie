@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2778526788512273502}
-  - component: {fileID: 3082723117295031902}
+  - component: {fileID: 2626764431132210548}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -94,7 +94,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3082723117295031902
+--- !u!114 &2626764431132210548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,13 +103,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9000520933301414819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 108c262c860e84949af70442d64c4739, type: 3}
+  m_Script: {fileID: 11500000, guid: 95ba4629e1ca20343aee1d0ac65222f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.5
   attackRange: 0
-  bulletSpawnTransform: {fileID: 5468444090402184297}
-  bullet: {fileID: 2316613957199594496, guid: 30558be5b22abd34fb0dca39ce7702da, type: 3}
+  bulletSpawnTransform: {fileID: 0}
+  bullet: {fileID: 0}
   fireForce: 1000
 --- !u!1001 &8356255905324829296
 PrefabInstance:

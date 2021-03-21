@@ -43,6 +43,6 @@ public class StateMeleeAttack : IState {
         Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;
         if (closestEnemy != null)
             if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
-                unit.Weapon.MeleeAttack(closestEnemy);
+                unit.Weapon.AttackUnit(closestEnemy);
     }
 }

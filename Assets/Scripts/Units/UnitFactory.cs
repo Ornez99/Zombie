@@ -42,13 +42,13 @@ public class UnitFactory : MonoBehaviour {
     private void AddWeapon(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
-                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.AutomaticRifle);
-                break;
-            case UnitType.Human1:
                 unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.SniperRifle);
                 break;
+            case UnitType.Human1:
+                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.AutomaticRifle);
+                break;
             case UnitType.Human2:
-                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Pistol);
+                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.SniperRifle);
                 break;
             case UnitType.Zombie:
                 unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Teeth);
