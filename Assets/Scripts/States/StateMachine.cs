@@ -40,4 +40,14 @@ public class StateMachine {
     public void AddState(IState state) {
         states.Add(state);
     }
+
+    public IState GetState(string name) {
+        foreach (IState state in states) {
+            if (state.ToString() == name)
+                return state;
+        }
+
+        return null;
+    }
+
 }

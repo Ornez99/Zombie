@@ -42,6 +42,12 @@ public class UnitFactory : MonoBehaviour {
     private void AddWeapon(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
+                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.AutomaticRifle);
+                break;
+            case UnitType.Human1:
+                unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.SniperRifle);
+                break;
+            case UnitType.Human2:
                 unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Pistol);
                 break;
             case UnitType.Zombie:
@@ -54,6 +60,8 @@ public class UnitFactory : MonoBehaviour {
     private void AddController(Unit unit, UnitType unitType) {
         switch (unitType) {
             case UnitType.Human:
+            case UnitType.Human1:
+            case UnitType.Human2:
                 unit.Controller = new AllyController(unit); 
                 break;
             case UnitType.Zombie:

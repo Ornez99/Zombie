@@ -11,6 +11,9 @@ public class PlayerController : IController {
     private int groundMask = 1 << 8;
     private IInteractable currentInteractable;
 
+    private float moveX;
+    private float moveZ;
+
     public StateMachine StateMachine { get => null; }
     public Unit Owner { get; private set; }
 
@@ -21,26 +24,34 @@ public class PlayerController : IController {
     }
 
     public void Tick() {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        if (Input.GetMouseButton(0))
-            Owner.Weapon.Shoot();
-
-        currentInteractable?.StopHighlight();
-        currentInteractable = Owner.VisionInterpreter.ClosestInteractable;
-        currentInteractable?.Highlight();
+        UpdateMovementInput();
+        Owner.Animator.SetBool("Run", false);
+        Move();
+        Rotate();
+        UpdateInteractionObject();
 
         if (Input.GetKeyDown(KeyCode.E))
-            currentInteractable?.Interact();
+            InteractWithObject();
 
-        Vector3 normalVector3 = new Vector3(x, 0, z).normalized;
-        Owner.Drive.MoveWithNormalizedDirection(normalVector3);
-        Rotate();
+        Owner.Animator.SetBool("RangedAttack", false);
+        if (Input.GetMouseButton(0))
+            Attack();
     }
 
     public override string ToString() {
         return "PlayerController";
+    }
+
+    private void UpdateMovementInput() {
+        moveX = Input.GetAxis("Horizontal");
+        moveZ = Input.GetAxis("Vertical");
+    }
+
+    private void Move() {
+        Vector3 normalVector3 = new Vector3(moveX, 0, moveZ).normalized;
+        Owner.Drive.MoveWithNormalizedDirection(normalVector3);
+        if (Mathf.Abs(moveX) > 0.2f || Mathf.Abs(moveZ) > 0.2f)
+            Owner.Animator.SetBool("Run", true);
     }
 
     private void Rotate() {
@@ -49,6 +60,23 @@ public class PlayerController : IController {
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out hit, 100, groundMask)) {
             unitTransform.LookAt(new Vector3(hit.point.x, 0, hit.point.z));
+            unitTransform.rotation = Quaternion.Euler(0, unitTransform.rotation.eulerAngles.y, 0);
         }
+            
+    }
+
+    private void UpdateInteractionObject() {
+        currentInteractable?.StopHighlight();
+        currentInteractable = Owner.VisionInterpreter.ClosestInteractable;
+        currentInteractable?.Highlight();
+    }
+
+    private void InteractWithObject() {
+        currentInteractable?.Interact();
+    }
+
+    private void Attack() {
+        Owner.Animator.SetBool("RangedAttack", true);
+        Owner.Weapon.Shoot();
     }
 }

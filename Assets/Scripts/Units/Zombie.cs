@@ -9,6 +9,17 @@ public class Zombie : Unit {
     private Transform visionRaysStartTransform;
 
     private void Update() {
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+
+        if (currentHealth <= 0)
+            return;
+        if (damagedTimer > 0) {
+            damagedTimer -= Time.deltaTime;
+            if (damagedTimer <= 0)
+                animator.SetBool("Damaged", false);
+            return;
+        }
+
         Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
         VisionInterpreter.Tick();
@@ -18,7 +29,6 @@ public class Zombie : Unit {
     private void FixedUpdate() {
         Vision?.Tick();
     }
-
 
 #if UNITY_EDITOR
     private void OnGUI() {

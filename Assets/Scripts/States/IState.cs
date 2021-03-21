@@ -6,5 +6,4 @@ public interface IState {
     void OnStateSelected();
     void OnStateDeselected();
     void Tick();
-
 }

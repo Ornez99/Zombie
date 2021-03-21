@@ -32,4 +32,11 @@ public class Teeth : Weapon {
             }
         }
     }
+
+    public override void MeleeAttack(Unit target) {
+        if (reloadTimer <= 0) {
+            target.TakeDamge(biteDamage);
+            reloadTimer = reloadTime;
+        }
+    }
 }

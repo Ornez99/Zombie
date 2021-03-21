@@ -5,5 +5,7 @@ using UnityEngine;
 // in Resources/Prefabs/Units folder.
 public enum UnitType  {
     Zombie,
-    Human
+    Human,
+    Human1,
+    Human2
 }

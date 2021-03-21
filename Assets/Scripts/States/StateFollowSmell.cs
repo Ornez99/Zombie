@@ -17,12 +17,12 @@ public class StateFollowSmell : IState {
     }
 
     public void OnStateDeselected() {
-        animator.SetBool("FollowSmell", false);
+        animator.SetBool("Walk", false);
     }
 
     public void OnStateSelected() {
         unit.Drive.SetSpeed(2f);
-        animator.SetBool("FollowSmell", true);
+        animator.SetBool("Walk", true);
     }
 
     public void Tick() {

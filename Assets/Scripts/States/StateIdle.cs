@@ -18,7 +18,7 @@ public class StateIdle : IState {
     }
 
     public void OnStateDeselected() {
-        animator.SetBool("Moving", false);
+        animator.SetBool("Walk", false);
     }
 
     public void OnStateSelected() {
@@ -29,7 +29,7 @@ public class StateIdle : IState {
         timeToNextMove -= Time.deltaTime;
         unit.Drive.MoveWithPath();
         if (unit.Drive.DestinationReached) {
-            animator.SetBool("Moving", false);
+            animator.SetBool("Walk", false);
         }
 
         if (timeToNextMove <= 0) {
@@ -39,7 +39,7 @@ public class StateIdle : IState {
     }
 
     private void SetNewRandomDestination() {
-        animator.SetBool("Moving", true);
+        animator.SetBool("Walk", true);
         Node node = Map.GetNodeFromPos(unit.transform.position);
         List<Node> nodesNearUnit = Map.GetNodesInRadius(3f, node);
         node = Map.GetRandomWalkableNode(nodesNearUnit);

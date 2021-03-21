@@ -4,6 +4,7 @@
         StateMachine stateMachine = new StateMachine(unit);
         switch (unitType) {
             case UnitType.Human:
+                stateMachine.AddState(new StateFollowTarget(unit, unit.Animator));
                 break;
             case UnitType.Zombie:
                 stateMachine.AddState(new StateFollowSmell(unit, unit.Animator));

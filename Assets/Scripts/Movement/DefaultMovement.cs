@@ -21,6 +21,11 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
         PathCreated = false;
         DestinationReached = true;
     }
+    public void ResetPath() {
+        PathCreated = false;
+        DestinationReached = true;
+        path = new List<Vector3>();
+    }
 
     public void CreateAndSetPathToPosition(Vector3 position) {
         destination = position;
@@ -80,6 +85,7 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
         }
 
         transform.LookAt(potentialPositionV3);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         transform.position = potentialPositionV3;
     }
 

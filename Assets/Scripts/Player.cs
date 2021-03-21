@@ -48,12 +48,27 @@ public class Player : MonoBehaviour {
         if (playerController?.Owner != null) {
             Unit currentControlledUnit = playerController.Owner.GetComponent<Unit>();
             currentControlledUnit.Controller = new AllyController(currentControlledUnit);
+            currentControlledUnit.Animator.SetBool("Run", false);
+            currentControlledUnit.Animator.SetBool("Walk", false);
+            currentControlledUnit.Animator.SetBool("RangedAttack", false);
         }
 
         cameraFollow.SetCameraTarget(unit.transform);
         playerController = new PlayerController(unit);
         unit.OnTakeControl(playerController);
-        
+
+
+        foreach(Unit ownedUnit in ownedUnits) {
+            if (ownedUnit == null)
+                continue;
+
+            if (unit == ownedUnit)
+                continue;
+
+            StateFollowTarget stateFollowTarget = (StateFollowTarget)ownedUnit.Controller.StateMachine.GetState("StateFollowTarget");
+            stateFollowTarget?.SetTarget(unit);
+        }
+
     }
 
     public void AddOwnedHuman(Unit unit) {
@@ -61,6 +76,9 @@ public class Player : MonoBehaviour {
             ownedUnits.Add(unit);
             uIControlledUnits.CreateNewUnitSlot(unit);
         }
+
+        if (ownedUnits.Count == 1)
+            uIControlledUnits.TurnUnitSelectedSlot(true, unit);
     }
 
     private void PlaceBarricade() {

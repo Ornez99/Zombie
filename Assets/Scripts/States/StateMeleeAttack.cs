@@ -7,6 +7,7 @@ public class StateMeleeAttack : IState {
     private float distanceToAttack = 1f;
     private Animator animator;
     private Unit unit;
+    private float isAttacking;
 
     public StateMeleeAttack(Unit unit, Animator animator) {
         this.unit = unit;
@@ -15,6 +16,9 @@ public class StateMeleeAttack : IState {
 
     public int GetScore() {
         Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;//unit.Vision.ClosestEnemy;
+
+        if (isAttacking > 0)
+            return 125;
 
         if (closestEnemy != null) {
             if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
@@ -29,9 +33,16 @@ public class StateMeleeAttack : IState {
 
     public void OnStateSelected() {
         animator.SetBool("MeleeAttack", true);
+        isAttacking = 0.5f;
     }
 
     public void Tick() {
-        unit.Weapon.Shoot();
+        if (isAttacking > 0)
+            isAttacking -= Time.deltaTime;
+
+        Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;
+        if (closestEnemy != null)
+            if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
+                unit.Weapon.MeleeAttack(closestEnemy);
     }
 }

@@ -8,5 +8,6 @@ public interface IMoveable {
     void MoveWithNormalizedDirection(Vector3 normalizedDirection);
     void MoveWithPath();
     void SetSpeed(float newSpeed);
+    void ResetPath();
 
 }

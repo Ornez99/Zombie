@@ -21,7 +21,7 @@ public class DayNightSystem : MonoBehaviour {
     private Light moon = null;
     private bool lastIsDayCheck;
     [SerializeField]
-    private Image timeImage;
+    private Image timeImage = null;
     private RectTransform timeRectTransform;
     private Color32 dayColor = new Color32(0xE4, 0xD2, 0x67, 0xFF);
     private Color32 nightColor = new Color32(0x18, 0x3A, 0x58, 0xFF);

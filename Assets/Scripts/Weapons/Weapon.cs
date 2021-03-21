@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour {
     protected float attackRange;
 
     public abstract void Shoot();
-
+    public abstract void MeleeAttack(Unit target);
 }
 
 

@@ -21,12 +21,12 @@ public class StateMoveToEnemy : IState {
     }
 
     public void OnStateDeselected() {
-        animator.SetBool("MoveToEnemy", false);
+        animator.SetBool("Run", false);
     }
 
     public void OnStateSelected() {
         unit.Drive.SetSpeed(4f);
-        animator.SetBool("MoveToEnemy", true);
+        animator.SetBool("Run", true);
     }
 
     public void Tick() {
