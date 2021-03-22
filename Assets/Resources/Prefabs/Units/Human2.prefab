@@ -395,6 +395,7 @@ MonoBehaviour:
   mouth: {fileID: 2711924358721429983}
   animator: {fileID: 6273937414798735947}
   faceSprite: {fileID: 21300000, guid: a1e5039eb66a6e7429aae6cdc2c94087, type: 3}
+  equipment: {fileID: 0}
   smellValue: 110
 --- !u!114 &8595017055432800896
 MonoBehaviour:
@@ -2995,7 +2996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8397810814562313810}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

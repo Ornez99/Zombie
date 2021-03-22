@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponFactory : MonoBehaviour {
 
     public static WeaponFactory Instance;
-
+    
     private Dictionary<WeaponType, GameObject> weaponPrefabs;
 
     public void Initialize() {

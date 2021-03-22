@@ -9,22 +9,10 @@ public class Human : Unit {
     private int smellValue = 0;
     private RectTransform healthTransform;
 
-    private new void Awake() {
-        base.Awake();
-    }
-
     private void FixedUpdate() {
-        if (currentHealth <= 0)
+        if (isDead)
             return;
-        if (damagedTimer > 0)
-        {
-            damagedTimer -= Time.deltaTime * 5f;
-            if (damagedTimer <= 0)
-                animator.SetBool("Damaged", false);
-            return;
-        }
 
-        Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
 
         VisionInterpreter.Tick();
@@ -35,12 +23,13 @@ public class Human : Unit {
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
-    private void Update() {
-        
+    public void OnTakeControl(PlayerController playerController) {
+        Controller = playerController;
+        Animator.SetBool("Run", false);
+        Animator.SetBool("Walk", false);
+        Animator.SetBool("RangedAttack", false);
+        Equipment.UpdateUI();
     }
 
-    private void OnDrawGizmos() {
-        if (Node != null)
-            Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
-    }
+
 }

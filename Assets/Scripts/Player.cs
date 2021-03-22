@@ -44,9 +44,9 @@ public class Player : MonoBehaviour {
 
     }
 
-    public void TakeControl(Unit unit) {
+    public void TakeControl(Human unit) {
         if (playerController?.Owner != null) {
-            Unit currentControlledUnit = playerController.Owner.GetComponent<Unit>();
+            Human currentControlledUnit = playerController.Owner.GetComponent<Human>();
             currentControlledUnit.Controller = new AllyController(currentControlledUnit);
             currentControlledUnit.Animator.SetBool("Run", false);
             currentControlledUnit.Animator.SetBool("Walk", false);
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
         unit.OnTakeControl(playerController);
 
 
-        foreach(Unit ownedUnit in ownedUnits) {
+        foreach(Human ownedUnit in ownedUnits) {
             if (ownedUnit == null)
                 continue;
 

@@ -15,6 +15,8 @@ public class Doors : Building, IInteractable {
     [SerializeField]
     private GameObject highlight = null;
 
+    public bool Enabled { get => openingTimer <= 0f; }
+
     private void Update() {
         if (openingTimer > 0f) {
             openingTimer -= Time.deltaTime;
@@ -28,7 +30,7 @@ public class Doors : Building, IInteractable {
         highlight.SetActive(true);
     }
 
-    public void Interact() {
+    public void Interact(Unit unit) {
         if (openingTimer <= 0f) {
             openingTimer = openingTime;
             animator.SetBool("Opened", !opened);

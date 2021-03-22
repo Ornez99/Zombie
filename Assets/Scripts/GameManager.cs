@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Spawn3Humans() {
-        Unit unit1 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 32.5f), Quaternion.Euler(0, 0, 0), UnitType.Human);
-        Unit unit2 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human1);
-        Unit unit3 = unitFactory.SpawnUnit(new Vector3(33.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human2);
+        Human unit1 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 32.5f), Quaternion.Euler(0, 0, 0), UnitType.Human).GetComponent<Human>();
+        Human unit2 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human).GetComponent<Human>();
+        Human unit3 = unitFactory.SpawnUnit(new Vector3(33.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human).GetComponent<Human>();
         player.AddOwnedHuman(unit1);
         player.AddOwnedHuman(unit2);
         player.AddOwnedHuman(unit3);

@@ -72,7 +72,7 @@ public class PlayerController : IController {
     }
 
     private void InteractWithObject() {
-        currentInteractable?.Interact();
+        currentInteractable?.Interact(Owner);
     }
 
     private void Attack() {

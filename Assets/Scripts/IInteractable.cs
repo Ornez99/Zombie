@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IInteractable {
 
-    void Interact();
+    bool Enabled { get; }
+    void Interact(Unit unit);
     void Highlight();
     void StopHighlight();
 

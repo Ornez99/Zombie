@@ -38,7 +38,7 @@ public class UIControlledUnits : MonoBehaviour {
         unitSlot.transform.localPosition = new Vector3(unitSlots.Count * 128, 0, 0);
         unitSlots.Add(unit, unitSlot);
         Button button = unitSlot.transform.GetChild(unitSlotButtonId).GetComponent<Button>();
-        button.onClick.AddListener(() => player.TakeControl(unit));
+        button.onClick.AddListener(() => player.TakeControl(unit.GetComponent<Human>()));
 
         button.onClick.AddListener(() => TurnUnitSelectedSlot(unitSlot.transform.GetChild(unitSlotSelectId).GetComponent<Image>().color != colorUnitSelected, unit));
         unit.OnHealthChange += ChangeHealthBar;

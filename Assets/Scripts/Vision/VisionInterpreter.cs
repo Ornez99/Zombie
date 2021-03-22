@@ -37,10 +37,12 @@ public class VisionInterpreter {
                 }
             }
             else if (go.GetComponent<IInteractable>() != null) {
-                float potentialDistance = Vector3.Distance(go.transform.position, unit.transform.position);
-                if (minDistToClosestInteractable > potentialDistance) {
-                    minDistToClosestInteractable = potentialDistance;
-                    ClosestInteractable = go.GetComponent<IInteractable>(); ;
+                if (go.GetComponent<IInteractable>().Enabled) {
+                    float potentialDistance = Vector3.Distance(go.transform.position, unit.transform.position);
+                    if (minDistToClosestInteractable > potentialDistance) {
+                        minDistToClosestInteractable = potentialDistance;
+                        ClosestInteractable = go.GetComponent<IInteractable>(); ;
+                    }
                 }
             }
         }

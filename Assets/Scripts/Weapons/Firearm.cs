@@ -7,21 +7,19 @@ public class Firearm : Weapon {
     [SerializeField]
     private Transform bulletSpawnTransform = null;
     [SerializeField]
-    private float fireForce = 1000;
-    [SerializeField]
-    private float shootRange;
+    private float shootRange = 0;
 
     [SerializeField]
-    private ParticleSystem hitParticles;
+    private ParticleSystem hitParticles = null;
 
     [SerializeField]
-    private LineRenderer gunLine;
+    private LineRenderer gunLine = null;
     [SerializeField]
-    private LineRenderer gunLaser;
+    private LineRenderer gunLaser = null;
     [SerializeField]
-    private Light gunLight;
+    private Light gunLight = null;
     [SerializeField]
-    private AudioSource gunAudio;
+    private AudioSource gunAudio = null;
     private int layerShootable = 1 << 9;
 
     private void Update() {

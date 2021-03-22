@@ -20,24 +20,10 @@ public class UnitFactory : MonoBehaviour {
 
     public Unit SpawnUnit(Vector3 position, Quaternion rotation, UnitType unitType) {
         Unit unit = Instantiate(unitPrefabs[unitType], position, rotation).GetComponent<Unit>();
-        //AddDrive(unit, unitType);
         AddWeapon(unit, unitType);
         AddController(unit, unitType);
         return unit;
     }
-
-    /*private void AddDrive(Unit unit, UnitType unitType) {
-        switch (unitType) {
-            case UnitType.Human:
-                //unit.Drive = new HumanDrive(3f, unit.transform);
-                unit.Drive = new DefaultDrive(3f, unit.transform);
-                break;
-            case UnitType.Zombie:
-                unit.Drive = new DefaultDrive(3f, unit.transform);
-                //unit.Drive = new SmellDrive(4f, unit.transform);
-                break;
-        }
-    }*/
 
     private void AddWeapon(Unit unit, UnitType unitType) {
         switch (unitType) {

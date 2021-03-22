@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour {
+
     [SerializeField]
     protected int team;
     [SerializeField]
@@ -20,6 +21,12 @@ public abstract class Unit : MonoBehaviour {
     protected Animator animator;
     [SerializeField]
     protected Sprite faceSprite;
+
+    [SerializeField]
+    protected Equipment equipment;
+
+    protected bool isDead;
+
     public Sprite FaceSprite { get => faceSprite; }
 
     public event Action<Unit> OnHealthChange;
@@ -29,6 +36,7 @@ public abstract class Unit : MonoBehaviour {
     public Weapon Weapon { get; set; }
     public Vision Vision { get; set; }
     public VisionInterpreter VisionInterpreter { get; set; }
+    public Equipment Equipment { get => equipment; }
 
     public float MaxHealth { get => maxHealth; }
     public float CurrentHealth { get => currentHealth; }
@@ -47,12 +55,7 @@ public abstract class Unit : MonoBehaviour {
         Node = Map.GetNodeFromPos(transform.position);
     }
 
-    public void OnTakeControl(PlayerController playerController) {
-        Controller = playerController;
-        Animator.SetBool("Run", false);
-        Animator.SetBool("Walk", false);
-        Animator.SetBool("RangedAttack", false);
-    }
+
 
     public void TakeDamge(float amount) {
         RemoveHealth(amount);
@@ -66,6 +69,7 @@ public abstract class Unit : MonoBehaviour {
 
     private void CheckIfShouldBeDead() {
         if (currentHealth <= 0) {
+            isDead = true;
             GetComponent<CapsuleCollider>().enabled = false;
             animator.SetBool("Death", true);
             Destroy(gameObject, 1f);
