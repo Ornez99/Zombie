@@ -41,7 +41,6 @@ public class Player : MonoBehaviour {
         if (Input.GetKey(KeyCode.P)) {
             PlaceBarricade();
         }
-
     }
 
     public void TakeControl(Human unit) {
@@ -68,7 +67,6 @@ public class Player : MonoBehaviour {
             StateFollowTarget stateFollowTarget = (StateFollowTarget)ownedUnit.Controller.StateMachine.GetState("StateFollowTarget");
             stateFollowTarget?.SetTarget(unit);
         }
-
     }
 
     public void AddOwnedHuman(Unit unit) {

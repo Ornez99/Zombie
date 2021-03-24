@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour {
     private Vector3 offset;
 
     public void SetCameraTarget(Transform target) {
-        transform.position = target.transform.position + new Vector3(1, 15, -23);
+        transform.position = target.transform.position + new Vector3(-17, 15, -17);
         this.target = target;
         offset = transform.position - target.position;
     }

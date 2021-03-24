@@ -11,7 +11,7 @@ public class Equipment : MonoBehaviour {
     private const int itemUIisSelectedId = 2;
 
     [SerializeField]
-    private int itemSlots;
+    private int itemSlots = 0;
     [SerializeField]
     private Item[] items;
     [SerializeField]

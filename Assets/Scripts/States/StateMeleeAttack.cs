@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateMeleeAttack : IState {
 
-    private float distanceToAttack = 1f;
+    private float distanceToAttack = 1.5f;
     private Animator animator;
     private Unit unit;
     private float isAttacking;

@@ -6,8 +6,17 @@ using UnityEngine;
 public enum BuildingType {
     Wall,
     Window,
-    Chest,
     Doors,
+    Chest,
     ZombieSpawner,
-    Barricade
+    Barricade,
+    LootableObject,
+    Shower,
+    Toilet,
+    MedicalCabinet,
+    Chair,
+    Table,
+    Cabinet,
+    TableTop,
+    Sink
 }

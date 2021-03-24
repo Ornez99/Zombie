@@ -8,12 +8,11 @@ public class Map : MonoBehaviour {
 
     [SerializeField]
     private int mapSize = 64;
-    [SerializeField]
-    private MapLoader mapLoader = null;
 
     public int MapSize { get => mapSize; private set => mapSize = value; }
     public Node[,] Grid { get; private set; }
-    
+
+    public GameObject ground;
 
     public static Node GetNodeFromPos(Vector3 position) {
         if (position.x < 0 || position.x >= Instance.MapSize || position.z < 0 || position.z >= Instance.MapSize)
@@ -31,7 +30,7 @@ public class Map : MonoBehaviour {
             else
                 nodes.RemoveAt(randomId);
         }
-
+        
         return null;
     }
 
@@ -61,11 +60,14 @@ public class Map : MonoBehaviour {
             Debug.LogError("There can be only one instance of this script!");
             Destroy(this);
         }
-
         Instance = this;
         GenerateGrid();
-       
-        mapLoader.LoadDefaultMap();
+        GetComponent<MapGenerator>().GenerateMap();
+
+        //mapLoader.LoadDefaultMap();
+        
+        //Texture2D groundTexture = GenerateGroundTexture2D();
+        //ground.GetComponent<Renderer>().material.SetTexture("_Control", groundTexture);
     }
 
     public List<Node> GetNeighbours(Node node) {
@@ -96,7 +98,6 @@ public class Map : MonoBehaviour {
         return neighbours4;
     }
 
-
     private void GenerateGrid() {
         Grid = new Node[MapSize, MapSize];
 
@@ -110,16 +111,4 @@ public class Map : MonoBehaviour {
             }
         }
     }
-
-    private void GenerateWalls() {
-        for (int y = 0; y < MapSize; y++) {
-            for (int x = 0; x < MapSize; x++) {
-                if (Grid[x, y].Walkable == false)
-                    BuildingFactory.Instance.SpawnBuilding(Grid[x, y].CenterPos, Quaternion.Euler(0, 0, 0), BuildingType.Wall);
-            }
-        }
-    }
-
-
-
 }

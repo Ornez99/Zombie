@@ -21,6 +21,9 @@ public abstract class Unit : MonoBehaviour {
     protected Animator animator;
     [SerializeField]
     protected Sprite faceSprite;
+    [SerializeField]
+    protected CapsuleCollider capsuleCollider;
+
 
     [SerializeField]
     protected Equipment equipment;
@@ -70,7 +73,7 @@ public abstract class Unit : MonoBehaviour {
     private void CheckIfShouldBeDead() {
         if (currentHealth <= 0) {
             isDead = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            capsuleCollider.enabled = false;
             animator.SetBool("Death", true);
             Destroy(gameObject, 1f);
         }

@@ -7,5 +7,7 @@ public enum WeaponType {
     Pistol,
     Teeth,
     SniperRifle,
-    AutomaticRifle
+    AutomaticRifle,
+    SniperRiflev1,
+    AutomaticRiflev1
 }

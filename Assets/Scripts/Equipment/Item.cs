@@ -8,7 +8,7 @@ public class Item : ScriptableObject {
     [SerializeField]
     private string itemName = "";
     [SerializeField]
-    private Sprite itemSprite;
+    private Sprite itemSprite = null;
 
     public string ItemName { get => itemName; }
     public Sprite ItemSprite { get => itemSprite; }

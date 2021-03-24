@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063278742365800803}
   - component: {fileID: 6063278742365800828}
-  - component: {fileID: 6063278742365800831}
+  - component: {fileID: 8638864910770126513}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -207,7 +207,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &6063278742365800831
+--- !u!114 &8638864910770126513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,18 +216,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6063278742365800829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e11e068f37cc614caeaee96e92f5c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c82f8274aff84d4e8c50870f67cff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkable: 1
+  walkable: 0
   buildable: 0
   viewable: 1
-  smellable: 1
-  itemsInside:
-  - {fileID: 11400000, guid: dcf23ab590405c44489b98a46032fb85, type: 2}
-  - {fileID: 11400000, guid: dcf23ab590405c44489b98a46032fb85, type: 2}
-  - {fileID: 11400000, guid: 5a5e7c5687124dd418b05e6258dda485, type: 2}
-  highlight: {fileID: 8080006823243247882}
+  smellable: 0
+  lootChance:
+  - Amount: 1
+    SpawnChance: 10
+    Item: {fileID: 11400000, guid: 5a5e7c5687124dd418b05e6258dda485, type: 2}
+  - Amount: 1
+    SpawnChance: 10
+    Item: {fileID: 11400000, guid: dcf23ab590405c44489b98a46032fb85, type: 2}
+  - Amount: 1
+    SpawnChance: 10
+    Item: {fileID: 11400000, guid: c65f8767641b2b341a2746a6954045e5, type: 2}
+  itemsInside: []
+  highlight: {fileID: 0}
 --- !u!1 &8080006823243247882
 GameObject:
   m_ObjectHideFlags: 0

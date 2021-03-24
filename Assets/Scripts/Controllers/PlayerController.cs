@@ -8,7 +8,7 @@ public class PlayerController : IController {
     public static PlayerController Instance;
 
     private Transform unitTransform;
-    private int groundMask = 1 << 8;
+    private int groundMask2 = 1 << 10;
     private IInteractable currentInteractable;
 
     private float moveX;
@@ -48,7 +48,10 @@ public class PlayerController : IController {
     }
 
     private void Move() {
+        //Vector3 normalVector3 = (Owner.transform.forward * moveZ + Owner.transform.right * moveX).normalized;
+
         Vector3 normalVector3 = new Vector3(moveX, 0, moveZ).normalized;
+        normalVector3 = Quaternion.Euler(0, 45, 0) * normalVector3;
         Owner.Drive.MoveWithNormalizedDirection(normalVector3);
         if (Mathf.Abs(moveX) > 0.2f || Mathf.Abs(moveZ) > 0.2f)
             Owner.Animator.SetBool("Run", true);
@@ -58,8 +61,8 @@ public class PlayerController : IController {
         Vector3 mousePos = Input.mousePosition;
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        if (Physics.Raycast(ray, out hit, 100, groundMask)) {
-            unitTransform.LookAt(new Vector3(hit.point.x, 0, hit.point.z));
+        if (Physics.Raycast(ray, out hit, 100, groundMask2)) {
+            unitTransform.LookAt(new Vector3(hit.point.x, hit.point.y, hit.point.z));
             unitTransform.rotation = Quaternion.Euler(0, unitTransform.rotation.eulerAngles.y, 0);
         }
             

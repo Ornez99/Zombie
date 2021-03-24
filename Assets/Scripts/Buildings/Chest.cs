@@ -5,10 +5,10 @@ using UnityEngine;
 public class Chest : Building, IInteractable {
 
     [SerializeField]
-    private List<Item> itemsInside;
-    private bool isEmpty;
+    private List<Item> itemsInside = null;
     [SerializeField]
     private GameObject highlight = null;
+    private bool isEmpty;
 
     public bool Enabled { get => !isEmpty; }
 

@@ -53,13 +53,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5653537435411492844}
-  m_LocalRotation: {x: 0.3580426, y: -0.60898495, z: 0.5942079, w: -0.38452557}
-  m_LocalPosition: {x: 0.0684, y: 0.0321, z: -0.0372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.048, y: 1.4, z: 0.226}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6273937414805951989}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 26.639002, y: 89.879005, z: 272.401}
+  m_Father: {fileID: 6273937414805951537}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6273937414806112257
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 2876365483252302190}
   - component: {fileID: 8595017055432800896}
   - component: {fileID: 5430665442805631174}
+  - component: {fileID: 8324977278643510935}
   m_Layer: 0
   m_Name: Human2
   m_TagString: Untagged
@@ -339,6 +340,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8397810814562313810}
+  - {fileID: 2711924358721429983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -395,7 +397,8 @@ MonoBehaviour:
   mouth: {fileID: 2711924358721429983}
   animator: {fileID: 6273937414798735947}
   faceSprite: {fileID: 21300000, guid: a1e5039eb66a6e7429aae6cdc2c94087, type: 3}
-  equipment: {fileID: 0}
+  capsuleCollider: {fileID: 505867545248314162}
+  equipment: {fileID: 8324977278643510935}
   smellValue: 110
 --- !u!114 &8595017055432800896
 MonoBehaviour:
@@ -428,6 +431,21 @@ MonoBehaviour:
   raysStartTransform: {fileID: 3859606163322262319}
   showObjectsInSight: 0
   visionAngle: 120
+--- !u!114 &8324977278643510935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273937414806112273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42dfbc2b6960ba4ab07789065cbdbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSlots: 8
+  items: []
+  equipmentUI: {fileID: 0}
 --- !u!1 &6273937414806112275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,7 +2350,6 @@ Transform:
   - {fileID: 6273937414805951955}
   - {fileID: 6273937414805951953}
   - {fileID: 6273937414805951529}
-  - {fileID: 2711924358721429983}
   m_Father: {fileID: 6273937414805951985}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

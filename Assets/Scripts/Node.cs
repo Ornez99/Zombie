@@ -7,6 +7,7 @@ public class Node {
     public bool Viewable;
     public bool Smellable;
     public int SmellValue;
+    public bool Spawnable;
 
     public Vector3 Pos;
     public Vector3 CenterPos;
@@ -34,6 +35,7 @@ public class Node {
         CenterPos = new Vector3(pos.x + 0.5f, pos.y, pos.z + 0.5f);
         XId = xId;
         YId = yId;
+        Spawnable = true;
     }
 
     public Vector3 GetRandomPosOnNode() {

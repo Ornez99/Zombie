@@ -54,7 +54,8 @@ public class Firearm : Weapon {
 
         RaycastHit shootHit;
         if (Physics.Raycast(shootRay, out shootHit, shootRange, layerShootable)) {
-            Unit enemyUnit = shootHit.transform.GetComponent<Unit>();
+            Unit enemyUnit = shootHit.transform.parent?.parent?.GetComponent<Unit>();
+
             if (enemyUnit != null) {
                 enemyUnit.TakeDamge(damage);
             }
