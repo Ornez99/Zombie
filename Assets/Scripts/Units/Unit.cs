@@ -8,12 +8,6 @@ public abstract class Unit : MonoBehaviour {
     [SerializeField]
     protected int team;
     [SerializeField]
-    protected float damagedTimer;
-    [SerializeField]
-    protected float maxHealth;
-    [SerializeField]
-    protected float currentHealth;
-    [SerializeField]
     protected Transform hand;
     [SerializeField]
     protected Transform mouth;
@@ -41,9 +35,6 @@ public abstract class Unit : MonoBehaviour {
     public VisionInterpreter VisionInterpreter { get; set; }
     public Equipment Equipment { get => equipment; }
 
-    public float MaxHealth { get => maxHealth; }
-    public float CurrentHealth { get => currentHealth; }
-
     public Transform Hand { get => hand; set => hand = value; }
     public Transform Mouth { get => mouth; set => mouth = value; }
     public int GetTeam { get => team; }
@@ -56,27 +47,5 @@ public abstract class Unit : MonoBehaviour {
         VisionInterpreter = new VisionInterpreter(Vision, this);
         Drive = GetComponent<IMoveable>();
         Node = Map.GetNodeFromPos(transform.position);
-    }
-
-
-
-    public void TakeDamge(float amount) {
-        RemoveHealth(amount);
-        CheckIfShouldBeDead();
-        OnHealthChange?.Invoke(this);
-    }
-
-    private void RemoveHealth(float amount) {
-        currentHealth -= amount;
-    }
-
-    private void CheckIfShouldBeDead() {
-        if (currentHealth <= 0) {
-            isDead = true;
-            capsuleCollider.enabled = false;
-            animator.SetBool("Death", true);
-            Destroy(gameObject, 1f);
-        }
-
     }
 }

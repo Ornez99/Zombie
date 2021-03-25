@@ -2605,9 +2605,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  damagedTimer: 0
-  maxHealth: 15
-  currentHealth: 15
   hand: {fileID: 5405646091903071321}
   mouth: {fileID: 5405646091903071321}
   animator: {fileID: 234927722218766711}
@@ -2615,6 +2612,9 @@ MonoBehaviour:
   capsuleCollider: {fileID: 2886321618102778979}
   equipment: {fileID: 6950153784049809632}
   smellValue: 110
+  maxHealth: 15
+  currentHealth: 15
+  armor: 0
 --- !u!114 &6339797693910614634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRadius: 0.5
   minimumDistance: 0.1
-  movementSpeed: 3
+  movementSpeed: 10
 --- !u!114 &53994341584773819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,6 +2661,7 @@ MonoBehaviour:
   itemSlots: 8
   items: []
   equipmentUI: {fileID: 0}
+  itemOptionsMenu: {fileID: 0}
 --- !u!1 &234927722209260335
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,11 @@ public class Firearm : Weapon {
     private AudioSource gunAudio = null;
     private int layerShootable = 1 << 9;
 
+    private void Awake() {
+        //DisableEffects();
+        //gunAudio.Stop();
+    }
+
     private void Update() {
         timer += Time.deltaTime;
         if (timer >= timeBetweenShots * effectsDisplayTime)
@@ -35,7 +40,7 @@ public class Firearm : Weapon {
             Shoot();
     }
 
-    public override void AttackUnit(Unit target) {
+    public override void AttackUnit(IKillable target) {
         
     }
 
@@ -55,10 +60,10 @@ public class Firearm : Weapon {
         RaycastHit shootHit;
         if (Physics.Raycast(shootRay, out shootHit, shootRange, layerShootable)) {
             Unit enemyUnit = shootHit.transform.parent?.parent?.GetComponent<Unit>();
+            IKillable enemyKillable = enemyUnit?.GetComponent<IKillable>();
 
-            if (enemyUnit != null) {
-                enemyUnit.TakeDamge(damage);
-            }
+            if (enemyKillable != null)
+                enemyKillable.TakeDamage(damage);
 
             gunLine.SetPosition(1, shootHit.point);
             Instantiate(hitParticles, shootHit.point, Quaternion.Euler(0, 0, 0));

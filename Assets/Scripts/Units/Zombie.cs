@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Zombie : Unit {
+public class Zombie : Unit, IKillable {
 
     [SerializeField]
     private Transform visionRaysStartTransform;
 
-    private void Update() {
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    [SerializeField]
+    private float maxHealth;
+    [SerializeField]
+    private float currentHealth;
+    [SerializeField]
+    private float armor;
 
-        if (currentHealth <= 0)
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public float Armor { get => armor; set => armor = value; }
+
+    private void Update() {
+        if (isDead)
             return;
-        if (damagedTimer > 0) {
-            damagedTimer -= Time.deltaTime;
-            if (damagedTimer <= 0)
-                animator.SetBool("Damaged", false);
-            return;
-        }
+
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
         Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
@@ -40,5 +45,23 @@ public class Zombie : Unit {
             return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
+    }
+
+    public void TakeDamage(float amount) {
+        currentHealth -= amount;
+        CheckIfShouldBeDead();
+    }
+
+    public void Heal(float amount) {
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+    }
+
+    private void CheckIfShouldBeDead() {
+        if (currentHealth <= 0) {
+            isDead = true;
+            capsuleCollider.enabled = false;
+            animator.SetBool("Death", true);
+            Destroy(gameObject, 1f);
+        }
     }
 }

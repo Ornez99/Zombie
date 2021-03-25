@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIControlledUnits : MonoBehaviour {
 
+    public static UIControlledUnits Instance;
+
     private const int unitSlotButtonId = 0;
     private const int unitSlotHealthId = 1;
     private const int unitSlotSelectId = 2;
@@ -26,7 +28,13 @@ public class UIControlledUnits : MonoBehaviour {
     [SerializeField]
     private Dictionary<Unit, GameObject> unitSlots;
 
+    [SerializeField]
+    private GameObject itemOptionsMenu;
+    public GameObject ItemOptionsMenu { get => itemOptionsMenu; }
+
     public void Initialize() {
+        Instance = this;
+
         colorUnitSelected = new Color32(0xCF, 0xB8, 0x4E, 0xFF);
         colorUnitNotSelected = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
         colorHealthBar = new Color32(0x8D, 0x2B, 0x21, 0xFF);
@@ -55,8 +63,9 @@ public class UIControlledUnits : MonoBehaviour {
     }
 
     private void ChangeHealthBar(Unit unit) {
-        unitSlots[unit].transform.GetChild(unitSlotHealthId).transform.GetChild(1).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (unit.CurrentHealth / unit.MaxHealth) * 128);
-        unitSlots[unit].transform.GetChild(unitSlotHealthId).transform.GetChild(2).GetComponent<Text>().text = $"Health: {unit.CurrentHealth} / {unit.MaxHealth}";
+        IKillable killable = unit.GetComponent<IKillable>();
+        unitSlots[unit].transform.GetChild(unitSlotHealthId).transform.GetChild(1).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (killable.CurrentHealth / killable.MaxHealth) * 128);
+        unitSlots[unit].transform.GetChild(unitSlotHealthId).transform.GetChild(2).GetComponent<Text>().text = $"Health: {killable.CurrentHealth} / {killable.MaxHealth}";
     }
 
 }

@@ -85,10 +85,14 @@ public class Map : MonoBehaviour {
 
     public List<Node> GetNeighbours4(Node node) {
         List<Node> neighbours4 = new List<Node>();
-        neighbours4.Add(Grid[node.XId, node.YId + 1]);
-        neighbours4.Add(Grid[node.XId + 1, node.YId]);
-        neighbours4.Add(Grid[node.XId, node.YId - 1]);
-        neighbours4.Add(Grid[node.XId - 1, node.YId]);
+        if (node.YId + 1 < mapSize)
+            neighbours4.Add(Grid[node.XId, node.YId + 1]);
+        if (node.XId + 1 < mapSize)
+            neighbours4.Add(Grid[node.XId + 1, node.YId]);
+        if (node.YId - 1 >= 0)
+            neighbours4.Add(Grid[node.XId, node.YId - 1]);
+        if (node.XId - 1 >= 0)
+            neighbours4.Add(Grid[node.XId - 1, node.YId]);
 
         return neighbours4;
     }

@@ -41,8 +41,9 @@ public class StateMeleeAttack : IState {
             isAttacking -= Time.deltaTime;
 
         Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;
-        if (closestEnemy != null)
+        IKillable enemyKillable = closestEnemy?.GetComponent<IKillable>();
+        if (enemyKillable != null)
             if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
-                unit.Weapon.AttackUnit(closestEnemy);
+                unit.Weapon.AttackUnit(enemyKillable);
     }
 }

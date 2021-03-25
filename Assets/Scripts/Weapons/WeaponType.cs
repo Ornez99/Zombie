@@ -6,8 +6,6 @@ using UnityEngine;
 public enum WeaponType {
     Pistol,
     Teeth,
-    SniperRifle,
-    AutomaticRifle,
     SniperRiflev1,
     AutomaticRiflev1
 }

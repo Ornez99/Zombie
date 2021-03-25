@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour {
     protected float timer;
 
     public abstract void Attack();
-    public abstract void AttackUnit(Unit target);
+    public abstract void AttackUnit(IKillable target);
 }
 
 

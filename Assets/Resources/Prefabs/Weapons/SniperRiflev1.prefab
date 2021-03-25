@@ -74,9 +74,9 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.988433, g: 1, b: 0.6367924, a: 1}
   m_Intensity: 2
-  m_Range: 10
-  m_SpotAngle: 120
-  m_InnerSpotAngle: 9
+  m_Range: 5
+  m_SpotAngle: 90
+  m_InnerSpotAngle: 3
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   timeBetweenShots: 1
-  effectsDisplayTime: 0.05
+  effectsDisplayTime: 0.1
   bulletSpawnTransform: {fileID: 5862018872678848142}
   shootRange: 20
   hitParticles: {fileID: 8819148406463107848, guid: 8f3923f2de8785142bcf5545cadcdbec,
@@ -192,7 +192,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 75132b5069ba4074588c02f2e9800a67, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1

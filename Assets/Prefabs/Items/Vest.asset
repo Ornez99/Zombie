@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e1303766fd67b4d976246ed17f96ef, type: 3}
-  m_Name: Shirt
+  m_Script: {fileID: 11500000, guid: 47f2192406e05e84d972057017af2d28, type: 3}
+  m_Name: Vest
   m_EditorClassIdentifier: 
-  itemName: Default pants
+  itemName: Vest
   itemSprite: {fileID: 21300000, guid: 5f0b7d7ef9a9bf345b58cd6cb313e987, type: 3}
+  useable: 0
+  equipable: 1
+  armor: 3
+  bodyPart: 0
+  isEquipped: 0

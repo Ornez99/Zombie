@@ -24,20 +24,21 @@ public class Teeth : Weapon {
             RaycastHit[] hits = Physics.SphereCastAll(biteTransform.position, biteRadius, biteTransform.forward);
             foreach (RaycastHit hit in hits) {
                 Unit hitUnit = hit.transform.GetComponent<Unit>();
-                if (hitUnit == null)
+                IKillable hitKillable = hitUnit?.GetComponent<IKillable>();
+                if (hitKillable == null)
                     continue;
 
                 if (hitUnit.GetTeam != unit.GetTeam) {
-                    hitUnit.TakeDamge(biteDamage);
+                    hitKillable.TakeDamage(biteDamage);
                     timer = timeBetweenShoots;
                 }
             }
         }
     }
 
-    public override void AttackUnit(Unit target) {
+    public override void AttackUnit(IKillable target) {
         if (timer <= 0) {
-            target.TakeDamge(biteDamage);
+            target.TakeDamage(biteDamage);
             timer = timeBetweenShoots;
         }
     }
