@@ -183,7 +183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4523048630369563929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.084, z: 0.68}
   m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children: []
   m_Father: {fileID: 2454915326191333575}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   timeBetweenShots: 0.1
-  effectsDisplayTime: 0.02
+  effectsDisplayTime: 0.2
   bulletSpawnTransform: {fileID: 4523048630369564304}
   shootRange: 20
   hitParticles: {fileID: 8819148406463107848, guid: 8f3923f2de8785142bcf5545cadcdbec,
@@ -626,7 +626,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.258
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

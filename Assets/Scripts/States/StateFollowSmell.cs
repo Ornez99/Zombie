@@ -21,7 +21,7 @@ public class StateFollowSmell : IState {
     }
 
     public void OnStateSelected() {
-        unit.Drive.SetSpeed(2f);
+        unit.Drive.Speed = 2f;
         animator.SetBool("Walk", true);
     }
 

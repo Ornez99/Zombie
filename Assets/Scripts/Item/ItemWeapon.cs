@@ -11,7 +11,5 @@ public class ItemWeapon : Item, IEquippable {
         
     }
 
-    public void Unequip(Unit unit) {
-        
-    }
+
 }

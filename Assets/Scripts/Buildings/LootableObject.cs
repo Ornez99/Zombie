@@ -5,11 +5,11 @@ using UnityEngine;
 public class LootableObject : Building, IInteractable {
 
     [SerializeField]
-    private LootChance[] lootChance;
+    private LootChance[] lootChance = null;
     [SerializeField]
     private List<Item> itemsInside;
     [SerializeField]
-    private GameObject highlight;
+    private GameObject highlight = null;
     private bool isEmpty;
 
     public bool Enabled { get => !isEmpty; }
@@ -24,6 +24,9 @@ public class LootableObject : Building, IInteractable {
                 }
             }
         }
+
+        if (itemsInside.Count == 0)
+            isEmpty = true;
     }
 
     public void Interact(Unit unit) {

@@ -25,7 +25,7 @@ public class StateMoveToEnemy : IState {
     }
 
     public void OnStateSelected() {
-        unit.Drive.SetSpeed(4f);
+        unit.Drive.Speed = 4f;
         animator.SetBool("Run", true);
     }
 

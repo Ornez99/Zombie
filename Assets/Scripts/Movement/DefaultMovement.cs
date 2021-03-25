@@ -16,6 +16,7 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
 
     public bool DestinationReached { get; private set; }
     public bool PathCreated { get; private set; }
+    public float Speed { get => movementSpeed; set => movementSpeed = value; }
 
     private void Awake() {
         PathCreated = false;
@@ -87,9 +88,5 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
         transform.LookAt(potentialPositionV3);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         transform.position = potentialPositionV3;
-    }
-
-    public void SetSpeed(float newSpeed) {
-        movementSpeed = newSpeed;
     }
 }

@@ -8,11 +8,11 @@ public class Map : MonoBehaviour {
 
     [SerializeField]
     private int mapSize = 64;
+    [SerializeField]
+    private MapGenerator mapGenerator = null;
 
     public int MapSize { get => mapSize; private set => mapSize = value; }
     public Node[,] Grid { get; private set; }
-
-    public GameObject ground;
 
     public static Node GetNodeFromPos(Vector3 position) {
         if (position.x < 0 || position.x >= Instance.MapSize || position.z < 0 || position.z >= Instance.MapSize)
@@ -62,12 +62,7 @@ public class Map : MonoBehaviour {
         }
         Instance = this;
         GenerateGrid();
-        GetComponent<MapGenerator>().GenerateMap();
-
-        //mapLoader.LoadDefaultMap();
-        
-        //Texture2D groundTexture = GenerateGroundTexture2D();
-        //ground.GetComponent<Renderer>().material.SetTexture("_Control", groundTexture);
+        mapGenerator.GenerateMap();
     }
 
     public List<Node> GetNeighbours(Node node) {

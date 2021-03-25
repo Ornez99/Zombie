@@ -9,7 +9,5 @@ public class ItemArmor : Item, IEquippable {
         
     }
 
-    public void Unequip(Unit unit) {
 
-    }
 }

@@ -36,7 +36,10 @@ public class DayNightSystem : MonoBehaviour {
             Destroy(this);
         }
         timeRectTransform = timeImage.GetComponent<RectTransform>();
+        lastIsDayCheck = !IsDay;
+        UpdateTimeSlider();
         lastIsDayCheck = IsDay;
+        UpdateSun();
         sun.gameObject.SetActive(IsDay);
         moon.gameObject.SetActive(!IsDay);
         Instance = this;

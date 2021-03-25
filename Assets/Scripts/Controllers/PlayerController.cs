@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : IController {
 
@@ -34,7 +35,7 @@ public class PlayerController : IController {
             InteractWithObject();
 
         Owner.Animator.SetBool("RangedAttack", false);
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             Attack();
     }
 
