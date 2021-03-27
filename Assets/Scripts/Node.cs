@@ -6,8 +6,8 @@ public class Node {
     public bool Buildable;
     public bool Viewable;
     public bool Smellable;
+
     public int SmellValue;
-    public bool Spawnable;
 
     public Vector3 Pos;
     public Vector3 CenterPos;
@@ -25,6 +25,9 @@ public class Node {
 
     public Building Building { get; set; }
 
+    public bool Visited = false;
+    public bool Visible = false;
+
     public Node(bool walkable, bool buildable, Vector3 pos, int xId, int yId) {
         Walkable = walkable;
         Buildable = buildable;
@@ -35,7 +38,6 @@ public class Node {
         CenterPos = new Vector3(pos.x + 0.5f, pos.y, pos.z + 0.5f);
         XId = xId;
         YId = yId;
-        Spawnable = true;
     }
 
     public Vector3 GetRandomPosOnNode() {

@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
+    private FogOfWar fogOfWar = default;
+    [SerializeField]
     private Pathfinding pathfinding = null;
     [SerializeField]
     private SmellManager smellManager = null;
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour {
         unitFactory.Initialize();
         buildingFactory.Initialize();
         map.Initialize();
+        fogOfWar.Initialize();
         pathfinding.Initialize();
         smellManager.Initialize();
         player.Initialize();

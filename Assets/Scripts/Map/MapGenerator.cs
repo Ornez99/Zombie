@@ -30,7 +30,7 @@ public class MapGenerator : MonoBehaviour {
         SetBorderSize();
         SetSpawnable();
         InstantiateHouses();
-        SetGroundTexture();
+        SetGroundTextureAndSize();
     }
 
     private void CreateGroundTexture() {
@@ -69,7 +69,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void InstantiateHouses() {
         int generatedHouses = 0;
-        int availableIterations = 20;
+        int availableIterations = 1000;
 
         while (availableIterations > 0 && generatedHouses < housesAmount) {
             int houseId = Random.Range(0, houseFloors.Length);
@@ -87,8 +87,6 @@ public class MapGenerator : MonoBehaviour {
                 availableIterations--;
             }
         }
-
-        
     }
 
     private bool CanSpawnHouse(Vector2Int pos, int size) {
@@ -160,7 +158,9 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    private void SetGroundTexture() {
+    private void SetGroundTextureAndSize() {
+        ground.transform.localScale = new Vector3(-0.1f * Map.Instance.MapSize, 1, -0.1f * Map.Instance.MapSize);
+        ground.transform.position = new Vector3(Map.Instance.MapSize / 2f, 0, Map.Instance.MapSize / 2f);
         groundTexture2D.Apply();
         ground.GetComponent<Renderer>().material.SetTexture("_Control", groundTexture2D);
     }

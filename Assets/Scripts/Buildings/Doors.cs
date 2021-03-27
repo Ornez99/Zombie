@@ -34,6 +34,8 @@ public class Doors : Building, IInteractable {
         if (openingTimer <= 0f) {
             openingTimer = openingTime;
             animator.SetBool("Opened", !opened);
+
+            Viewable = !Viewable;
         }
     }
 

@@ -393,6 +393,7 @@ GameObject:
   - component: {fileID: 8435546445622821315}
   - component: {fileID: 202443833598899063}
   - component: {fileID: 7920413486734182767}
+  - component: {fileID: 7149235075261618125}
   m_Layer: 0
   m_Name: Human1
   m_TagString: Untagged
@@ -499,10 +500,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443f2ee4d135de84ca7e2bba5a97509b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 5
+  gapBetweenRays: 0.1
+  rayDistance: 8
   raysStartTransform: {fileID: 5870072458493772894}
   showObjectsInSight: 0
   visionAngle: 120
+  saveHitsVector3: 1
 --- !u!114 &7920413486734182767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +522,19 @@ MonoBehaviour:
   items: []
   equipmentUI: {fileID: 0}
   itemOptionsMenu: {fileID: 0}
+--- !u!114 &7149235075261618125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252547005743388695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb89ca6b99e82e4a93c09fd118fdf73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 6
 --- !u!1 &5252547005743388697
 GameObject:
   m_ObjectHideFlags: 0

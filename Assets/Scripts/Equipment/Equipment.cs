@@ -56,6 +56,14 @@ public class Equipment : MonoBehaviour {
             LoadDefaultItemData(items[itemSlot], item);
             return;
         }
+
+        ItemWeapon itemWeapon = item as ItemWeapon;
+        if (itemWeapon != null) {
+            items[itemSlot] = new ItemWeapon(itemWeapon.WeaponPrefab, itemWeapon.WeaponType);
+            LoadDefaultItemData(items[itemSlot], item);
+            return;
+        }
+
     }
 
     private void LoadDefaultItemData(Item newItem, Item dataItem) {
@@ -70,6 +78,7 @@ public class Equipment : MonoBehaviour {
         for (int i = 0; i < items.Length; i++) {
             if (items[i] == item) {
                 Destroy(items[i]);
+                items[i] = null;
                 UpdateUI();
                 return;
             }

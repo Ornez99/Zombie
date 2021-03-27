@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Human : Unit, IKillable {
 
@@ -15,6 +16,8 @@ public class Human : Unit, IKillable {
     private float currentHealth;
     [SerializeField]
     private float armor;
+
+    public event Action<Unit> OnHealthChange;
 
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
@@ -42,13 +45,19 @@ public class Human : Unit, IKillable {
         Equipment.UpdateUI();
     }
 
+    private void OnTakeDamage() {
+
+    }
+    
     public void TakeDamage(float amount) {
         currentHealth -= amount;
         CheckIfShouldBeDead();
+        OnHealthChange?.Invoke(this);
     }
 
     public void Heal(float amount) {
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        OnHealthChange?.Invoke(this);
     }
 
     private void CheckIfShouldBeDead() {

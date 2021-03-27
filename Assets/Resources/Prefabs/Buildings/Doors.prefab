@@ -66,7 +66,7 @@ MonoBehaviour:
   smellable: 1
   opened: 0
   openingTimer: 0
-  openingTime: 2
+  openingTime: 0.5
   animator: {fileID: 7673542332111147503}
   highlight: {fileID: 1108163219571643629}
 --- !u!1 &1108163219571643629

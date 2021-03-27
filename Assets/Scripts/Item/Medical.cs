@@ -16,5 +16,6 @@ public class Medical : Item {
         IKillable killable = unit.GetComponent<IKillable>();
         killable.Heal(healAmount);
         unit.Equipment.RemoveItem(this);
+
     }
 }

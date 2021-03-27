@@ -6,17 +6,17 @@ public abstract class Building : MonoBehaviour {
 
     [SerializeField]
     private bool walkable;
-    public bool Walkable { get => walkable; private set => walkable = value; }
+    public bool Walkable { get => walkable; protected set => walkable = value; }
 
     [SerializeField]
     private bool buildable;
-    public bool Buildable { get => buildable; private set => buildable = value; }
+    public bool Buildable { get => buildable; protected set => buildable = value; }
 
     [SerializeField]
     private bool viewable;
-    public bool Viewable { get => viewable; private set => viewable = value; }
+    public bool Viewable { get => viewable; protected set => viewable = value; }
 
     [SerializeField]
     private bool smellable;
-    public bool Smellable { get => smellable; private set => smellable = value; }
+    public bool Smellable { get => smellable; protected set => smellable = value; }
 }

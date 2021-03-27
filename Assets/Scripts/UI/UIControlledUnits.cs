@@ -49,7 +49,7 @@ public class UIControlledUnits : MonoBehaviour {
         button.onClick.AddListener(() => player.TakeControl(unit.GetComponent<Human>()));
 
         button.onClick.AddListener(() => TurnUnitSelectedSlot(unitSlot.transform.GetChild(unitSlotSelectId).GetComponent<Image>().color != colorUnitSelected, unit));
-        unit.OnHealthChange += ChangeHealthBar;
+        unit.GetComponent<Human>().OnHealthChange += ChangeHealthBar;
         ChangeHealthBar(unit);
         unitSlots[unit].transform.GetChild(unitSlotButtonId).GetComponent<Image>().sprite = unit.FaceSprite;
     }

@@ -15,7 +15,29 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private List<Unit> ownedUnits;
 
+    public GameObject TestFOW;
+
     public void Initialize() {
+        Texture2D testTexture2D = new Texture2D(Map.Instance.MapSize, Map.Instance.MapSize);
+        for (int y = 0; y < Map.Instance.MapSize; y++) {
+            for (int x = 0; x < Map.Instance.MapSize; x++) {
+                Color32 color1 = new Color32(0, 0, 0, 255);
+                Color32 color2 = new Color32(0, 0, 0, 127);
+                Color32 col = Random.Range(0, 2) == 1 ? color1 : color2;
+                testTexture2D.SetPixel(x,y, col);
+            }
+        }
+
+
+        testTexture2D.Apply();
+        TestFOW.GetComponent<Renderer>().material.SetTexture("_MainTex", testTexture2D);
+
+
+
+
+
+
+
         if (Instance != null && Instance != this) {
             Debug.LogError("There can be only one instance of this script!");
             Destroy(this);

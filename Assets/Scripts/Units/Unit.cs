@@ -26,7 +26,7 @@ public abstract class Unit : MonoBehaviour {
 
     public Sprite FaceSprite { get => faceSprite; }
 
-    public event Action<Unit> OnHealthChange;
+    
 
     public IController Controller { get; set; }
     public IMoveable Drive { get; set; }

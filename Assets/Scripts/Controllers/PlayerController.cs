@@ -81,6 +81,6 @@ public class PlayerController : IController {
 
     private void Attack() {
         Owner.Animator.SetBool("RangedAttack", true);
-        Owner.Weapon.Attack();
+        Owner.Weapon?.Attack();
     }
 }
