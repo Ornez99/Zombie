@@ -19,12 +19,13 @@ public class FogOfWarAgent : MonoBehaviour {
         nodesInRadius.Clear();
         nodesInRadius.Add(Map.GetNodeFromPos(transform.position));
         foreach (Vector3 endPos in fieldOfViewAgent.FieldOfViewVectors) {
-            float length = (endPos - transform.position).magnitude;
-            Vector3 direction = (endPos - transform.position).normalized;
+            
+            float length = (new Vector3(endPos.x, 0, endPos.z) - new Vector3(transform.position.x, 0, transform.position.z)).magnitude;
+            Vector3 direction = (new Vector3(endPos.x, 0, endPos.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
             float step = direction.magnitude;
-            float currentLength = step;
+            float currentLength = step * 2;
             Vector3 currentPos = transform.position + direction;
-            while (currentLength <= length) {
+            while (currentLength < length) {
                 Node candidate = Map.GetNodeFromPos(currentPos);
                 if (candidate != null && nodesInRadius.Contains(candidate) == false)
                     nodesInRadius.Add(candidate);
