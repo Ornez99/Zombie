@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 202443833598899063}
   - component: {fileID: 7920413486734182767}
   - component: {fileID: 7149235075261618125}
+  - component: {fileID: -8539550547530203520}
   m_Layer: 0
   m_Name: Human1
   m_TagString: Untagged
@@ -469,7 +470,6 @@ MonoBehaviour:
   faceSprite: {fileID: 21300000, guid: 851c575126e6d4446b3b31b39534943b, type: 3}
   capsuleCollider: {fileID: 5190801969211301419}
   equipment: {fileID: 7920413486734182767}
-  smellValue: 110
   maxHealth: 15
   currentHealth: 15
   armor: 0
@@ -535,6 +535,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 6
+--- !u!114 &-8539550547530203520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252547005743388695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5423ddb90a4618444ba74b71a9656855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smellValue: 120
 --- !u!1 &5252547005743388697
 GameObject:
   m_ObjectHideFlags: 0

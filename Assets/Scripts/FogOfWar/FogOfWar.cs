@@ -6,6 +6,9 @@ public class FogOfWar : MonoBehaviour {
 
     public static FogOfWar Instance;
 
+    [SerializeField]
+    private bool enableFogOfWar = true;
+
     private Color32 visibleColor = new Color32(0, 0, 0, 0);
     private Color32 visitedColor = new Color32(0, 0, 0, 127);
     private Color32 notVisitedColor = new Color32(0, 0, 0, 255);
@@ -25,9 +28,13 @@ public class FogOfWar : MonoBehaviour {
     }
 
     private void LateUpdate() {
-        UpdateDataFromAgents();
-        GenerateFOWTexture2D();
-        SetFOWTexture2DToMaterial();
+        if (enableFogOfWar) {
+            UpdateDataFromAgents();
+            GenerateFOWTexture2D();
+            SetFOWTexture2DToMaterial();
+        }
+        else
+            fogOfWarRenderer.enabled = false;
     }
 
     public void AddAgent(FogOfWarAgent agent) {

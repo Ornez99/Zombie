@@ -7,14 +7,22 @@ public class SmellManager : MonoBehaviour {
 
     public static SmellManager Instance;
 
-    private const int smellSpreadingValue = 100;
-    private const float timeToNextSmellUpdate = 0.1f;
+    [SerializeField]
+    private bool showSmellMap;
+    [SerializeField]
+    private bool showVectorMap;
 
-    private Color32 smellColor;
-    private float lastSmellUpdateTime = 0;
+    [SerializeField]
+    private int smellSpreadingValue = 100;
+    [SerializeField]
+    private int smellSpreadingCost = 3;
 
-    public bool ShowSmellMap;
-    public bool ShowVectorMap;
+    [SerializeField]
+    private int updatePerFixedFrames = 5;
+    private int currentFixedFramesCounter = 0;
+
+    private Color32 smellColor = new Color32(0x2C, 0x6D, 0x51, 0xFF);
+    private List<SmellAgent> agents = new List<SmellAgent>();
 
     public int[,] SmellMap { get; set; }
     public Vector2[,] VectorMap { get; set; }
@@ -25,67 +33,78 @@ public class SmellManager : MonoBehaviour {
             Destroy(this);
         }
 
-        smellColor = new Color32(0x2C, 0x6D, 0x51, 0xFF);
         VectorMap = new Vector2[Map.Instance.MapSize, Map.Instance.MapSize];
         SmellMap = new int[Map.Instance.MapSize, Map.Instance.MapSize];
         Instance = this;
     }
 
-    private void Update() {
-        lastSmellUpdateTime += Time.deltaTime;
-
-        if (lastSmellUpdateTime >= timeToNextSmellUpdate) {
-            lastSmellUpdateTime = 0;
+    private void FixedUpdate() {
+        if (currentFixedFramesCounter >= updatePerFixedFrames) {
+            currentFixedFramesCounter = 0;
+            UpdateDataFromAgents();
             ProcessSmell();
-            VectorMap = SmellVectorMapGenerator.GenerateVectorMap(SmellMap);
+            UpdateVectorMap();
+        }
+        currentFixedFramesCounter++;
+    }
+
+    public void AddAgent(SmellAgent agent) {
+        if (agents.Contains(agent) == false)
+            agents.Add(agent);
+    }
+
+    public void RemoveAgent(SmellAgent agent) {
+        if (agents.Contains(agent) == true)
+            agents.Add(agent);
+    }
+
+    private void UpdateDataFromAgents() {
+        foreach (SmellAgent agent in agents) {
+            agent.UpdateSmell();
         }
     }
 
     private void ProcessSmell() {
-        for (int y = 0; y < Map.Instance.MapSize ; y++) {
-            for (int x = 0; x < Map.Instance.MapSize ; x++) {
-                Node node = Map.Instance.Grid[x, y];
-                if (node.SmellValue >= smellSpreadingValue) {
-                    List<Node> neighbours = Map.Instance.GetNeighbours4(node);
-                    foreach (Node neightbour in neighbours) {
-                        if (neightbour.Smellable && neightbour.SmellValue < node.SmellValue - 3)
-                            neightbour.SmellValue = node.SmellValue - 3;
-                    }
+        int smellMapWidth = SmellMap.GetLength(0);
+        int smellMapHeight = SmellMap.GetLength(1);
+
+        for (int y = 0; y < smellMapHeight; y++) {
+            for (int x = 0; x < smellMapWidth; x++) {
+                if (SmellMap[x,y] >= smellSpreadingValue) {
+                    if (y + 1 < smellMapHeight)
+                        if (Map.Instance.Grid[x, y + 1]?.Smellable == true && SmellMap[x, y + 1] < SmellMap[x, y] - smellSpreadingCost)
+                            SmellMap[x, y + 1] = SmellMap[x, y] - smellSpreadingCost;
+                    if (x + 1 < smellMapWidth)
+                        if (Map.Instance.Grid[x + 1, y]?.Smellable == true && SmellMap[x + 1, y] < SmellMap[x, y] - smellSpreadingCost)
+                            SmellMap[x + 1, y] = SmellMap[x, y] - smellSpreadingCost;
+                    if (y - 1 >= 0)
+                        if (Map.Instance.Grid[x, y - 1]?.Smellable == true && SmellMap[x, y - 1] < SmellMap[x, y] - smellSpreadingCost)
+                            SmellMap[x, y - 1] = SmellMap[x, y] - smellSpreadingCost;
+                    if (x - 1 >= 0)
+                        if (Map.Instance.Grid[x - 1, y]?.Smellable == true && SmellMap[x - 1, y] < SmellMap[x, y] - smellSpreadingCost)
+                            SmellMap[x - 1, y] = SmellMap[x, y] - smellSpreadingCost;
                 }
 
-                if (node.SmellValue > 0)
-                    node.SmellValue--;
-
-                SmellMap[x, y] = node.SmellValue;
+                if (SmellMap[x, y] > 0)
+                    SmellMap[x, y]--;
             }
         }
+    }
 
-        /*foreach (Node node in Map.Instance.Grid) {
-            if (node.SmellValue >= smellSpreadingValue) {
-                List<Node> neighbours = Map.Instance.GetNeighbours4(node);
-                foreach (Node neightbour in neighbours) {
-                    if (neightbour.Smellable && neightbour.SmellValue < node.SmellValue - 3)
-                        neightbour.SmellValue = node.SmellValue - 3;
-                }
-            }
-
-            if (node.SmellValue > 0)
-                node.SmellValue--;
-
-            SmellMap[node.XId, node.YId] = node.SmellValue;
-        }*/
+    private void UpdateVectorMap() {
+        VectorMap = SmellVectorMapGenerator.GenerateVectorMap(SmellMap);
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() {
         Gizmos.color = smellColor;
-        if (ShowSmellMap) {
+        if (showSmellMap) {
             foreach (Node node in Map.Instance.Grid) {
                 //Handles.Label(node.CenterPos, node.SmellValue.ToString());
                 Handles.Label(node.CenterPos, SmellMap[node.XId, node.YId].ToString());
             }
         }
-        else if (ShowVectorMap) {
+        else if (showVectorMap) {
             for (int y = 0; y < Map.Instance.MapSize; y++) {
                 for (int x = 0; x < Map.Instance.MapSize; x++) {
                     Vector3 center = new Vector3(x + 0.5f, 0, y + 0.5f);

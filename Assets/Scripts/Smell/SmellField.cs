@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class SmellField : MonoBehaviour {
+
     public static int[,] GenerateHeatmap (Node[] startNodes, int startX, int startY, int size) {
         if (startX < 0)
             startX = 0;
@@ -17,18 +17,15 @@ public class SmellField : MonoBehaviour {
 
         int[,] heatmap = new int[size, size];
         
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
+        for (int y = 0; y < size; y++) 
+            for (int x = 0; x < size; x++) 
                 heatmap[x, y] = (Map.Instance.Grid[x + startX, y + startY].Smellable) ? 0 : 65535;
-            }
-        }
 
         List<Vector3Int> list1 = new List<Vector3Int>(); 
         List<Vector3Int> list2 = new List<Vector3Int>();
 
-        for (int i = 0; i < startNodes.Length; i++) {
+        for (int i = 0; i < startNodes.Length; i++) 
             list1.Add(new Vector3Int(startNodes[i].XId - startX, startNodes[i].YId - startY, 0));
-        }
 
         while (list1.Count != 0) {
             for (int i = 0; i < list1.Count; i++) {
@@ -50,9 +47,8 @@ public class SmellField : MonoBehaviour {
             list2.Clear();
         }
 
-        for (int i = 0; i < startNodes.Length; i++) {
+        for (int i = 0; i < startNodes.Length; i++) 
             heatmap[startNodes[i].XId - startX, startNodes[i].YId - startY] = 0;
-        }
 
         return heatmap;
     }

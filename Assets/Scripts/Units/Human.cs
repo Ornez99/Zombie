@@ -6,8 +6,6 @@ using System;
 
 public class Human : Unit, IKillable {
 
-    [SerializeField]
-    private int smellValue = 0;
     private RectTransform healthTransform;
 
     [SerializeField]
@@ -32,8 +30,6 @@ public class Human : Unit, IKillable {
         VisionInterpreter.Tick();
 
         Node = Map.GetNodeFromPos(transform.position);
-        if (Node.SmellValue < smellValue)
-            Node.SmellValue = smellValue;
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
