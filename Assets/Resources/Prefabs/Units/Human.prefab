@@ -2538,6 +2538,7 @@ GameObject:
   - component: {fileID: 6950153784049809632}
   - component: {fileID: 5336852647148731568}
   - component: {fileID: -8586131411668350663}
+  - component: {fileID: 143096488749113112}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -2678,7 +2679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb89ca6b99e82e4a93c09fd118fdf73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 6
 --- !u!114 &-8586131411668350663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2692,6 +2692,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellValue: 120
+--- !u!114 &143096488749113112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234927722209260333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a13b150e3c4fb4096f2c07b0314ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateFieldOfViewVectors: 1
+  showFieldOfView: 0
+  angle: 90
+  gapBetweenRaysExternal: 0.5
+  gapBetweenRaysInternal: 0.5
+  rayDistanceInExternalCircle: 12
+  rayDistanceInInternalCircle: 3
+  raysStartTransform: {fileID: 7065934052247190638}
 --- !u!1 &234927722209260335
 GameObject:
   m_ObjectHideFlags: 0
