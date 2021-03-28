@@ -120,12 +120,7 @@ public class MapGenerator : MonoBehaviour {
                 if (color.Equals(emptyColor))
                     continue;
 
-                for (int i = 0; i < groundColors.Length; i++) {
-                    if (color.Equals(groundColors[i].InputColor)) {
-                        groundTexture2D.SetPixel(pos.x + x, pos.y + y, groundColors[i].OutputColor);
-                        break;
-                    }
-                }
+                groundTexture2D.SetPixel(pos.x + x, pos.y + y, color);
             }
         }
     }

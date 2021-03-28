@@ -11,7 +11,7 @@ public class Map : MonoBehaviour {
     [SerializeField]
     private MapGenerator mapGenerator = null;
 
-    public int MapSize { get => mapSize; private set => mapSize = value; }
+    public int MapSize { get => mapSize; set => mapSize = value; }
     public Node[,] Grid { get; private set; }
 
     public static Node GetNodeFromPos(Vector3 position) {
@@ -62,7 +62,7 @@ public class Map : MonoBehaviour {
         }
         Instance = this;
         GenerateGrid();
-        mapGenerator.GenerateMap();
+        mapGenerator?.GenerateMap();
     }
 
     public List<Node> GetNeighbours(Node node) {

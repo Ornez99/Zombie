@@ -21,10 +21,13 @@ public class BuildingFactory : MonoBehaviour
     public Building SpawnBuilding(Vector3 position, Quaternion rotation, BuildingType buildingType) {
         Node node = Map.GetNodeFromPos(position);
         Building building = Instantiate(buildingPrefabs[buildingType], position, rotation).GetComponent<Building>();
-        node.Buildable = building.Buildable;
-        node.Walkable = building.Walkable;
-        node.Viewable = building.Viewable;
-        node.Smellable = building.Smellable;
+        if (building != null) {
+            node.Building = building;
+            node.Buildable = building.Buildable;
+            node.Walkable = building.Walkable;
+            node.Viewable = building.Viewable;
+            node.Smellable = building.Smellable;
+        }
 
         return building;
     }

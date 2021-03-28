@@ -22,8 +22,9 @@ public class FogOfWar : MonoBehaviour {
             Debug.LogError($"There can be only one instance of {ToString()} script!");
             Destroy(this);
         }
-
         fogOfWarRenderer = GetComponent<Renderer>();
+        if (enableFogOfWar)
+            fogOfWarRenderer.enabled = true;
         Instance = this;
     }
 
