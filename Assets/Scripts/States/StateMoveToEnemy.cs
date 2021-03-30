@@ -16,7 +16,7 @@ public class StateMoveToEnemy : IState {
 
     public int GetScore() {
         int value = lastTargetNode != null ? 80 : 0;
-        value = (unit.VisionInterpreter.ClosestEnemy != null) ? 100 : value;
+        value = (unit.FieldOfView.ClosestEnemy != null) ? 100 : value;
         return value;
     }
 
@@ -30,7 +30,7 @@ public class StateMoveToEnemy : IState {
     }
 
     public void Tick() {
-        enemyUnit = unit.VisionInterpreter.ClosestEnemy;
+        enemyUnit = unit.FieldOfView.ClosestEnemy;
 
         if (lastTargetNode == null) {
             if (enemyUnit != null) {

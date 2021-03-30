@@ -54,7 +54,7 @@ public class SmellManager : MonoBehaviour {
 
     public void RemoveAgent(SmellAgent agent) {
         if (agents.Contains(agent) == true)
-            agents.Add(agent);
+            agents.Remove(agent);
     }
 
     private void UpdateDataFromAgents() {

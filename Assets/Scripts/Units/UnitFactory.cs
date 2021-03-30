@@ -29,16 +29,20 @@ public class UnitFactory : MonoBehaviour {
         switch (unitType) {
             case UnitType.Human:
                 //unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.SniperRiflev1);
+                unit.FieldOfView = new FieldOfViewPlayer(unit, 12f, 90f, unit.transform.GetChild(1));
                 break;
             case UnitType.Human1:
                 //unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.AutomaticRiflev1);
+                unit.FieldOfView = new FieldOfViewAlly(unit, 12f, 90f, unit.transform.GetChild(1));
                 break;
             case UnitType.Human2:
                 //unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.SniperRiflev1);
+                unit.FieldOfView = new FieldOfViewAlly(unit, 12f, 90f, unit.transform.GetChild(1));
                 break;
             case UnitType.Zombie:
                 unit.Weapon = WeaponFactory.Instance.SpawnWeapon(unit.Hand, WeaponType.Teeth);
                 unit.Weapon.GetComponent<Teeth>().Unit = unit;
+                unit.FieldOfView = new FieldOfViewEnemy(unit, 8f, 90f, unit.transform.GetChild(1));
                 break;
         }
     }

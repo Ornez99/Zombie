@@ -2,6 +2,7 @@
 
 public interface IMoveable {
 
+    Unit Unit { get; set; }
     float Speed { get; set; }
     bool DestinationReached { get; }
     bool PathCreated { get; }

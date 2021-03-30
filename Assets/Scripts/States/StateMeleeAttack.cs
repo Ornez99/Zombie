@@ -15,7 +15,7 @@ public class StateMeleeAttack : IState {
     }
 
     public int GetScore() {
-        Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;//unit.Vision.ClosestEnemy;
+        Unit closestEnemy = unit.FieldOfView.ClosestEnemy;//unit.Vision.ClosestEnemy;
 
         if (isAttacking > 0)
             return 125;
@@ -40,7 +40,7 @@ public class StateMeleeAttack : IState {
         if (isAttacking > 0)
             isAttacking -= Time.deltaTime;
 
-        Unit closestEnemy = unit.VisionInterpreter.ClosestEnemy;
+        Unit closestEnemy = unit.FieldOfView.ClosestEnemy;
         IKillable enemyKillable = closestEnemy?.GetComponent<IKillable>();
         if (enemyKillable != null)
             if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)

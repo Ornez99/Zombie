@@ -6,12 +6,15 @@ using System;
 
 public class Human : Unit, IKillable {
 
-    private RectTransform healthTransform;
+    [SerializeField]
+    private Transform humanModel;
 
     [SerializeField]
     private float maxHealth;
+
     [SerializeField]
     private float currentHealth;
+
     [SerializeField]
     private float armor;
 
@@ -25,12 +28,13 @@ public class Human : Unit, IKillable {
         if (isDead)
             return;
 
+        humanModel.localPosition = Vector3.zero; // Animations are breaking game
+
         Controller.Tick();
+    }
 
-        VisionInterpreter.Tick();
-
-        Node = Map.GetNodeFromPos(transform.position);
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    private void LateUpdate() {
+        FieldOfView?.Tick();
     }
 
     public void OnTakeControl(PlayerController playerController) {

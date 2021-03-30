@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField]
     private GameObject ground = null;
 
-    private Color32 emptyColor = new Color32(255, 255, 255, 255);
+    private Color32 emptyColor = new Color32(0, 0, 0, 0);
 
     private ColorToColor[] groundColors;
     private ColorToBuildingType[] buildingTypeColors;
@@ -29,15 +29,22 @@ public class MapGenerator : MonoBehaviour {
         CreateGroundTexture();
         SetBorderSize();
         SetSpawnable();
+        CreateWallsAtMapBorder();
         InstantiateHouses();
         SetGroundTextureAndSize();
+        PlantTrees();
     }
 
     private void CreateGroundTexture() {
         groundTexture2D = new Texture2D(Map.Instance.MapSize, Map.Instance.MapSize);
+        float[,] grassNoise = Noise.GenerateNoiseMap(Map.Instance.MapSize, 0, 8, 4, 1, 0.5f, Vector2.zero);
+        float[,] concreteNoise = Noise.GenerateNoiseMap(Map.Instance.MapSize, 1, 8, 4, 1, 0.5f, Vector2.zero);
+
         for (int y = 0; y < Map.Instance.MapSize; y++) {
             for (int x = 0; x < Map.Instance.MapSize; x++) {
-                groundTexture2D.SetPixel(x, y, groundColors[1].OutputColor);
+                float grassStrength = (1f * grassNoise[x, y]) / 2f + 0.5f;
+                float concreteStrength = (1f * concreteNoise[x, y]) / 2f;
+                groundTexture2D.SetPixel(x, y, new Color(grassStrength, concreteStrength, 0, 0));
             }
         }
     }
@@ -58,6 +65,15 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
+    private void CreateWallsAtMapBorder() {
+        for (int y = 0; y < Map.Instance.MapSize; y++) {
+            for (int x = 0; x < Map.Instance.MapSize; x++) {
+                if (x == 0 || y == 0 || x == Map.Instance.MapSize - 1 || y == Map.Instance.MapSize - 1)
+                    BuildingFactory.Instance.SpawnBuilding(new Vector3(x + 0.5f, 0, y + 0.5f), Quaternion.Euler(0, 0, 0), BuildingType.Wall);
+            }
+        }
+    }
+
     private void LoadDataFromResources() {
         groundColors = Resources.LoadAll<ColorToColor>("ScriptableObjects/ColorToColor");
         buildingTypeColors = Resources.LoadAll<ColorToBuildingType>("ScriptableObjects/ColorToBuildingType");
@@ -69,7 +85,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void InstantiateHouses() {
         int generatedHouses = 0;
-        int availableIterations = 1000;
+        int availableIterations = 50;
 
         while (availableIterations > 0 && generatedHouses < housesAmount) {
             int houseId = Random.Range(0, houseFloors.Length);
@@ -121,6 +137,7 @@ public class MapGenerator : MonoBehaviour {
                     continue;
 
                 groundTexture2D.SetPixel(pos.x + x, pos.y + y, color);
+                
             }
         }
     }
@@ -159,5 +176,31 @@ public class MapGenerator : MonoBehaviour {
         groundTexture2D.Apply();
         ground.GetComponent<Renderer>().material.SetTexture("_Control", groundTexture2D);
     }
+
+    private void PlantTrees() {
+        float[,] treesNoise = Noise.GenerateNoiseMap(Map.Instance.MapSize, 2, 8, 4, 1, 0.5f, Vector2.zero);
+        int maxIterations = 256;
+        int currentIterations = 0;
+        while (currentIterations < maxIterations) {
+            int gridX = Random.Range(1, Map.Instance.MapSize - 1);
+            int gridZ = Random.Range(1, Map.Instance.MapSize - 1);
+            Node randomNode = Map.Instance.Grid[gridX, gridZ];
+            if (spawnable[gridX,gridZ]) {
+                BuildingType type = BuildingType.Tree1;
+                if (treesNoise[gridX, gridZ] > 0.66f)
+                    type = BuildingType.Tree2;
+                else if (treesNoise[gridX, gridZ] > 0.33f)
+                    type = BuildingType.Tree3;
+
+                BuildingFactory.Instance.SpawnBuilding(randomNode.CenterPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0), type);
+                spawnable[gridX, gridZ] = false;
+            }
+
+            currentIterations++;
+        }
+
+
+    }
+
 
 }

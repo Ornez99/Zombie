@@ -136,6 +136,20 @@ public class HouseEditor : MonoBehaviour {
             mouseTransform.position = new Vector3(posX, 0, posZ);
         }
 
+        if (Input.GetMouseButton(1) && !EventSystem.current.IsPointerOverGameObject()) {
+            if (paintType == PaintType.Ground) {
+                mousePos = Input.mousePosition;
+                hit = new RaycastHit();
+                ray = Camera.main.ScreenPointToRay(mousePos);
+                if (Physics.Raycast(ray, out hit, 100, groundLayer)) {
+                    groundTexture2D.SetPixel(posX, posZ, new Color32(0, 0, 0, 0));
+                }
+            }
+
+            groundTexture2D.Apply();
+            ground.GetComponent<Renderer>().material.SetTexture("_Control", groundTexture2D);
+        }
+
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) {
             if (paintType == PaintType.Ground) {
                 mousePos = Input.mousePosition;
@@ -199,6 +213,7 @@ public class HouseEditor : MonoBehaviour {
 
                 if (node.Buildable == false) {
                     node.Buildable = true;
+                    buildingsTexture2D.SetPixel(node.XId, node.YId, new Color32(0xFF, 0xFF, 0xFF, 0xFF));
                     if (node.Building != null)
                         Destroy(node.Building.gameObject);
                 }
@@ -224,7 +239,7 @@ public class HouseEditor : MonoBehaviour {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                groundTexture2D.SetPixel(x, y, new Color32(0xFF, 0, 0, 0));
+                groundTexture2D.SetPixel(x, y, new Color32(0, 0, 0, 0));
                 rotationTexture2D.SetPixel(x, y, new Color32(0xFF, 0xFF, 0xFF, 0xFF));
                 buildingsTexture2D.SetPixel(x, y, new Color32(0xFF, 0xFF, 0xFF, 0xFF));
             }
@@ -315,12 +330,17 @@ public class HouseEditor : MonoBehaviour {
             File.WriteAllBytes(path, bytes);
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
-#endif
             Texture2D texture = Resources.Load<Texture2D>("Houses/Floors/Floor_" + fileName);
             string assetPath = AssetDatabase.GetAssetPath(texture);
             var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-            importer.isReadable = true;
-            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            TextureImporterSettings texSettings = new TextureImporterSettings();
+            importer.ReadTextureSettings(texSettings);
+            texSettings.readable = true;
+            texSettings.wrapMode = TextureWrapMode.Clamp;
+            texSettings.filterMode = FilterMode.Bilinear;
+            importer.SetTextureSettings(texSettings);
+            UnityEditor.AssetDatabase.Refresh();
+#endif
         }
 
         bytes = buildingsTexture2D.EncodeToPNG();
@@ -330,12 +350,17 @@ public class HouseEditor : MonoBehaviour {
             File.WriteAllBytes(path, bytes);
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
-#endif
             Texture2D texture = Resources.Load<Texture2D>("Houses/Objects/Objects_" + fileName);
             string assetPath = AssetDatabase.GetAssetPath(texture);
             var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-            importer.isReadable = true;
-            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            TextureImporterSettings texSettings = new TextureImporterSettings();
+            importer.ReadTextureSettings(texSettings);
+            texSettings.readable = true;
+            texSettings.wrapMode = TextureWrapMode.Clamp;
+            texSettings.filterMode = FilterMode.Point;
+            importer.SetTextureSettings(texSettings);
+            UnityEditor.AssetDatabase.Refresh();
+#endif
         }
 
         bytes = rotationTexture2D.EncodeToPNG();
@@ -345,12 +370,17 @@ public class HouseEditor : MonoBehaviour {
             File.WriteAllBytes(path, bytes);
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
-#endif
             Texture2D texture = Resources.Load<Texture2D>("Houses/Directions/Directions_" + fileName);
             string assetPath = AssetDatabase.GetAssetPath(texture);
             var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-            importer.isReadable = true;
-            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            TextureImporterSettings texSettings = new TextureImporterSettings();
+            importer.ReadTextureSettings(texSettings);
+            texSettings.readable = true;
+            texSettings.wrapMode = TextureWrapMode.Clamp;
+            texSettings.filterMode = FilterMode.Point;
+            importer.SetTextureSettings(texSettings);
+            UnityEditor.AssetDatabase.Refresh();
+#endif
         }
 
 

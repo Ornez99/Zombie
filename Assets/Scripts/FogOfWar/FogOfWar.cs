@@ -9,6 +9,7 @@ public class FogOfWar : MonoBehaviour {
     [SerializeField]
     private bool enableFogOfWar = true;
 
+
     private Color32 visibleColor = new Color32(0, 0, 0, 0);
     private Color32 visitedColor = new Color32(0, 0, 0, 127);
     private Color32 notVisitedColor = new Color32(0, 0, 0, 255);
@@ -45,18 +46,18 @@ public class FogOfWar : MonoBehaviour {
 
     public void RemoveAgent(FogOfWarAgent agent) {
         if (agents.Contains(agent) == true)
-            agents.Add(agent);
+            agents.Remove(agent);
     }
 
     private void UpdateDataFromAgents() {
         foreach (FogOfWarAgent agent in agents) {
-            agent.SetNodesInRadius(false);
+            agent?.SetNodesInRadius(false);
         }
         foreach (FogOfWarAgent agent in agents) {
-            agent.UpdateNodesInRadius();
+            agent?.UpdateNodesInRadius();
         }
         foreach (FogOfWarAgent agent in agents) {
-            agent.SetNodesInRadius(true);
+            agent?.SetNodesInRadius(true);
         }
     }
 

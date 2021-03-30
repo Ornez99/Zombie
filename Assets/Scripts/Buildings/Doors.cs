@@ -36,6 +36,7 @@ public class Doors : Building, IInteractable {
             animator.SetBool("Opened", !opened);
 
             Viewable = !Viewable;
+            Map.GetNodeFromPos(transform.position).Viewable = Viewable;
         }
     }
 

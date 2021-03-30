@@ -23,12 +23,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2194131850535120678}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8397810814562313810}
-  m_RootOrder: 6
+  m_Father: {fileID: 6273937414805951537}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5653537435411492844
 GameObject:
@@ -58,7 +58,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6273937414805951537}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6273937414806112257
 GameObject:
@@ -319,11 +319,9 @@ GameObject:
   - component: {fileID: 505867545248314162}
   - component: {fileID: 2876365483252302190}
   - component: {fileID: 8595017055432800896}
-  - component: {fileID: 5430665442805631174}
   - component: {fileID: 8324977278643510935}
   - component: {fileID: 4758169959696324235}
   - component: {fileID: -7931687920931092562}
-  - component: {fileID: -4317036662632960954}
   m_Layer: 0
   m_Name: Human2
   m_TagString: Untagged
@@ -343,6 +341,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8397810814562313810}
+  - {fileID: 3859606163322262319}
   - {fileID: 2711924358721429983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -399,6 +398,7 @@ MonoBehaviour:
   faceSprite: {fileID: 21300000, guid: a1e5039eb66a6e7429aae6cdc2c94087, type: 3}
   capsuleCollider: {fileID: 505867545248314162}
   equipment: {fileID: 8324977278643510935}
+  humanModel: {fileID: 8397810814562313810}
   maxHealth: 15
   currentHealth: 15
   armor: 0
@@ -416,25 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRadius: 0.5
   minimumDistance: 0.1
-  movementSpeed: 10
---- !u!114 &5430665442805631174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273937414806112273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443f2ee4d135de84ca7e2bba5a97509b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gapBetweenRays: 0.1
-  rayDistance: 8
-  raysStartTransform: {fileID: 3859606163322262319}
-  showObjectsInSight: 0
-  visionAngle: 120
-  saveHitsVector3: 1
+  movementSpeed: 5
 --- !u!114 &8324977278643510935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,26 +458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellValue: 120
---- !u!114 &-4317036662632960954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273937414806112273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a13b150e3c4fb4096f2c07b0314ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generateFieldOfViewVectors: 1
-  showFieldOfView: 0
-  angle: 90
-  gapBetweenRaysExternal: 0.5
-  gapBetweenRaysInternal: 0.5
-  rayDistanceInExternalCircle: 12
-  rayDistanceInInternalCircle: 3
-  raysStartTransform: {fileID: 3859606163322262319}
 --- !u!1 &6273937414806112275
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,7 +3038,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885022759106599707}
-  m_LocalRotation: {x: 0, y: 0.24845316, z: 0, w: 0.9686439}
+  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3086,7 +3048,6 @@ Transform:
   - {fileID: 6273937414805951917}
   - {fileID: 6273937414805951907}
   - {fileID: 6273937414805951539}
-  - {fileID: 3859606163322262319}
   m_Father: {fileID: 6273937414805951537}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 28.772, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}

@@ -66,7 +66,8 @@ public class Firearm : Weapon {
                 enemyKillable.TakeDamage(damage);
 
             gunLine.SetPosition(1, shootHit.point);
-            Instantiate(hitParticles, shootHit.point, Quaternion.Euler(0, 0, 0));
+            ParticleSystem ins = Instantiate(hitParticles, shootHit.point, Quaternion.Euler(0, 0, 0));
+            Destroy(ins, 2f);
         }
         else {
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * shootRange);

@@ -14,6 +14,8 @@ public class Zombie : Unit, IKillable {
     private float currentHealth;
     [SerializeField]
     private float armor;
+    [SerializeField]
+    private Transform zombieModel;
 
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
@@ -22,22 +24,28 @@ public class Zombie : Unit, IKillable {
     private void Update() {
         if (isDead)
             return;
+        
+        zombieModel.localPosition = Vector3.zero; // Animations are breaking game :(
 
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-
-        Node = Map.GetNodeFromPos(transform.position);
         Controller.Tick();
-        VisionInterpreter.Tick();
-        Node = Map.GetNodeFromPos(transform.position);
+
+        // Do zmiany.
+        SetActiveGraphics(Map.Instance.Grid[Node.XId - 1, Node.YId - 1]?.Visible == true);
     }
 
-    private void FixedUpdate() {
-        Vision?.Tick();
+    private void SetActiveGraphics(bool value) {
+        for (int i = Graphics.Count - 1; i >= 0; i--) {
+            Graphics[i].SetActive(value);
+        }
+    }
+
+    private void LateUpdate() {
+        FieldOfView?.Tick();
     }
 
 #if UNITY_EDITOR
     private void OnGUI() {
-        Handles.Label(transform.position, Controller.StateMachine.ToString());
+        //Handles.Label(transform.position, Controller.StateMachine.ToString());
     }
 #endif
     private void OnDrawGizmos() {

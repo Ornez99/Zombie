@@ -2534,11 +2534,9 @@ GameObject:
   - component: {fileID: 2886321618102778979}
   - component: {fileID: 4153606798109522808}
   - component: {fileID: 6339797693910614634}
-  - component: {fileID: 53994341584773819}
   - component: {fileID: 6950153784049809632}
   - component: {fileID: 5336852647148731568}
   - component: {fileID: -8586131411668350663}
-  - component: {fileID: 143096488749113112}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -2558,6 +2556,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1400940862275077650}
+  - {fileID: 7065934052247190638}
   - {fileID: 5405646091903071321}
   - {fileID: 6369519028779729054}
   m_Father: {fileID: 0}
@@ -2615,6 +2614,7 @@ MonoBehaviour:
   faceSprite: {fileID: 21300000, guid: be2614cf75e084b42bfc2e2c151461f4, type: 3}
   capsuleCollider: {fileID: 2886321618102778979}
   equipment: {fileID: 6950153784049809632}
+  humanModel: {fileID: 1400940862275077650}
   maxHealth: 15
   currentHealth: 15
   armor: 0
@@ -2632,25 +2632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRadius: 0.5
   minimumDistance: 0.1
-  movementSpeed: 10
---- !u!114 &53994341584773819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234927722209260333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443f2ee4d135de84ca7e2bba5a97509b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gapBetweenRays: 0.1
-  rayDistance: 8
-  raysStartTransform: {fileID: 7065934052247190638}
-  showObjectsInSight: 0
-  visionAngle: 120
-  saveHitsVector3: 1
+  movementSpeed: 5
 --- !u!114 &6950153784049809632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2692,26 +2674,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellValue: 120
---- !u!114 &143096488749113112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234927722209260333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a13b150e3c4fb4096f2c07b0314ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generateFieldOfViewVectors: 1
-  showFieldOfView: 0
-  angle: 90
-  gapBetweenRaysExternal: 0.5
-  gapBetweenRaysInternal: 0.5
-  rayDistanceInExternalCircle: 12
-  rayDistanceInInternalCircle: 3
-  raysStartTransform: {fileID: 7065934052247190638}
 --- !u!1 &234927722209260335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,7 +2984,6 @@ Transform:
   - {fileID: 234927722209160849}
   - {fileID: 234927722209160863}
   - {fileID: 234927722209160975}
-  - {fileID: 7065934052247190638}
   m_Father: {fileID: 234927722209160973}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
@@ -3054,7 +3015,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 234927722209160973}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4464220613459552713
 GameObject:
@@ -3079,12 +3040,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464220613459552713}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1400940862275077650}
-  m_RootOrder: 6
+  m_Father: {fileID: 234927722209160973}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7793848198140362201
 GameObject:
@@ -3114,5 +3075,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 234927722209160973}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

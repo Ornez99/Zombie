@@ -18,34 +18,34 @@ public abstract class Unit : MonoBehaviour {
     [SerializeField]
     protected CapsuleCollider capsuleCollider;
 
-
     [SerializeField]
     protected Equipment equipment;
+
+    [SerializeField]
+    protected List<GameObject> Graphics;
 
     protected bool isDead;
 
     public Sprite FaceSprite { get => faceSprite; }
 
-    
-
     public IController Controller { get; set; }
     public IMoveable Drive { get; set; }
+    public IFieldOfView FieldOfView { get; set; }
+
     public Weapon Weapon { get; set; }
-    public Vision Vision { get; set; }
-    public VisionInterpreter VisionInterpreter { get; set; }
     public Equipment Equipment { get => equipment; }
 
     public Transform Hand { get => hand; set => hand = value; }
     public Transform Mouth { get => mouth; set => mouth = value; }
     public int GetTeam { get => team; }
-    public Node Node { get; protected set; }
+    public Node Node { get; set; }
     public Animator Animator { get => animator; }
+
     
 
     protected void Awake() {
-        Vision = GetComponent<Vision>();
-        VisionInterpreter = new VisionInterpreter(Vision, this);
         Drive = GetComponent<IMoveable>();
+        Drive.Unit = this;
         Node = Map.GetNodeFromPos(transform.position);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,18 +10,23 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
 
     [SerializeField]
     private float minimumDistance = 0.1f;
+
     [SerializeField]
     private float movementSpeed = 1f;
+
     private Vector3 destination;
     private List<Vector3> path;
+    private Node lastNode;
 
     public bool DestinationReached { get; private set; }
     public bool PathCreated { get; private set; }
     public float Speed { get => movementSpeed; set => movementSpeed = value; }
+    public Unit Unit { get; set; }
 
     private void Awake() {
         PathCreated = false;
         DestinationReached = true;
+        lastNode = Unit.Node;
     }
     public void ResetPath() {
         PathCreated = false;
@@ -39,15 +45,17 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
         if (DestinationReached == true || PathCreated == false)
             return;
 
-        if (path.Count == 0)
-            Debug.Log("JAK?");
-
         Vector3 direction = -1 * Vector3.Normalize(transform.position - path[0]);
         MoveWithNormalizedDirection(direction);
         if (Vector3.Distance(transform.position, path[0]) <= minimumDistance) {
             path.RemoveAt(0);
             if (path.Count == 0)
                 DestinationReached = true;
+        }
+
+        lastNode = Map.GetNodeFromPos(transform.position);
+        if (lastNode != Unit.Node) {
+            Unit.Node = lastNode;
         }
     }
 
@@ -85,8 +93,16 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
             }
         }
 
+        potentialPositionV3.y = 0;
+
         transform.LookAt(potentialPositionV3);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         transform.position = potentialPositionV3;
+
+        lastNode = Map.GetNodeFromPos(transform.position);
+        float distanceToCurrentNode = Vector3.Distance(Unit.transform.position, Unit.Node.CenterPos);
+        if (lastNode != Unit.Node && distanceToCurrentNode >= 0.8f) {
+            Unit.Node = lastNode;
+        }
     }
 }

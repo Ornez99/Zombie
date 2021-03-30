@@ -71,7 +71,7 @@ public class PlayerController : IController {
 
     private void UpdateInteractionObject() {
         currentInteractable?.StopHighlight();
-        currentInteractable = Owner.VisionInterpreter.ClosestInteractable;
+        currentInteractable = Owner.FieldOfView.ClosestInteractable;
         currentInteractable?.Highlight();
     }
 

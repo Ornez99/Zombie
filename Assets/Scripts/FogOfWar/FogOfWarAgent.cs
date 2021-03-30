@@ -3,36 +3,47 @@ using UnityEngine;
 
 public class FogOfWarAgent : MonoBehaviour {
 
-
     private List<Node> nodesInRadius = new List<Node>();
-    private FieldOfViewAgent fieldOfViewAgent;
-
-    private void Awake() {
-        fieldOfViewAgent = GetComponent<FieldOfViewAgent>();
-    }
+    private IFieldOfView fieldOfView;
 
     private void Start() {
+        fieldOfView = GetComponent<Unit>().FieldOfView;
         FogOfWar.Instance.AddAgent(this);
     }
 
     public void UpdateNodesInRadius() {
         nodesInRadius.Clear();
-        nodesInRadius.Add(Map.GetNodeFromPos(transform.position));
-        foreach (Vector3 endPos in fieldOfViewAgent.FieldOfViewVectors) {
-            
+        
+        foreach (Vector3 endPos in fieldOfView.Vectors) {
+            if (endPos == Vector3.zero)
+                break;
+
             float length = (new Vector3(endPos.x, 0, endPos.z) - new Vector3(transform.position.x, 0, transform.position.z)).magnitude;
             Vector3 direction = (new Vector3(endPos.x, 0, endPos.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
             float step = direction.magnitude;
-            float currentLength = step * 2;
+            float currentLength = step;
             Vector3 currentPos = transform.position + direction;
             while (currentLength < length) {
                 Node candidate = Map.GetNodeFromPos(currentPos);
+                if (candidate.Viewable == false)
+                    break;
+
                 if (candidate != null && nodesInRadius.Contains(candidate) == false)
                     nodesInRadius.Add(candidate);
 
                 currentPos += direction;
                 currentLength += step;
             } 
+        }
+
+        Node currentNode = Map.GetNodeFromPos(transform.position);
+        for (int y = -1; y <= 0; y++) {
+            for (int x = -1; x <= 0; x++) {
+                Node candidate = Map.Instance.Grid[currentNode.XId + x, currentNode.YId + y];
+                if (candidate.Viewable)
+                    if (nodesInRadius.Contains(candidate) == false)
+                        nodesInRadius.Add(candidate);
+            }
         }
     }
 
@@ -43,6 +54,10 @@ public class FogOfWarAgent : MonoBehaviour {
             if (node.Visited == false)
                 node.Visited = true;
         }
+    }
+
+    private void OnDestroy() {
+        FogOfWar.Instance.RemoveAgent(this);
     }
 
 }

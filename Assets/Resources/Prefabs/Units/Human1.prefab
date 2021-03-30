@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4864450257134331997}
-  m_LocalRotation: {x: 0, y: 0.24845316, z: 0, w: 0.9686439}
+  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -33,10 +33,9 @@ Transform:
   - {fileID: 5252547005743875499}
   - {fileID: 5252547005743875493}
   - {fileID: 5252547005743875125}
-  - {fileID: 5870072458493772894}
   m_Father: {fileID: 5252547005743875127}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 28.772, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
 --- !u!1 &5252547005743388673
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,11 +390,9 @@ GameObject:
   - component: {fileID: 5190801969211301419}
   - component: {fileID: 2234802336577622660}
   - component: {fileID: 8435546445622821315}
-  - component: {fileID: 202443833598899063}
   - component: {fileID: 7920413486734182767}
   - component: {fileID: 7149235075261618125}
   - component: {fileID: -8539550547530203520}
-  - component: {fileID: -6211639553922654203}
   m_Layer: 0
   m_Name: Human1
   m_TagString: Untagged
@@ -415,6 +412,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1075983302074725218}
+  - {fileID: 5870072458493772894}
   - {fileID: 5053948559364650590}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -471,6 +469,7 @@ MonoBehaviour:
   faceSprite: {fileID: 21300000, guid: 851c575126e6d4446b3b31b39534943b, type: 3}
   capsuleCollider: {fileID: 5190801969211301419}
   equipment: {fileID: 7920413486734182767}
+  humanModel: {fileID: 1075983302074725218}
   maxHealth: 15
   currentHealth: 15
   armor: 0
@@ -488,25 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRadius: 0.5
   minimumDistance: 0.1
-  movementSpeed: 10
---- !u!114 &202443833598899063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252547005743388695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443f2ee4d135de84ca7e2bba5a97509b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gapBetweenRays: 0.1
-  rayDistance: 8
-  raysStartTransform: {fileID: 5870072458493772894}
-  showObjectsInSight: 0
-  visionAngle: 120
-  saveHitsVector3: 1
+  movementSpeed: 5
 --- !u!114 &7920413486734182767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,26 +529,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellValue: 120
---- !u!114 &-6211639553922654203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252547005743388695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a13b150e3c4fb4096f2c07b0314ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generateFieldOfViewVectors: 1
-  showFieldOfView: 0
-  angle: 90
-  gapBetweenRaysExternal: 0.5
-  gapBetweenRaysInternal: 0.5
-  rayDistanceInExternalCircle: 12
-  rayDistanceInInternalCircle: 3
-  raysStartTransform: {fileID: 5870072458493772894}
 --- !u!1 &5252547005743388697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,12 +3010,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596361303255302380}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1075983302074725218}
-  m_RootOrder: 6
+  m_Father: {fileID: 5252547005743875127}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8835726727588083770
 GameObject:
@@ -3084,5 +3045,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5252547005743875127}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

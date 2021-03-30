@@ -19,13 +19,13 @@ public class DayNightSystem : MonoBehaviour {
     private Light sun = null;
     [SerializeField]
     private Light moon = null;
-    private bool lastIsDayCheck;
     [SerializeField]
     private Image timeImage = null;
+
+    private bool lastIsDayCheck;
     private RectTransform timeRectTransform;
     private Color32 dayColor = new Color32(0xE4, 0xD2, 0x67, 0xFF);
     private Color32 nightColor = new Color32(0x18, 0x3A, 0x58, 0xFF);
-
 
     public bool IsDay => (currentMinute > dayStartMinute && currentMinute < nightStartMinute);
     public int GetHour => Mathf.FloorToInt(currentMinute / 60);
@@ -55,7 +55,6 @@ public class DayNightSystem : MonoBehaviour {
         lastIsDayCheck = IsDay;
     }
 
-
     private void UpdateTimeSlider() {
         if (lastIsDayCheck != IsDay) {
             timeImage.color = (IsDay) ? dayColor : nightColor;
@@ -79,16 +78,5 @@ public class DayNightSystem : MonoBehaviour {
             sun.gameObject.SetActive(IsDay);
             moon.gameObject.SetActive(!IsDay);
         }
-
-        /*if (IsDay) {
-            sun.gameObject.SetActive(true);
-            moon.gameObject.SetActive(false);
-        } 
-        else {
-            sun.gameObject.SetActive(false);
-            moon.gameObject.SetActive(true);
-        }*/
     }
-
-
 }

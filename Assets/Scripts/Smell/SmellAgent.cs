@@ -15,4 +15,8 @@ public class SmellAgent : MonoBehaviour {
         if (SmellManager.Instance.SmellMap[currentX, currentZ] < smellValue)
             SmellManager.Instance.SmellMap[currentX, currentZ] = smellValue;
     }
+
+    private void OnDestroy() {
+        SmellManager.Instance.RemoveAgent(this);
+    }
 }
