@@ -26,4 +26,9 @@ public abstract class Item : ScriptableObject {
         Debug.Log($"{itemName} does not override Equip.");
     }
 
+    public virtual void Drop(Unit unit) {
+        Player.Instance.CreateItemOnGround(unit.transform.position, this);
+        unit.Equipment.RemoveItem(this);
+    }
+
 }

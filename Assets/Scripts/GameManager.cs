@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
+    private MainQuest mainQuest = default;
+    [SerializeField]
     private FogOfWar fogOfWar = default;
     [SerializeField]
     private Pathfinding pathfinding = null;
@@ -29,10 +31,10 @@ public class GameManager : MonoBehaviour {
         Initialize();
         SetResolution();
         Spawn3Humans();
-
     }
 
     private void Initialize() {
+        mainQuest.Initialize();
         weaponFactory.Initialize();
         unitFactory.Initialize();
         buildingFactory.Initialize();
@@ -49,9 +51,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Spawn3Humans() {
-        Human unit1 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 32.5f), Quaternion.Euler(0, 0, 0), UnitType.Human).GetComponent<Human>();
-        Human unit2 = unitFactory.SpawnUnit(new Vector3(32.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human1).GetComponent<Human>();
-        Human unit3 = unitFactory.SpawnUnit(new Vector3(33.5f, 0, 33.5f), Quaternion.Euler(0, 0, 0), UnitType.Human2).GetComponent<Human>();
+        Human unit1 = unitFactory.SpawnUnit(new Vector3(60.5f, 0, 60.5f), Quaternion.Euler(0, 0, 0), UnitType.Human).GetComponent<Human>();
+        Human unit2 = unitFactory.SpawnUnit(new Vector3(60.5f, 0, 61.5f), Quaternion.Euler(0, 0, 0), UnitType.Human1).GetComponent<Human>();
+        Human unit3 = unitFactory.SpawnUnit(new Vector3(61.5f, 0, 60.5f), Quaternion.Euler(0, 0, 0), UnitType.Human2).GetComponent<Human>();
         player.AddOwnedHuman(unit1);
         player.AddOwnedHuman(unit2);
         player.AddOwnedHuman(unit3);

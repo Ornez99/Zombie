@@ -70,7 +70,7 @@ public class FieldOfViewPlayer : IFieldOfView {
 
             foreach (RaycastHit hit in hits) {
                 if (Vector3.Distance(hit.transform.position, raysStartTransform.position) <= distanceToClosestVisionBlocker) {
-                    if (hit.transform.GetComponent<IInteractable>() != null) {
+                    if (hit.transform.GetComponent<IInteractable>() != null && hit.transform.GetComponent<IInteractable>()?.Enabled == true) {
                         float potentialDist = Vector3.Distance(owner.transform.position, hit.transform.position);
                         if (minDistToInteractable > potentialDist && potentialDist < 1.5f) {
                             minDistToInteractable = potentialDist;

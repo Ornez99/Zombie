@@ -1,17 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Firearm : Weapon {
 
     [SerializeField]
     private Transform bulletSpawnTransform = null;
     [SerializeField]
-    private float shootRange = 0;
-
-    [SerializeField]
     private ParticleSystem hitParticles = null;
-
     [SerializeField]
     private LineRenderer gunLine = null;
     [SerializeField]
@@ -20,35 +14,33 @@ public class Firearm : Weapon {
     private Light gunLight = null;
     [SerializeField]
     private AudioSource gunAudio = null;
-    private int layerShootable = 1 << 9;
 
-    private void Awake() {
-        //DisableEffects();
-        //gunAudio.Stop();
-    }
+    private int layerShootable = 1 << 9;
+    private bool effectsEnabled = default;
 
     private void Update() {
-        timer += Time.deltaTime;
-        if (timer >= timeBetweenShots * effectsDisplayTime)
+        if (timeToNextShot > 0)
+            timeToNextShot -= Time.deltaTime;
+
+        if(effectsEnabled && timeToNextShot <= timeBetweenShots - timeBetweenShots * effectsDisplayTime)
             DisableEffects();
 
         UpdateLaser();
     }
 
     public override void Attack() {
-        if (timer >= timeBetweenShots)
+        if (timeToNextShot <= 0)
             Shoot();
     }
 
     public override void AttackUnit(IKillable target) {
-        
+        Debug.Log($"AttackUnit is not implemented in {ToString()}.");
     }
 
     private void Shoot() {
-        timer = 0;
+        timeToNextShot = timeBetweenShots;
         gunAudio.Play();
         gunLight.enabled = true;
-        // Particles?
 
         gunLine.enabled = true;
         gunLine.SetPosition(0, bulletSpawnTransform.position);
@@ -58,40 +50,40 @@ public class Firearm : Weapon {
         shootRay.direction = transform.forward;
 
         RaycastHit shootHit;
-        if (Physics.Raycast(shootRay, out shootHit, shootRange, layerShootable)) {
-            Unit enemyUnit = shootHit.transform.parent?.parent?.GetComponent<Unit>();
-            IKillable enemyKillable = enemyUnit?.GetComponent<IKillable>();
+        if (Physics.Raycast(shootRay, out shootHit, attackRange, layerShootable)) {
+            IKillable enemyKillable = shootHit.transform.GetComponent<IKillable>();
 
             if (enemyKillable != null)
                 enemyKillable.TakeDamage(damage);
 
             gunLine.SetPosition(1, shootHit.point);
-            ParticleSystem ins = Instantiate(hitParticles, shootHit.point, Quaternion.Euler(0, 0, 0));
-            Destroy(ins, 2f);
+            GameObject ins = Instantiate(hitParticles, shootHit.point, Quaternion.Euler(0, 0, 0)).gameObject;
+            Destroy(ins, 1f);
         }
         else {
-            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * shootRange);
+            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * attackRange);
         }
+
+        effectsEnabled = true;
     }
 
     private void DisableEffects() {
         gunLine.enabled = false;
         gunLight.enabled = false;
+        effectsEnabled = false;
     }
 
     private void UpdateLaser() {
         gunLaser.SetPosition(0, bulletSpawnTransform.position);
+
         Ray shootRay = new Ray();
         shootRay.origin = bulletSpawnTransform.position;
         shootRay.direction = transform.forward;
-        RaycastHit shootHit;
-        if (Physics.Raycast(shootRay, out shootHit, shootRange, layerShootable)) {
-            gunLaser.SetPosition(1, shootHit.point);
-        }
-        else {
-            gunLaser.SetPosition(1, shootRay.origin + shootRay.direction * shootRange);
-        }
-    }
 
-    
+        RaycastHit shootHit;
+        if (Physics.Raycast(shootRay, out shootHit, attackRange, layerShootable)) 
+            gunLaser.SetPosition(1, shootHit.point);
+        else 
+            gunLaser.SetPosition(1, shootRay.origin + shootRay.direction * attackRange);
+    }
 }

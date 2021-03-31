@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 
     public static Player Instance;
 
+    public GameObject ItemOnGround;
+
     [SerializeField]
     private UIControlledUnits uIControlledUnits = null;
     [SerializeField]
@@ -15,29 +17,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private List<Unit> ownedUnits;
 
-    public GameObject TestFOW;
-
     public void Initialize() {
-        Texture2D testTexture2D = new Texture2D(Map.Instance.MapSize, Map.Instance.MapSize);
-        for (int y = 0; y < Map.Instance.MapSize; y++) {
-            for (int x = 0; x < Map.Instance.MapSize; x++) {
-                Color32 color1 = new Color32(0, 0, 0, 255);
-                Color32 color2 = new Color32(0, 0, 0, 127);
-                Color32 col = Random.Range(0, 2) == 1 ? color1 : color2;
-                testTexture2D.SetPixel(x,y, col);
-            }
-        }
-
-
-        testTexture2D.Apply();
-        TestFOW.GetComponent<Renderer>().material.SetTexture("_MainTex", testTexture2D);
-
-
-
-
-
-
-
         if (Instance != null && Instance != this) {
             Debug.LogError("There can be only one instance of this script!");
             Destroy(this);
@@ -48,27 +28,11 @@ public class Player : MonoBehaviour {
         Instance = this;
     }
 
-    private void Update() {
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonUp(0)) {
-            Vector3 mousePos = Input.mousePosition;
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
-            if (Physics.Raycast(ray, out hit, 100)) {
-                if (hit.transform.GetComponent<Unit>() != null) {
-                    //TakeControl(hit.transform.GetComponent<Unit>());
-                }
-            }
-        }
-
-        if (Input.GetKey(KeyCode.P)) {
-            PlaceBarricade();
-        }
-    }
-
     public void TakeControl(Human unit) {
         if (playerController?.Owner != null) {
             Human currentControlledUnit = playerController.Owner.GetComponent<Human>();
             currentControlledUnit.Controller = new AllyController(currentControlledUnit);
+            currentControlledUnit.FieldOfView = new FieldOfViewAlly(currentControlledUnit, 10f, 90f, currentControlledUnit.transform.GetChild(1));
             currentControlledUnit.Animator.SetBool("Run", false);
             currentControlledUnit.Animator.SetBool("Walk", false);
             currentControlledUnit.Animator.SetBool("RangedAttack", false);
@@ -101,13 +65,42 @@ public class Player : MonoBehaviour {
             uIControlledUnits.TurnUnitSelectedSlot(true, unit);
     }
 
-    private void PlaceBarricade() {
-        Transform ownerTransform = playerController.Owner.transform;
-        Node nodeToPlace = Map.GetNodeFromPos(ownerTransform.forward * 2f + ownerTransform.position);
-        if (nodeToPlace.Buildable == true) {
-            BuildingFactory.Instance.SpawnBuilding(nodeToPlace.CenterPos, Quaternion.identity, BuildingType.Barricade);
-            nodeToPlace.Buildable = false;
-            nodeToPlace.Walkable = false;
+    public void CreateItemOnGround(Vector3 pos, Item item) {
+        GameObject ins = Instantiate(ItemOnGround, pos, Quaternion.Euler(0, 0, 0));
+        ItemOnGround itemOnGround = ins.GetComponent<ItemOnGround>();
+
+        Armor itemArmor = item as Armor;
+        if (itemArmor != null) {
+            itemOnGround.Item = new Armor(itemArmor.ArmorValue, itemArmor.BodyPart);
+            itemOnGround.Item.ItemName = item.ItemName;
+            itemOnGround.Item.ItemSprite = item.ItemSprite;
+            itemOnGround.Item.Useable = item.Useable;
+            itemOnGround.Item.Equipable = item.Equipable;
+            return;
         }
+
+        Medical itemMedical = item as Medical;
+        if (itemMedical != null) {
+            itemOnGround.Item = new Medical(itemMedical.HealAmount);
+            itemOnGround.Item.ItemName = item.ItemName;
+            itemOnGround.Item.ItemSprite = item.ItemSprite;
+            itemOnGround.Item.Useable = item.Useable;
+            itemOnGround.Item.Equipable = item.Equipable;
+            return;
+        }
+
+        ItemWeapon itemWeapon = item as ItemWeapon;
+        if (itemWeapon != null) {
+            itemOnGround.Item = new ItemWeapon(itemWeapon.WeaponPrefab, itemWeapon.WeaponType);
+            itemOnGround.Item.ItemName = item.ItemName;
+            itemOnGround.Item.ItemSprite = item.ItemSprite;
+            itemOnGround.Item.Useable = item.Useable;
+            itemOnGround.Item.Equipable = item.Equipable;
+            return;
+        }
+
+        
+
+
     }
 }

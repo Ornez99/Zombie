@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 2742180396034852681}
   - component: {fileID: 120210110333352804}
   m_Layer: 0
-  m_Name: SniperRiflev1
+  m_Name: SniperRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,10 +172,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  attackRange: 15
   timeBetweenShots: 1
   effectsDisplayTime: 0.1
   bulletSpawnTransform: {fileID: 5862018872678848142}
-  shootRange: 20
   hitParticles: {fileID: 8819148406463107848, guid: 8f3923f2de8785142bcf5545cadcdbec,
     type: 3}
   gunLine: {fileID: 2670876561071938331}

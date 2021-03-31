@@ -60,20 +60,6 @@ Transform:
   m_Father: {fileID: 2570849015811789660}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2769946460082673593
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150510747224814475}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0.00000012645376, y: 0.045092005, z: 1.3813974}
 --- !u!1 &1855430842681678367
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +180,7 @@ GameObject:
   - component: {fileID: 2570849015811789660}
   - component: {fileID: 478867871858071361}
   - component: {fileID: 3328398553362760696}
+  - component: {fileID: 6056602672152744454}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Untagged
@@ -236,7 +223,7 @@ MonoBehaviour:
   mouth: {fileID: 1327843691586906620}
   animator: {fileID: 1859324683803697915}
   faceSprite: {fileID: 0}
-  capsuleCollider: {fileID: 2769946460082673593}
+  capsuleCollider: {fileID: 6056602672152744454}
   equipment: {fileID: 0}
   Graphics:
   - {fileID: 1396766257138972082}
@@ -273,6 +260,20 @@ MonoBehaviour:
   characterRadius: 0.5
   minimumDistance: 0.1
   movementSpeed: 3
+--- !u!136 &6056602672152744454
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902900653830538634}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.71
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.38, z: 0}
 --- !u!1001 &3620070556729156763
 PrefabInstance:
   m_ObjectHideFlags: 0

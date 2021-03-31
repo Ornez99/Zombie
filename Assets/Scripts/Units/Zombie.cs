@@ -20,6 +20,7 @@ public class Zombie : Unit, IKillable {
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public float Armor { get => armor; set => armor = value; }
+    public ZombieSpawner ZombieSpawner { get; set; }
 
     private void Update() {
         if (isDead)
@@ -29,14 +30,7 @@ public class Zombie : Unit, IKillable {
 
         Controller.Tick();
 
-        // Do zmiany.
         SetActiveGraphics(Map.Instance.Grid[Node.XId - 1, Node.YId - 1]?.Visible == true);
-    }
-
-    private void SetActiveGraphics(bool value) {
-        for (int i = Graphics.Count - 1; i >= 0; i--) {
-            Graphics[i].SetActive(value);
-        }
     }
 
     private void LateUpdate() {
@@ -55,6 +49,10 @@ public class Zombie : Unit, IKillable {
         Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
     }
 
+    private void OnDestroy() {
+        ZombieSpawner?.SpawnedZombies.Remove(this);
+    }
+
     public void TakeDamage(float amount) {
         currentHealth -= amount;
         CheckIfShouldBeDead();
@@ -62,6 +60,12 @@ public class Zombie : Unit, IKillable {
 
     public void Heal(float amount) {
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+    }
+
+    private void SetActiveGraphics(bool value) {
+        for (int i = Graphics.Count - 1; i >= 0; i--) {
+            Graphics[i].SetActive(value);
+        }
     }
 
     private void CheckIfShouldBeDead() {

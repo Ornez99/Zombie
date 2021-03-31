@@ -41,8 +41,6 @@ public abstract class Unit : MonoBehaviour {
     public Node Node { get; set; }
     public Animator Animator { get => animator; }
 
-    
-
     protected void Awake() {
         Drive = GetComponent<IMoveable>();
         Drive.Unit = this;

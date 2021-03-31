@@ -30,6 +30,10 @@ public class MapGenerator : MonoBehaviour {
         SetBorderSize();
         SetSpawnable();
         CreateWallsAtMapBorder();
+
+        InstantiateHouse(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), 1);
+        ChangeNodesToNotSpawnable(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), houseFloors[1].width);
+
         InstantiateHouses();
         SetGroundTextureAndSize();
         PlantTrees();

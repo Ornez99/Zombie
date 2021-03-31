@@ -18,5 +18,6 @@ public enum BuildingType {
     Sink,
     Tree1,
     Tree2,
-    Tree3
+    Tree3,
+    CabinetStart
 }

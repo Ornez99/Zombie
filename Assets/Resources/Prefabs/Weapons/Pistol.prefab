@@ -428,10 +428,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 4
+  attackRange: 15
   timeBetweenShots: 0.5
-  effectsDisplayTime: 0.1
+  effectsDisplayTime: 0.2
   bulletSpawnTransform: {fileID: 3918967211395799770}
-  shootRange: 20
   hitParticles: {fileID: 8819148406463107848, guid: 8f3923f2de8785142bcf5545cadcdbec,
     type: 3}
   gunLine: {fileID: 56739065874053413}

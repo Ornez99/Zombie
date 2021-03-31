@@ -14,6 +14,7 @@ public class Equipment : MonoBehaviour {
     private const int itemOptionsMenuBackgroundId = 0;
     private const int itemOptionsMenuUseId = 1;
     private const int itemOptionsMenuEquipId = 2;
+    private const int itemOptionsMenuDropId = 3;
 
     [SerializeField]
     private int itemSlots = 0;
@@ -143,6 +144,21 @@ public class Equipment : MonoBehaviour {
         }
         else
             itemOptionsMenu.transform.GetChild(itemOptionsMenuEquipId).gameObject.SetActive(false);
+
+        if (item.IsEquipped == false) {
+            Transform buttonDropTransform = itemOptionsMenu.transform.GetChild(itemOptionsMenuDropId);
+            Button buttonDrop = buttonDropTransform.GetComponent<Button>();
+            buttonDropTransform.gameObject.SetActive(true);
+
+            buttonDrop.onClick.RemoveAllListeners();
+            buttonDrop.onClick.AddListener(() => item.Drop(GetComponent<Unit>()));
+            buttonDrop.transform.localPosition = new Vector3(0, nextButtonPosY, 0);
+
+            nextButtonPosY -= 40;
+            backgroundHeight += 50;
+        }
+        else
+            itemOptionsMenu.transform.GetChild(itemOptionsMenuDropId).gameObject.SetActive(false);
 
         itemOptionsMenu.transform.GetChild(itemOptionsMenuBackgroundId).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, backgroundHeight);
     }

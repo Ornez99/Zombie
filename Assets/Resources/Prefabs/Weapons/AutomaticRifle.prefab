@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 4985296546027366869}
   - component: {fileID: 3723857132076715822}
   m_Layer: 0
-  m_Name: AutomaticRiflev1
+  m_Name: AutomaticRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,10 +507,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  attackRange: 15
   timeBetweenShots: 0.1
   effectsDisplayTime: 0.25
   bulletSpawnTransform: {fileID: 4523048630369564304}
-  shootRange: 20
   hitParticles: {fileID: 8819148406463107848, guid: 8f3923f2de8785142bcf5545cadcdbec,
     type: 3}
   gunLine: {fileID: 4523048630369564508}

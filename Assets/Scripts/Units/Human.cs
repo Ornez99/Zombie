@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using System;
 
 public class Human : Unit, IKillable {
 
@@ -24,7 +22,12 @@ public class Human : Unit, IKillable {
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public float Armor { get => armor; set => armor = value; }
 
-    private void FixedUpdate() {
+    private void Start()
+    {
+        FieldOfView.ShowFieldOfView = true;
+    }
+
+    private void Update() {
         if (isDead)
             return;
 
@@ -33,20 +36,24 @@ public class Human : Unit, IKillable {
         Controller.Tick();
     }
 
+#if UNITY_EDITOR
+    private void OnGUI() {
+        Handles.Label(transform.position, Controller.StateMachine?.ToString());
+    }
+#endif
+
     private void LateUpdate() {
         FieldOfView?.Tick();
     }
 
     public void OnTakeControl(PlayerController playerController) {
         Controller = playerController;
+        FieldOfView = new FieldOfViewPlayer(this, 10f, 90f, transform.GetChild(1));
         Animator.SetBool("Run", false);
         Animator.SetBool("Walk", false);
         Animator.SetBool("RangedAttack", false);
         Equipment.UpdateUI();
-    }
-
-    private void OnTakeDamage() {
-
+        FieldOfView.ShowFieldOfView = true;
     }
     
     public void TakeDamage(float amount) {

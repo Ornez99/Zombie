@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponFactory : MonoBehaviour {
@@ -10,7 +9,7 @@ public class WeaponFactory : MonoBehaviour {
 
     public void Initialize() {
         if (Instance != null && Instance != this) {
-            Debug.LogError("There can be only one instance of this script!");
+            Debug.LogError($"There can be only one instance of {ToString()} script!");
             Destroy(this);
         }
 
@@ -36,5 +35,4 @@ public class WeaponFactory : MonoBehaviour {
             weaponPrefabs.Add(type, weapon);
         }
     }
-
 }

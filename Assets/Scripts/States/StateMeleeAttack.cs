@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class StateMeleeAttack : IState {
 
-    private float distanceToAttack = 1.5f;
-    private Animator animator;
-    private Unit unit;
-    private float isAttacking;
+    private Animator animator = default;
+    private Unit unit = default;
+    private Unit closestEnemy = default;
+
+    private float attackRadius = default;
+    private float timeToEndOfAttackAnimation = default;
 
     public StateMeleeAttack(Unit unit, Animator animator) {
         this.unit = unit;
@@ -15,35 +17,35 @@ public class StateMeleeAttack : IState {
     }
 
     public int GetScore() {
-        Unit closestEnemy = unit.FieldOfView.ClosestEnemy;//unit.Vision.ClosestEnemy;
+        closestEnemy = unit.FieldOfView.ClosestEnemy;
 
-        if (isAttacking > 0)
+        if (timeToEndOfAttackAnimation > 0)
             return 125;
 
         if (closestEnemy != null) {
-            if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
+            if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= unit.Weapon.AttackRange)
                 return 125;
         }
+
         return 0;
+    }
+
+    public void OnStateSelected() {
+        timeToEndOfAttackAnimation = unit.Weapon.TimeBetweenShots;
+        animator.SetBool("MeleeAttack", true);
     }
 
     public void OnStateDeselected() {
         animator.SetBool("MeleeAttack", false);
     }
 
-    public void OnStateSelected() {
-        animator.SetBool("MeleeAttack", true);
-        isAttacking = 0.5f;
-    }
-
     public void Tick() {
-        if (isAttacking > 0)
-            isAttacking -= Time.deltaTime;
-
-        Unit closestEnemy = unit.FieldOfView.ClosestEnemy;
-        IKillable enemyKillable = closestEnemy?.GetComponent<IKillable>();
-        if (enemyKillable != null)
-            if (Vector3.Distance(closestEnemy.transform.position, unit.transform.position) <= distanceToAttack)
+        if (timeToEndOfAttackAnimation > 0)
+            timeToEndOfAttackAnimation -= Time.deltaTime;
+        else {
+            IKillable enemyKillable = closestEnemy?.GetComponent<IKillable>();
+            if (enemyKillable != null)
                 unit.Weapon.AttackUnit(enemyKillable);
+        }
     }
 }

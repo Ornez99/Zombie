@@ -4,17 +4,18 @@ using UnityEngine;
 public class FogOfWarAgent : MonoBehaviour {
 
     private List<Node> nodesInRadius = new List<Node>();
-    private IFieldOfView fieldOfView;
+
+    private Unit unit;
 
     private void Start() {
-        fieldOfView = GetComponent<Unit>().FieldOfView;
+        unit = GetComponent<Unit>();
         FogOfWar.Instance.AddAgent(this);
     }
 
     public void UpdateNodesInRadius() {
         nodesInRadius.Clear();
         
-        foreach (Vector3 endPos in fieldOfView.Vectors) {
+        foreach (Vector3 endPos in unit.FieldOfView.Vectors) {
             if (endPos == Vector3.zero)
                 break;
 

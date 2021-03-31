@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class AllyController : IController {
 
-    private StateMachine stateMachine;
-
-    public StateMachine StateMachine { get => stateMachine; }
+    public StateMachine StateMachine { get; private set; }
     public Unit Owner { get; private set; }
 
     public AllyController(Unit unit) {
         Owner = unit;
-        stateMachine = StateMachineFactory.CreateStateMachine(unit, UnitType.Human);
+        StateMachine = StateMachineFactory.CreateStateMachine(unit, UnitType.Human);
     }
 
     public void SetStateMachine(StateMachine stateMachine) {
-        this.stateMachine = stateMachine;
+        StateMachine = stateMachine;
     }
 
     public void Tick() {
-        stateMachine?.Tick();
+        StateMachine?.Tick();
     }
 
     public override string ToString() {
