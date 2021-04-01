@@ -31,8 +31,8 @@ public class MapGenerator : MonoBehaviour {
         SetSpawnable();
         CreateWallsAtMapBorder();
 
-        InstantiateHouse(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), 1);
-        ChangeNodesToNotSpawnable(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), houseFloors[1].width);
+        InstantiateHouse(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), 0);
+        ChangeNodesToNotSpawnable(new Vector2Int(Map.Instance.MapSize / 2 - 10, Map.Instance.MapSize / 2 - 10), houseFloors[0].width, houseFloors[0].height);
 
         InstantiateHouses();
         SetGroundTextureAndSize();
@@ -92,15 +92,16 @@ public class MapGenerator : MonoBehaviour {
         int availableIterations = 50;
 
         while (availableIterations > 0 && generatedHouses < housesAmount) {
-            int houseId = Random.Range(0, houseFloors.Length);
-            int houseSize = houseFloors[houseId].width;
+            int houseId = Random.Range(1, houseFloors.Length);
+            int houseSizeX = houseFloors[houseId].width;
+            int houseSizeY = houseFloors[houseId].height;
 
-            int nodeX = Random.Range(2, Map.Instance.MapSize - houseSize - 2);
-            int nodeZ = Random.Range(2, Map.Instance.MapSize - houseSize - 2);
+            int nodeX = Random.Range(2, Map.Instance.MapSize - houseSizeX - 2);
+            int nodeZ = Random.Range(2, Map.Instance.MapSize - houseSizeY - 2);
 
-            if (CanSpawnHouse(new Vector2Int(nodeX, nodeZ), houseSize)) {
+            if (CanSpawnHouse(new Vector2Int(nodeX, nodeZ), houseSizeX, houseSizeY)) {
                 InstantiateHouse(new Vector2Int(nodeX, nodeZ), houseId);
-                ChangeNodesToNotSpawnable(new Vector2Int(nodeX, nodeZ), houseSize);
+                ChangeNodesToNotSpawnable(new Vector2Int(nodeX, nodeZ), houseSizeX, houseSizeY);
                 generatedHouses++;
             }
             else {
@@ -109,9 +110,9 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    private bool CanSpawnHouse(Vector2Int pos, int size) {
-        for (int y = pos.y; y < pos.y + size; y++) {
-            for (int x = pos.x; x < pos.x + size; x++) {
+    private bool CanSpawnHouse(Vector2Int pos, int sizeX, int sizeY) {
+        for (int y = pos.y; y < pos.y + sizeY; y++) {
+            for (int x = pos.x; x < pos.x + sizeX; x++) {
                 if (spawnable[x, y] == false)
                     return false;
             }
@@ -125,9 +126,9 @@ public class MapGenerator : MonoBehaviour {
         SpawnHouseObjects(pos, houseId);
     }
 
-    private void ChangeNodesToNotSpawnable(Vector2Int pos, int size) {
-        for (int y = pos.y; y < pos.y + size; y++) {
-            for (int x = pos.x; x < pos.x + size; x++) {
+    private void ChangeNodesToNotSpawnable(Vector2Int pos, int sizeX, int sizeY) {
+        for (int y = pos.y; y < pos.y + sizeY; y++) {
+            for (int x = pos.x; x < pos.x + sizeX; x++) {
                 spawnable[x, y] = false;
             }
         }

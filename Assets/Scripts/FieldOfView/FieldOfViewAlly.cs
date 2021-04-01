@@ -78,7 +78,7 @@ public class FieldOfViewAlly : IFieldOfView {
 
                     Unit potentialClosestEnemy = hit.transform.GetComponent<Unit>();
                     if(potentialClosestEnemy != null)
-                        if (potentialClosestEnemy.GetTeam != owner.GetTeam)
+                        if (potentialClosestEnemy.Team != owner.Team)
                             if (Vector3.Distance(hit.transform.position, owner.transform.position) < distToClosestEnemy) {
                             
                                 ClosestEnemy = potentialClosestEnemy;

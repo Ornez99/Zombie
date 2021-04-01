@@ -143,13 +143,10 @@ MonoBehaviour:
   viewable: 1
   smellable: 0
   lootChance:
-  - Amount: 2
+  - Amount: 1
     SpawnChance: 100
     Item: {fileID: 11400000, guid: 63354e916ad52d5499f123e294f542d5, type: 2}
   - Amount: 1
-    SpawnChance: 100
-    Item: {fileID: 11400000, guid: 75b07ec6818314e40aac544110d7bfe6, type: 2}
-  - Amount: 3
     SpawnChance: 100
     Item: {fileID: 11400000, guid: 5983224898ca87549a32bc04a506ac83, type: 2}
   itemsInside: []

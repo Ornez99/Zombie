@@ -15,19 +15,24 @@ public class ZombieSpawner : Building, IKillable {
 
     private float spawnTimer;
 
+    [SerializeField]
+    private float maxHealth;
+
     public List<Zombie> SpawnedZombies { get => spawnedZombies; set => spawnedZombies = value; }
-    public float MaxHealth { get; set; }
+    public float MaxHealth { get => maxHealth; }
     public float CurrentHealth { get; set; }
     public float Armor { get; set; }
 
     private void Start() {
         Armor = 2;
-        MaxHealth = 20;
         CurrentHealth = 20;
         SpawnedZombies = new List<Zombie>();
 
-        if (MainQuest.Instance.ActiveZombieSpawners < MainQuest.Instance.MaxZombieSpawners)
+        if (MainQuest.Instance.ActiveZombieSpawners < MainQuest.Instance.MaxZombieSpawners) {
             MainQuest.Instance.ActiveZombieSpawners++;
+            MainQuest.Instance.UpdateQuest();
+        }
+            
         else {
             int spawnZombieChance = Random.Range(0, 2);
             if (spawnZombieChance == 0)
@@ -69,7 +74,7 @@ public class ZombieSpawner : Building, IKillable {
 
     private void OnDestroy() {
         MainQuest.Instance.ActiveZombieSpawners--;
-        MainQuest.Instance?.UpdateQuestText();
+        MainQuest.Instance?.UpdateQuest();
     }
 
 }

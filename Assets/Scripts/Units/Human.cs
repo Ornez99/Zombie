@@ -8,9 +8,6 @@ public class Human : Unit, IKillable {
     private Transform humanModel;
 
     [SerializeField]
-    private float maxHealth;
-
-    [SerializeField]
     private float currentHealth;
 
     [SerializeField]
@@ -18,12 +15,11 @@ public class Human : Unit, IKillable {
 
     public event Action<Unit> OnHealthChange;
 
-    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public float MaxHealth { get => unitData.MaxHealth; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public float Armor { get => armor; set => armor = value; }
 
-    private void Start()
-    {
+    private void Start() {
         FieldOfView.ShowFieldOfView = true;
     }
 
@@ -35,12 +31,6 @@ public class Human : Unit, IKillable {
 
         Controller.Tick();
     }
-
-#if UNITY_EDITOR
-    private void OnGUI() {
-        Handles.Label(transform.position, Controller.StateMachine?.ToString());
-    }
-#endif
 
     private void LateUpdate() {
         FieldOfView?.Tick();
@@ -63,7 +53,7 @@ public class Human : Unit, IKillable {
     }
 
     public void Heal(float amount) {
-        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        currentHealth = Mathf.Min(unitData.MaxHealth, currentHealth + amount);
         OnHealthChange?.Invoke(this);
     }
 
@@ -74,6 +64,12 @@ public class Human : Unit, IKillable {
             animator.SetBool("Death", true);
             Destroy(gameObject, 1f);
         }
+    }
+
+    private void OnDestroy() {
+        Player.Instance.RemoveOwnedHuman(this);
+        if (Player.Instance.GetOwnedHumansCount() == 0)
+            MainQuest.Instance.QuestLost();
     }
 
 }

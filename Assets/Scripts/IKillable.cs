@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IKillable {
 
-    float MaxHealth { get; set; }
+    float MaxHealth { get; }
     float CurrentHealth { get; set; }
     float Armor { get; set; }
 

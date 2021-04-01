@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateMoveToEnemy : IState {
 
+    private float movementSpeed = 5f;
+
     private Unit unit;
     private Unit enemyUnit;
     private Node lastTargetNode;
@@ -25,7 +27,7 @@ public class StateMoveToEnemy : IState {
     }
 
     public void OnStateSelected() {
-        unit.Drive.Speed = 4f;
+        unit.Drive.Speed = movementSpeed;
         animator.SetBool("Run", true);
     }
 

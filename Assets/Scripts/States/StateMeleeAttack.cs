@@ -31,7 +31,8 @@ public class StateMeleeAttack : IState {
     }
 
     public void OnStateSelected() {
-        timeToEndOfAttackAnimation = unit.Weapon.TimeBetweenShots;
+        timeToEndOfAttackAnimation = 0;
+        
         animator.SetBool("MeleeAttack", true);
     }
 
@@ -46,6 +47,8 @@ public class StateMeleeAttack : IState {
             IKillable enemyKillable = closestEnemy?.GetComponent<IKillable>();
             if (enemyKillable != null)
                 unit.Weapon.AttackUnit(enemyKillable);
+
+            timeToEndOfAttackAnimation = unit.Weapon.TimeBetweenShots;
         }
     }
 }

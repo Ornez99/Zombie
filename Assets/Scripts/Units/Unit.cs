@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour {
 
     [SerializeField]
-    protected int team;
+    protected UnitData unitData;
+
     [SerializeField]
     protected Transform hand;
-    [SerializeField]
-    protected Transform mouth;
     [SerializeField]
     protected Animator animator;
     [SerializeField]
@@ -36,8 +33,7 @@ public abstract class Unit : MonoBehaviour {
     public Equipment Equipment { get => equipment; }
 
     public Transform Hand { get => hand; set => hand = value; }
-    public Transform Mouth { get => mouth; set => mouth = value; }
-    public int GetTeam { get => team; }
+    public int Team { get => unitData.Team; }
     public Node Node { get; set; }
     public Animator Animator { get => animator; }
 

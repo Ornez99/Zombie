@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Zombie : Unit, IKillable {
 
@@ -9,15 +6,13 @@ public class Zombie : Unit, IKillable {
     private Transform visionRaysStartTransform;
 
     [SerializeField]
-    private float maxHealth;
-    [SerializeField]
     private float currentHealth;
     [SerializeField]
     private float armor;
     [SerializeField]
     private Transform zombieModel;
 
-    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public float MaxHealth { get => unitData.MaxHealth; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public float Armor { get => armor; set => armor = value; }
     public ZombieSpawner ZombieSpawner { get; set; }
@@ -37,18 +32,6 @@ public class Zombie : Unit, IKillable {
         FieldOfView?.Tick();
     }
 
-#if UNITY_EDITOR
-    private void OnGUI() {
-        //Handles.Label(transform.position, Controller.StateMachine.ToString());
-    }
-#endif
-    private void OnDrawGizmos() {
-        if (Node == null)
-            return;
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(Node.CenterPos, Vector3.one);
-    }
-
     private void OnDestroy() {
         ZombieSpawner?.SpawnedZombies.Remove(this);
     }
@@ -59,7 +42,7 @@ public class Zombie : Unit, IKillable {
     }
 
     public void Heal(float amount) {
-        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        currentHealth = Mathf.Min(unitData.MaxHealth, currentHealth + amount);
     }
 
     private void SetActiveGraphics(bool value) {

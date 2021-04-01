@@ -185,9 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c909e144073bf54d86d376debc447ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  attackRange: 1
-  timeBetweenShots: 1
+  damage: 3
+  attackRange: 1.5
+  timeBetweenShots: 0.8
   effectsDisplayTime: 0
-  biteTransform: {fileID: 3393420804292513910}
-  biteRadius: 1

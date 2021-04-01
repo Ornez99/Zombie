@@ -7,6 +7,10 @@ public class MainQuest : MonoBehaviour {
 
     [SerializeField]
     private Text text;
+    [SerializeField]
+    private Text endGameText;
+    [SerializeField]
+    private GameObject endGameGameObject;
 
     public int ActiveZombieSpawners { get; set; }
     public int MaxZombieSpawners { get; set; }
@@ -19,13 +23,22 @@ public class MainQuest : MonoBehaviour {
 
         ActiveZombieSpawners = 0;
         MaxZombieSpawners = 5;
-        UpdateQuestText();
         Instance = this;
     }
 
-    public void UpdateQuestText() {
+    public void UpdateQuest() {
         if (text != null)
             text.text = $"Zniszcz wszystki gniazda potworów (pozostało {ActiveZombieSpawners}).";
+
+        if (ActiveZombieSpawners == 0) {
+            endGameText.text = "Gratulacje! Wygrałeś.";
+            endGameGameObject.SetActive(true);
+        }
+    }
+
+    public void QuestLost() {
+        endGameText.text = "Przegrałeś :(";
+        endGameGameObject.SetActive(true);
     }
 
 }

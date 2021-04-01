@@ -143,4 +143,5 @@ MonoBehaviour:
   smellable: 1
   timeBetweenSpawn: 10
   spawnedZombies: []
-  spawnedZombiesLimit: 3
+  spawnedZombiesLimit: 8
+  maxHealth: 0

@@ -462,15 +462,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a4158ab75c18b4e846cbb8a4bc088f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  unitData: {fileID: 11400000, guid: d423c7ebb7889ae40b0266d3838cfdb4, type: 2}
   hand: {fileID: 5053948559364650590}
-  mouth: {fileID: 5053948559364650590}
   animator: {fileID: 5252547005752879693}
   faceSprite: {fileID: 21300000, guid: 851c575126e6d4446b3b31b39534943b, type: 3}
   capsuleCollider: {fileID: 5190801969211301419}
   equipment: {fileID: 7920413486734182767}
+  Graphics: []
   humanModel: {fileID: 1075983302074725218}
-  maxHealth: 15
   currentHealth: 15
   armor: 0
 --- !u!114 &8435546445622821315
@@ -487,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRadius: 0.5
   minimumDistance: 0.1
-  movementSpeed: 5
+  movementSpeed: 4
 --- !u!114 &7920413486734182767
 MonoBehaviour:
   m_ObjectHideFlags: 0

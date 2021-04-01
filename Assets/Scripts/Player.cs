@@ -42,8 +42,7 @@ public class Player : MonoBehaviour {
         playerController = new PlayerController(unit);
         unit.OnTakeControl(playerController);
 
-
-        foreach(Human ownedUnit in ownedUnits) {
+        foreach (Human ownedUnit in ownedUnits) {
             if (ownedUnit == null)
                 continue;
 
@@ -63,6 +62,16 @@ public class Player : MonoBehaviour {
 
         if (ownedUnits.Count == 1)
             uIControlledUnits.TurnUnitSelectedSlot(true, unit);
+    }
+
+    public void RemoveOwnedHuman(Unit unit) {
+        if (ownedUnits.Contains(unit)) {
+            ownedUnits.Remove(unit);
+        }
+    }
+
+    public int GetOwnedHumansCount() {
+        return ownedUnits.Count;
     }
 
     public void CreateItemOnGround(Vector3 pos, Item item) {
