@@ -1,34 +1,51 @@
 ﻿using UnityEngine;
 
-
-public abstract class Item : ScriptableObject {
+[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/New Item", order = 1)]
+public class Item : ScriptableObject
+{
+    [SerializeField]
+    private new string name = default;
 
     [SerializeField]
-    private string itemName = default;
-    [SerializeField]
-    private Sprite itemSprite = default;
-    [SerializeField]
-    private bool useable = default;
-    [SerializeField]
-    private bool equipable = default;
+    private Sprite sprite = default;
 
-    public string ItemName { get => itemName; set => itemName = value; }
-    public Sprite ItemSprite { get => itemSprite; set => itemSprite = value; }
-    public bool Useable { get => useable; set => useable = value; }
-    public bool Equipable { get => equipable; set => equipable = value; }
-    public virtual bool IsEquipped { get => false;}
+    [SerializeField]
+    private OnItemUse[] onItemUse;
 
-    public virtual void Use(Unit unit) {
-        Debug.Log($"{itemName} does not override Use.");
+    [SerializeField]
+    private OnItemEquip[] onItemEquip;
+
+    [SerializeField]
+    private BodyPart bodyPart;
+
+    public string Name { get => name; }
+
+    public Sprite Sprite { get => sprite; }
+
+    public bool Useable { get => onItemUse != null && onItemUse.Length > 0; }
+
+    public bool Equipable { get => onItemEquip != null && onItemEquip.Length > 0; }
+
+    public BodyPart BodyPart { get => bodyPart; }
+
+    public void Use(Unit unit, ItemInEquipment itemInEquipment)
+    {
+        for (int i = 0; i < onItemUse.Length; i++)
+        {
+            onItemUse[i].OnUse(unit);
+        }
+        unit.Equipment.RemoveItem(itemInEquipment);
+        unit.EquipmentUI.UpdateItemsUI(unit.Equipment);
     }
 
-    public virtual void Equip(Unit unit) {
-        Debug.Log($"{itemName} does not override Equip.");
+    public void Equip(Unit unit, ItemInEquipment itemInEquipment)
+    {
+        for (int i = 0; i < onItemEquip.Length; i++)
+        {
+            onItemEquip[i].OnEquip(unit, itemInEquipment);
+        }
     }
 
-    public virtual void Drop(Unit unit) {
-        Player.Instance.CreateItemOnGround(unit.transform.position, this);
-        unit.Equipment.RemoveItem(this);
-    }
+    
 
 }

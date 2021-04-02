@@ -1,180 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Equipment : MonoBehaviour {
+public class Equipment : MonoBehaviour
+{
 
-    public readonly static int NoFreeItemSlots = -1;
-
-    private const int itemUIbackgroundId = 0;
-    private const int itemUIbuttonId = 1;
-    private const int itemUIisSelectedId = 2;
-
-    private const int itemOptionsMenuBackgroundId = 0;
-    private const int itemOptionsMenuUseId = 1;
-    private const int itemOptionsMenuEquipId = 2;
-    private const int itemOptionsMenuDropId = 3;
+    public static int NoFreeSlots = -1;
 
     [SerializeField]
-    private int itemSlots = 0;
-    [SerializeField]
-    private Item[] items;
-    [SerializeField]
-    private Transform equipmentUI;
-    [SerializeField]
-    private GameObject itemOptionsMenu;
+    private Unit unit;
 
-    public Item[] Items { get => items; }
+    [SerializeField]
+    private int itemsSlots = 8;
 
-    private void Awake() {
-        if (items?.Length == 0 || items == null)
-            items = new Item[itemSlots];
-        equipmentUI = GameObject.Find("EquipmentUI").transform;
-        itemOptionsMenu = UIControlledUnits.Instance.ItemOptionsMenu;
+    [SerializeField]
+    private ItemInEquipment[] items;
+
+    [SerializeField]
+    private EquipmentUI equipmentUI;
+
+    public int ItemsSlots { get => itemsSlots; }
+
+    private void Awake()
+    {
+        items = new ItemInEquipment[itemsSlots];
     }
 
-    public int GetFreeItemSlot() {
-        for (int i = 0; i < itemSlots; i++) {
-            if (items[i] == null)
+    public void AddItem(Item item, int slot)
+    {
+        ItemInEquipment newItem = new ItemInEquipment(unit, item);
+        items[slot] = newItem;
+    }
+
+    public void RemoveItem(ItemInEquipment item)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if(items[i] == item)
+            {
+                items[i] = null;
+                break;
+            }
+        }
+    }
+
+    public int GetFreeSlot()
+    {
+        for(int i = 0; i < itemsSlots; i++)
+        {
+            if (GetItem(i) == null)
                 return i;
         }
 
-        return NoFreeItemSlots;
+        return NoFreeSlots;
     }
 
-    public void AddItem(Item item, int itemSlot) {
-        Armor itemArmor = item as Armor;
-        if (itemArmor != null) {
-            items[itemSlot] = new Armor(itemArmor.ArmorValue, itemArmor.BodyPart);
-            LoadDefaultItemData(items[itemSlot], item);
-            return;
-        }
+    public ItemInEquipment GetItem(int slotId)
+    {
+        if (slotId >= items.Length)
+            return null;
 
-        Medical itemMedical = item as Medical;
-        if (itemMedical != null) {
-            items[itemSlot] = new Medical(itemMedical.HealAmount);
-            LoadDefaultItemData(items[itemSlot], item);
-            return;
-        }
-
-        ItemWeapon itemWeapon = item as ItemWeapon;
-        if (itemWeapon != null) {
-            items[itemSlot] = new ItemWeapon(itemWeapon.WeaponPrefab, itemWeapon.WeaponType);
-            LoadDefaultItemData(items[itemSlot], item);
-            return;
-        }
-
+        return items[slotId];
     }
-
-    private void LoadDefaultItemData(Item newItem, Item dataItem) {
-        newItem.ItemName = dataItem.ItemName;
-        newItem.ItemSprite = dataItem.ItemSprite;
-        newItem.Useable = dataItem.Useable;
-        newItem.Equipable = dataItem.Equipable;
-    }
-
-
-    public void RemoveItem(Item item) {
-        for (int i = 0; i < items.Length; i++) {
-            if (items[i] == item) {
-                Destroy(items[i]);
-                items[i] = null;
-                UpdateUI();
-                return;
-            }
-        }
-    }
-
-    public void UpdateUI() {
-        CloseItemOptionsMenu();
-        for (int i = 0; i < itemSlots; i++) {
-            if (items[i] != null) {
-                Item currentItem = items[i];
-                equipmentUI.GetChild(i).GetChild(itemUIbuttonId).GetComponent<Button>().onClick.RemoveAllListeners();
-                equipmentUI.GetChild(i).GetChild(itemUIbuttonId).GetComponent<Button>().onClick.AddListener(() => OpenItemOptionsMenu(currentItem));
-                equipmentUI.GetChild(i).GetChild(itemUIbuttonId).GetComponent<Image>().sprite = items[i].ItemSprite;
-                SetActiveSlot(i, true);
-                ShowEquippedItem(i);
-
-            }
-            else {
-                SetActiveSlot(i, false);
-            }
-        }
-    }
-
-    public void CloseItemOptionsMenu() {
-        itemOptionsMenu.SetActive(false);
-    }
-
-    private void OpenItemOptionsMenu(Item item) {
-        itemOptionsMenu.SetActive(true);
-        itemOptionsMenu.transform.position = Input.mousePosition;
-        float backgroundHeight = 0;
-        float nextButtonPosY = -10;
-
-        if (item.Useable) {
-            Transform buttonUseTransform = itemOptionsMenu.transform.GetChild(itemOptionsMenuUseId);
-            Button buttonUse = buttonUseTransform.GetComponent<Button>();
-
-            buttonUseTransform.gameObject.SetActive(true);
-            buttonUse.onClick.RemoveAllListeners();
-            buttonUse.onClick.AddListener(() => item.Use(GetComponent<Unit>()));
-            buttonUseTransform.transform.localPosition = new Vector3(0, nextButtonPosY, 0);
-
-            nextButtonPosY -= 40;
-            backgroundHeight += 50;
-        }
-        else
-            itemOptionsMenu.transform.GetChild(itemOptionsMenuUseId).gameObject.SetActive(false);
-
-        if (item.Equipable) {
-            Transform buttonEquipTransform = itemOptionsMenu.transform.GetChild(itemOptionsMenuEquipId);
-            Button buttonEquip = buttonEquipTransform.GetComponent<Button>();
-            buttonEquipTransform.gameObject.SetActive(true);
-
-            buttonEquip.onClick.RemoveAllListeners();
-            buttonEquip.onClick.AddListener(() => item.Equip(GetComponent<Unit>()));
-            buttonEquip.transform.GetChild(0).GetComponent<Text>().text = (item.IsEquipped) ? "Unequip" : "Equip";
-            buttonEquipTransform.transform.localPosition = new Vector3(0, nextButtonPosY, 0);
-
-            nextButtonPosY -= 40;
-            backgroundHeight += 50;
-        }
-        else
-            itemOptionsMenu.transform.GetChild(itemOptionsMenuEquipId).gameObject.SetActive(false);
-
-        if (item.IsEquipped == false) {
-            Transform buttonDropTransform = itemOptionsMenu.transform.GetChild(itemOptionsMenuDropId);
-            Button buttonDrop = buttonDropTransform.GetComponent<Button>();
-            buttonDropTransform.gameObject.SetActive(true);
-
-            buttonDrop.onClick.RemoveAllListeners();
-            buttonDrop.onClick.AddListener(() => item.Drop(GetComponent<Unit>()));
-            buttonDrop.transform.localPosition = new Vector3(0, nextButtonPosY, 0);
-
-            nextButtonPosY -= 40;
-            backgroundHeight += 50;
-        }
-        else
-            itemOptionsMenu.transform.GetChild(itemOptionsMenuDropId).gameObject.SetActive(false);
-
-        itemOptionsMenu.transform.GetChild(itemOptionsMenuBackgroundId).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, backgroundHeight);
-    }
-
-    private void SetActiveSlot(int slotId, bool active) {
-        equipmentUI.GetChild(slotId).GetChild(itemUIbuttonId).GetComponent<Image>().enabled = active;
-        equipmentUI.GetChild(slotId).GetChild(itemUIbuttonId).GetComponent<Button>().enabled = active;
-        equipmentUI.GetChild(slotId).GetChild(itemUIisSelectedId).GetComponent<Image>().enabled = active;
-    }
-
-    private void ShowEquippedItem(int slotId) {
-        if (items[slotId].IsEquipped)
-            equipmentUI.GetChild(slotId).GetChild(itemUIisSelectedId).GetComponent<Image>().color = Color.yellow;
-        else
-            equipmentUI.GetChild(slotId).GetChild(itemUIisSelectedId).GetComponent<Image>().color = Color.gray;
-    }
-
-
 }

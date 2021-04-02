@@ -1,31 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ItemOnGround : MonoBehaviour, IInteractable {
-
+public class ItemOnGround : MonoBehaviour, IInteractable
+{
     [SerializeField]
     private GameObject highlight = null;
 
     public Item Item { get; set; }
     public bool Enabled => true;
 
-    public void Highlight() {
+    public void Highlight()
+    {
         highlight.SetActive(true);
     }
 
-    public void Interact(Unit unit) {
+    public void Interact(Unit unit)
+    {
         Equipment equipment = unit.Equipment;
-        int freeSlot = equipment.GetFreeItemSlot();
+        EquipmentUI equipmentUI = unit.EquipmentUI;
+        int freeSlot = equipment.GetFreeSlot();
 
-        if (freeSlot != Equipment.NoFreeItemSlots) {
+        if (freeSlot != Equipment.NoFreeSlots)
+        {
             equipment.AddItem(Item, freeSlot);
-            equipment.UpdateUI();
+            equipmentUI.UpdateItemsUI(equipment);
             Destroy(gameObject);
         }
     }
 
-    public void StopHighlight() {
+    public void StopHighlight()
+    {
         if (this == null)
             return;
         highlight.SetActive(false);

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit : MonoBehaviour {
+public abstract class Unit : MonoBehaviour
+{
 
     [SerializeField]
     protected UnitData unitData;
@@ -17,6 +18,8 @@ public abstract class Unit : MonoBehaviour {
 
     [SerializeField]
     protected Equipment equipment;
+    [SerializeField]
+    protected EquipmentUI equipmentUI;
 
     [SerializeField]
     protected List<GameObject> Graphics;
@@ -31,13 +34,15 @@ public abstract class Unit : MonoBehaviour {
 
     public Weapon Weapon { get; set; }
     public Equipment Equipment { get => equipment; }
+    public EquipmentUI EquipmentUI { get => equipmentUI; }
 
     public Transform Hand { get => hand; set => hand = value; }
     public int Team { get => unitData.Team; }
     public Node Node { get; set; }
     public Animator Animator { get => animator; }
 
-    protected void Awake() {
+    protected void Awake()
+    {
         Drive = GetComponent<IMoveable>();
         Drive.Unit = this;
         Node = Map.GetNodeFromPos(transform.position);

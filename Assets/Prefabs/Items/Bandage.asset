@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f2192406e05e84d972057017af2d28, type: 3}
-  m_Name: Vest
+  m_Script: {fileID: 11500000, guid: f5a7e6d6b1b85004c8ecdf2e3d38861c, type: 3}
+  m_Name: Bandage
   m_EditorClassIdentifier: 
-  itemName: Vest
-  itemSprite: {fileID: 21300000, guid: 5f0b7d7ef9a9bf345b58cd6cb313e987, type: 3}
-  useable: 0
-  equipable: 1
-  armor: 3
+  name: Bandage
+  sprite: {fileID: 21300000, guid: be06bf25265b3c14db677c50cb09df2b, type: 3}
+  onItemUse:
+  - {fileID: 11400000, guid: 226c9c041a3a3974dba43d10afbe8ba5, type: 2}
+  onItemEquip: []
   bodyPart: 0
-  isEquipped: 0

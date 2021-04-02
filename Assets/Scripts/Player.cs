@@ -75,41 +75,9 @@ public class Player : MonoBehaviour {
     }
 
     public void CreateItemOnGround(Vector3 pos, Item item) {
+
         GameObject ins = Instantiate(ItemOnGround, pos, Quaternion.Euler(0, 0, 0));
         ItemOnGround itemOnGround = ins.GetComponent<ItemOnGround>();
-
-        Armor itemArmor = item as Armor;
-        if (itemArmor != null) {
-            itemOnGround.Item = new Armor(itemArmor.ArmorValue, itemArmor.BodyPart);
-            itemOnGround.Item.ItemName = item.ItemName;
-            itemOnGround.Item.ItemSprite = item.ItemSprite;
-            itemOnGround.Item.Useable = item.Useable;
-            itemOnGround.Item.Equipable = item.Equipable;
-            return;
-        }
-
-        Medical itemMedical = item as Medical;
-        if (itemMedical != null) {
-            itemOnGround.Item = new Medical(itemMedical.HealAmount);
-            itemOnGround.Item.ItemName = item.ItemName;
-            itemOnGround.Item.ItemSprite = item.ItemSprite;
-            itemOnGround.Item.Useable = item.Useable;
-            itemOnGround.Item.Equipable = item.Equipable;
-            return;
-        }
-
-        ItemWeapon itemWeapon = item as ItemWeapon;
-        if (itemWeapon != null) {
-            itemOnGround.Item = new ItemWeapon(itemWeapon.WeaponPrefab, itemWeapon.WeaponType);
-            itemOnGround.Item.ItemName = item.ItemName;
-            itemOnGround.Item.ItemSprite = item.ItemSprite;
-            itemOnGround.Item.Useable = item.Useable;
-            itemOnGround.Item.Equipable = item.Equipable;
-            return;
-        }
-
-        
-
-
+        itemOnGround.Item = item;
     }
 }

@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8699aa67a0ba544e8ae2eb654e29f09, type: 3}
+  m_Script: {fileID: 11500000, guid: f5a7e6d6b1b85004c8ecdf2e3d38861c, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  itemName: Pistol
-  itemSprite: {fileID: 21300000, guid: a8c0bfbe7b4ba44409383722d00d1788, type: 3}
-  useable: 0
-  equipable: 1
-  weaponPrefab: {fileID: 9000520933301414819, guid: 9599894362ed1474daac650437d8c591,
-    type: 3}
-  isEquipped: 0
-  weaponType: 0
+  name: Pistol
+  sprite: {fileID: 21300000, guid: a8c0bfbe7b4ba44409383722d00d1788, type: 3}
+  onItemUse: []
+  onItemEquip:
+  - {fileID: 11400000, guid: 2d7b47628d56e8844bcb5c4202e9164f, type: 2}
+  bodyPart: 1

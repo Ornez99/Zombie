@@ -63,10 +63,7 @@ MonoBehaviour:
   buildable: 0
   viewable: 1
   smellable: 0
-  lootChance:
-  - Amount: 1
-    SpawnChance: 25
-    Item: {fileID: 11400000, guid: 5983224898ca87549a32bc04a506ac83, type: 2}
+  lootChance: []
   itemsInside: []
   highlight: {fileID: 4425699473543078130}
 --- !u!1 &4425699473543078130

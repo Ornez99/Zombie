@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootableObject : Building, IInteractable {
+public class LootableObject : Building, IInteractable
+{
 
     [SerializeField]
     private LootChance[] lootChance = null;
@@ -14,12 +15,16 @@ public class LootableObject : Building, IInteractable {
 
     public bool Enabled { get => !isEmpty; }
 
-    private void Awake() {
+    private void Awake()
+    {
         itemsInside = new List<Item>();
-        foreach (LootChance loot in lootChance) {
-            for (int i = 0; i < loot.Amount; i++) {
+        foreach (LootChance loot in lootChance)
+        {
+            for (int i = 0; i < loot.Amount; i++)
+            {
                 int randomValue = Random.Range(0, 100);
-                if (loot.SpawnChance > randomValue) {
+                if (loot.SpawnChance > randomValue)
+                {
                     itemsInside.Add(loot.Item);
                 }
             }
@@ -29,41 +34,49 @@ public class LootableObject : Building, IInteractable {
             isEmpty = true;
     }
 
-    public void Interact(Unit unit) {
+    public void Interact(Unit unit)
+    {
         Equipment equipment = unit.Equipment;
-        for (int i = itemsInside.Count - 1; i >= 0; i--) {
+        EquipmentUI equipmentUI = unit.EquipmentUI;
+        for (int i = itemsInside.Count - 1; i >= 0; i--)
+        {
             Item item = itemsInside[i];
             bool itemsAdded = false;
-            int freeSlot = equipment.GetFreeItemSlot();
+            int freeSlot = equipment.GetFreeSlot();
 
-            if (freeSlot != Equipment.NoFreeItemSlots) {
+            if (freeSlot != Equipment.NoFreeSlots)
+            {
                 equipment.AddItem(item, freeSlot);
                 itemsAdded = true;
             }
-            else {
+            else
+            {
                 if (itemsAdded)
-                    equipment.UpdateUI();
+                    equipmentUI.UpdateItemsUI(equipment);
                 return;
             }
 
             if (itemsAdded)
-                equipment.UpdateUI();
+                equipmentUI.UpdateItemsUI(equipment);
             itemsInside.RemoveAt(i);
         }
 
         isEmpty = true;
     }
 
-    public void Highlight() {
+    public void Highlight()
+    {
         highlight.SetActive(true);
     }
 
-    public void StopHighlight() {
+    public void StopHighlight()
+    {
         highlight.SetActive(false);
     }
 
     [System.Serializable]
-    public struct LootChance {
+    public struct LootChance
+    {
         public int Amount;
         public int SpawnChance;
         public Item Item;

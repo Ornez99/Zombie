@@ -2,7 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
-public class Human : Unit, IKillable {
+public class Human : Unit, IKillable
+{
 
     [SerializeField]
     private Transform humanModel;
@@ -19,11 +20,13 @@ public class Human : Unit, IKillable {
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public float Armor { get => armor; set => armor = value; }
 
-    private void Start() {
+    private void Start()
+    {
         FieldOfView.ShowFieldOfView = true;
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (isDead)
             return;
 
@@ -32,33 +35,39 @@ public class Human : Unit, IKillable {
         Controller.Tick();
     }
 
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
         FieldOfView?.Tick();
     }
 
-    public void OnTakeControl(PlayerController playerController) {
+    public void OnTakeControl(PlayerController playerController)
+    {
         Controller = playerController;
         FieldOfView = new FieldOfViewPlayer(this, 10f, 90f, transform.GetChild(1));
         Animator.SetBool("Run", false);
         Animator.SetBool("Walk", false);
         Animator.SetBool("RangedAttack", false);
-        Equipment.UpdateUI();
+        equipmentUI.UpdateItemsUI(equipment);
         FieldOfView.ShowFieldOfView = true;
     }
     
-    public void TakeDamage(float amount) {
+    public void TakeDamage(float amount)
+    {
         currentHealth -= amount;
         CheckIfShouldBeDead();
         OnHealthChange?.Invoke(this);
     }
 
-    public void Heal(float amount) {
+    public void Heal(float amount)
+    {
         currentHealth = Mathf.Min(unitData.MaxHealth, currentHealth + amount);
         OnHealthChange?.Invoke(this);
     }
 
-    private void CheckIfShouldBeDead() {
-        if (currentHealth <= 0) {
+    private void CheckIfShouldBeDead()
+    {
+        if (currentHealth <= 0)
+        {
             isDead = true;
             capsuleCollider.enabled = false;
             animator.SetBool("Death", true);
@@ -66,10 +75,10 @@ public class Human : Unit, IKillable {
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         Player.Instance.RemoveOwnedHuman(this);
         if (Player.Instance.GetOwnedHumansCount() == 0)
             MainQuest.Instance.QuestLost();
     }
-
 }

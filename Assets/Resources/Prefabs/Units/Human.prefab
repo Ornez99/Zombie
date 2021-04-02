@@ -2535,8 +2535,10 @@ GameObject:
   - component: {fileID: 4153606798109522808}
   - component: {fileID: 6339797693910614634}
   - component: {fileID: 6950153784049809632}
+  - component: {fileID: -2375654583205120066}
   - component: {fileID: 5336852647148731568}
   - component: {fileID: -8586131411668350663}
+  - component: {fileID: -446680023317764321}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -2613,6 +2615,7 @@ MonoBehaviour:
   faceSprite: {fileID: 21300000, guid: be2614cf75e084b42bfc2e2c151461f4, type: 3}
   capsuleCollider: {fileID: 2886321618102778979}
   equipment: {fileID: 6950153784049809632}
+  equipmentUI: {fileID: -2375654583205120066}
   Graphics: []
   humanModel: {fileID: 1400940862275077650}
   currentHealth: 15
@@ -2644,10 +2647,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42dfbc2b6960ba4ab07789065cbdbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlots: 8
+  unit: {fileID: 4153606798109522808}
+  itemsSlots: 8
   items: []
-  equipmentUI: {fileID: 0}
-  itemOptionsMenu: {fileID: 0}
+  equipmentUI: {fileID: -2375654583205120066}
+--- !u!114 &-2375654583205120066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234927722209260333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de41c5516db8c3488775ca0d7b11644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5336852647148731568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2673,6 +2688,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellValue: 120
+--- !u!114 &-446680023317764321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234927722209260333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92166d515e909c44a8cd7b0c81d1449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &234927722209260335
 GameObject:
   m_ObjectHideFlags: 0

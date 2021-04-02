@@ -2331,7 +2331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 791112595}
   m_Layer: 5
-  m_Name: EquipmentUI
+  m_Name: ItemSlotsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3360,6 +3360,7 @@ GameObject:
   - component: {fileID: 1422502006}
   - component: {fileID: 1422502008}
   - component: {fileID: 1422502002}
+  - component: {fileID: 1422502005}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3432,6 +3433,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 686050534}
+  endGameText: {fileID: 507432597}
+  endGameGameObject: {fileID: 1120457772}
 --- !u!114 &1422502003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3456,6 +3459,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab4fd032b598ab4dbdbc13e2ec490ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1422502005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422501998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b351f7081c371334da448d5fa5d9d781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSlotsParent: {fileID: 791112595}
+  ItemOptionsMenu: {fileID: 1446452348}
+  ItemBackgroundId: 0
+  ItemButtonId: 1
+  ItemSelectedId: 2
+  ItemOptionsBackground: {fileID: 976940927}
+  UseTranform: {fileID: 1842702365}
+  UseRectTransform: {fileID: 1842702365}
+  UseButton: {fileID: 1842702366}
+  EquipTranform: {fileID: 713233758}
+  EquipRectTransform: {fileID: 713233758}
+  EquipButton: {fileID: 713233759}
+  EquipText: {fileID: 638058237}
+  DropTranform: {fileID: 734826926}
+  DropRectTransform: {fileID: 734826926}
+  DropButton: {fileID: 734826927}
 --- !u!114 &1422502006
 MonoBehaviour:
   m_ObjectHideFlags: 0
