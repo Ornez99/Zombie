@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   MaxHealth: 15
+  MovementSpeedRun: 4
+  MovementSpeedWalk: 2

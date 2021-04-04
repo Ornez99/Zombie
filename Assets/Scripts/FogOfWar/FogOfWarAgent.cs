@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FogOfWarAgent : MonoBehaviour {
-
+public class FogOfWarAgent : MonoBehaviour
+{
     private List<Node> nodesInRadius = new List<Node>();
 
     private Unit unit;
 
-    private void Start() {
+    private void Start()
+    {
         unit = GetComponent<Unit>();
         FogOfWar.Instance.AddAgent(this);
     }
@@ -15,7 +16,8 @@ public class FogOfWarAgent : MonoBehaviour {
     public void UpdateNodesInRadius() {
         nodesInRadius.Clear();
         
-        foreach (Vector3 endPos in unit.FieldOfView.Vectors) {
+        foreach (Vector3 endPos in unit.FieldOfView.Vectors)
+        {
             if (endPos == Vector3.zero)
                 break;
 
@@ -24,7 +26,8 @@ public class FogOfWarAgent : MonoBehaviour {
             float step = direction.magnitude;
             float currentLength = step;
             Vector3 currentPos = transform.position + direction;
-            while (currentLength < length) {
+            while (currentLength < length)
+            {
                 Node candidate = Map.GetNodeFromPos(currentPos);
                 if (candidate.Viewable == false)
                     break;
@@ -38,8 +41,10 @@ public class FogOfWarAgent : MonoBehaviour {
         }
 
         Node currentNode = Map.GetNodeFromPos(transform.position);
-        for (int y = -1; y <= 0; y++) {
-            for (int x = -1; x <= 0; x++) {
+        for (int y = -1; y <= 0; y++)
+        {
+            for (int x = -1; x <= 0; x++)
+            {
                 Node candidate = Map.Instance.Grid[currentNode.XId + x, currentNode.YId + y];
                 if (candidate.Viewable)
                     if (nodesInRadius.Contains(candidate) == false)
@@ -48,8 +53,10 @@ public class FogOfWarAgent : MonoBehaviour {
         }
     }
 
-    public void SetNodesInRadius(bool visible) {
-        foreach (Node node in nodesInRadius) {
+    public void SetNodesInRadius(bool visible)
+    {
+        foreach (Node node in nodesInRadius)
+        {
             node.Visible = visible;
 
             if (node.Visited == false)
@@ -57,8 +64,8 @@ public class FogOfWarAgent : MonoBehaviour {
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         FogOfWar.Instance.RemoveAgent(this);
     }
-
 }

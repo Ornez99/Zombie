@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StateFollowSmell : IState {
 
-    private float movementSpeed = 2.1f;
     private Unit unit;
     private Animator animator;
 
@@ -22,7 +21,7 @@ public class StateFollowSmell : IState {
     }
 
     public void OnStateSelected() {
-        unit.Drive.Speed = movementSpeed;
+        unit.Drive.Speed = unit.UnitData.MovementSpeedWalk;
         animator.SetBool("Walk", true);
     }
 

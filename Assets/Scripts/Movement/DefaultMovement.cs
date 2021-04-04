@@ -14,6 +14,9 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
     [SerializeField]
     private float movementSpeed = 1f;
 
+    [SerializeField]
+    private float speedModifier = 1f;
+
     private Vector3 destination;
     private List<Vector3> path;
     private Node lastNode;
@@ -21,6 +24,7 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
     public bool DestinationReached { get; private set; }
     public bool PathCreated { get; private set; }
     public float Speed { get => movementSpeed; set => movementSpeed = value; }
+    public float SpeedModifier { get => speedModifier; set => speedModifier = value; }
     public Unit Unit { get; set; }
 
     private void Awake() {
@@ -60,7 +64,7 @@ public class DefaultMovement : MonoBehaviour, IMoveable {
     }
 
     public void MoveWithNormalizedDirection(Vector3 normalizedDirection) {
-        Vector3 potentialPositionV3 = transform.position + (normalizedDirection * movementSpeed * Time.deltaTime);
+        Vector3 potentialPositionV3 = transform.position + (normalizedDirection * movementSpeed * SpeedModifier * Time.deltaTime);
         Vector2 potentialPositionV2 = new Vector2(potentialPositionV3.x, potentialPositionV3.z);
         Vector2 v2CurrentCell = new Vector2(Map.GetNodeFromPos(transform.position).XId, Map.GetNodeFromPos(transform.position).YId);
         Vector2 v2TargetCell = potentialPositionV2;

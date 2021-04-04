@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FogOfWar : MonoBehaviour {
+public class FogOfWar : Subject {
 
     public static FogOfWar Instance;
 
-    [SerializeField]
-    private bool enableFogOfWar = true;
-
+    private bool isEnabled = true;
 
     private Color32 visibleColor = new Color32(0, 0, 0, 0);
     private Color32 visitedColor = new Color32(0, 0, 0, 127);
@@ -18,25 +15,39 @@ public class FogOfWar : MonoBehaviour {
 
     private List<FogOfWarAgent> agents = new List<FogOfWarAgent>();
 
-    public void Initialize() {
-        if (Instance != null && Instance != this) {
+    public bool IsEnabled
+    {
+        get { return isEnabled; }
+        set
+        {
+            if (value == isEnabled)
+                return;
+
+            isEnabled = value;
+            ToggleFogOfWar(isEnabled);
+        }
+    }
+
+    public void Initialize()
+    {
+        if (Instance != null && Instance != this)
+        {
             Debug.LogError($"There can be only one instance of {ToString()} script!");
             Destroy(this);
         }
         fogOfWarRenderer = GetComponent<Renderer>();
-        if (enableFogOfWar)
+        if (isEnabled)
             fogOfWarRenderer.enabled = true;
         Instance = this;
     }
 
     private void LateUpdate() {
-        if (enableFogOfWar) {
+        if (isEnabled) {
             UpdateDataFromAgents();
             GenerateFOWTexture2D();
             SetFOWTexture2DToMaterial();
+            Notify();
         }
-        else
-            fogOfWarRenderer.enabled = false;
     }
 
     public void AddAgent(FogOfWarAgent agent) {
@@ -49,22 +60,25 @@ public class FogOfWar : MonoBehaviour {
             agents.Remove(agent);
     }
 
-    private void UpdateDataFromAgents() {
-        foreach (FogOfWarAgent agent in agents) {
+    private void UpdateDataFromAgents()
+    {
+        foreach (FogOfWarAgent agent in agents)
             agent?.SetNodesInRadius(false);
-        }
-        foreach (FogOfWarAgent agent in agents) {
+
+        foreach (FogOfWarAgent agent in agents)
             agent?.UpdateNodesInRadius();
-        }
-        foreach (FogOfWarAgent agent in agents) {
+
+        foreach (FogOfWarAgent agent in agents)
             agent?.SetNodesInRadius(true);
-        }
     }
 
-    private void GenerateFOWTexture2D() {
+    private void GenerateFOWTexture2D()
+    {
         fogOfWarTexture2D = new Texture2D(Map.Instance.MapSize, Map.Instance.MapSize);
-        for (int y = 0; y < Map.Instance.MapSize; y++) {
-            for (int x = 0; x < Map.Instance.MapSize; x++) {
+        for (int y = 0; y < Map.Instance.MapSize; y++)
+        {
+            for (int x = 0; x < Map.Instance.MapSize; x++)
+            {
                 Color32 color;
                 Node currentNode = Map.Instance.Grid[x, y];
                 if (currentNode.Visible)
@@ -80,8 +94,15 @@ public class FogOfWar : MonoBehaviour {
         fogOfWarTexture2D.Apply();
     }
 
-    private void SetFOWTexture2DToMaterial() {
+    private void SetFOWTexture2DToMaterial()
+    {
         fogOfWarRenderer.material.SetTexture("_MainTex", fogOfWarTexture2D);
     }
 
+    private void ToggleFogOfWar(bool value)
+    {
+        fogOfWarRenderer.enabled = value;
+        Notify();
+    }
 }
+

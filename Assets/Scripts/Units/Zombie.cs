@@ -24,8 +24,6 @@ public class Zombie : Unit, IKillable {
         zombieModel.localPosition = Vector3.zero; // Animations are breaking game :(
 
         Controller.Tick();
-
-        SetActiveGraphics(Map.Instance.Grid[Node.XId - 1, Node.YId - 1]?.Visible == true);
     }
 
     private void LateUpdate() {
@@ -43,12 +41,6 @@ public class Zombie : Unit, IKillable {
 
     public void Heal(float amount) {
         currentHealth = Mathf.Min(unitData.MaxHealth, currentHealth + amount);
-    }
-
-    private void SetActiveGraphics(bool value) {
-        for (int i = Graphics.Count - 1; i >= 0; i--) {
-            Graphics[i].SetActive(value);
-        }
     }
 
     private void CheckIfShouldBeDead() {

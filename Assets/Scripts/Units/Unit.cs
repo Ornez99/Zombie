@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit : MonoBehaviour
-{
+public abstract class Unit : MonoBehaviour {
 
     [SerializeField]
     protected UnitData unitData;
@@ -15,15 +14,10 @@ public abstract class Unit : MonoBehaviour
     protected Sprite faceSprite;
     [SerializeField]
     protected CapsuleCollider capsuleCollider;
-
     [SerializeField]
     protected Equipment equipment;
     [SerializeField]
     protected EquipmentUI equipmentUI;
-
-    [SerializeField]
-    protected List<GameObject> Graphics;
-
     protected bool isDead;
 
     public Sprite FaceSprite { get => faceSprite; }
@@ -40,6 +34,8 @@ public abstract class Unit : MonoBehaviour
     public int Team { get => unitData.Team; }
     public Node Node { get; set; }
     public Animator Animator { get => animator; }
+
+    public UnitData UnitData { get => unitData; }
 
     protected void Awake()
     {

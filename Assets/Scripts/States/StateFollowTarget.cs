@@ -32,6 +32,7 @@ public class StateFollowTarget : IState {
         animator.SetBool("Run", true);
         lastTargetNode = target.Node;
         unit.Drive.CreateAndSetPathToPosition(target.transform.position);
+        unit.Drive.Speed = unit.UnitData.MovementSpeedRun;
     }
 
     public void SetTarget(Unit target) {

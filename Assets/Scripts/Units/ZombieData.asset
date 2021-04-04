@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: ZombieData
   m_EditorClassIdentifier: 
   Team: 1
-  MaxHealth: 16
+  MaxHealth: 9
+  MovementSpeedRun: 5
+  MovementSpeedWalk: 2

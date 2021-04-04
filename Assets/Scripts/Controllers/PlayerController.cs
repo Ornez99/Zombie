@@ -22,6 +22,7 @@ public class PlayerController : IController {
         Instance = this;
         Owner = unit;
         unitTransform = unit.transform;
+        Owner.Drive.Speed = Owner.UnitData.MovementSpeedRun;
     }
 
     public void Tick() {

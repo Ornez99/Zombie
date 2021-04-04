@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Human : Unit, IKillable
 {
-
     [SerializeField]
     private Transform humanModel;
 

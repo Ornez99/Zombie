@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
-
     public static int NoFreeSlots = -1;
 
     [SerializeField]

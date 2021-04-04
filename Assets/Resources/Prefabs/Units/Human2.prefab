@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a4158ab75c18b4e846cbb8a4bc088f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitData: {fileID: 11400000, guid: d423c7ebb7889ae40b0266d3838cfdb4, type: 2}
+  unitData: {fileID: 11400000, guid: d64cd4e391b856a40b8c82eb7e3ecac7, type: 2}
   hand: {fileID: 2711924358721429983}
   animator: {fileID: 6273937414798735947}
   faceSprite: {fileID: 21300000, guid: a1e5039eb66a6e7429aae6cdc2c94087, type: 3}

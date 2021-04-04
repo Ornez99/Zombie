@@ -22,7 +22,7 @@ public class StateIdle : IState {
     }
 
     public void OnStateSelected() {
-        
+        unit.Drive.Speed = unit.UnitData.MovementSpeedWalk;
     }
 
     public void Tick() {
